@@ -10,6 +10,7 @@ namespace Platformer397
     {
 
         public event UnityAction<Vector2> Move = delegate { };
+        public event UnityAction<bool> Interact = delegate { };
 
         InputSystem_Actions input;
         private void OnEnable()
@@ -52,7 +53,10 @@ namespace Platformer397
         }
         public void OnInteract(InputAction.CallbackContext context)
         {
-
+            if(context.phase == InputActionPhase.Performed)
+            {
+                Interact?.Invoke(context.ReadValue<bool>());
+            }
         }
         public void OnCrouch(InputAction.CallbackContext context)
         {

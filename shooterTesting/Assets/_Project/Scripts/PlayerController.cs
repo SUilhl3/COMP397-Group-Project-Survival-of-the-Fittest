@@ -15,6 +15,9 @@ namespace Platformer397
         [SerializeField] private float rotationSpeed = 200f;
 
         [SerializeField] private Transform mainCam;
+
+        public Weapon hoveredWeapon = null;
+        public AmmoBox hoveredAmmoBox = null;
         // Start is called once before the first execution of Update after the MonoBehaviour is created
 
         private void Awake()
@@ -31,6 +34,7 @@ namespace Platformer397
         private void OnEnable()
         {
             input.Move += GetMovement;
+            input.Interact += HandleInteraction;
         }
 
         private void OnDisable()
@@ -76,5 +80,55 @@ namespace Platformer397
             movement.x = move.x;
             movement.z = move.y;
         }
+
+        private void HandleInteraction(bool interact)
+        {
+            Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                GameObject objectHitByRaycast = hit.transform.gameObject;
+
+                if (objectHitByRaycast.GetComponent<Weapon>() && objectHitByRaycast.GetComponent<Weapon>().isActiveWeapon == false)
+                {
+                    hoveredWeapon = objectHitByRaycast.gameObject.GetComponent<Weapon>();
+                    hoveredWeapon.GetComponent<Outline>().enabled = true;
+
+                    if (interact)
+                    {
+                        WeaponManager.Instance.PickUpWeapon(objectHitByRaycast.gameObject);
+                    }
+                }
+                else
+                {
+                    if (hoveredWeapon)
+                    {
+                        hoveredWeapon.GetComponent<Outline>().enabled = false;
+                    }
+                }
+
+                //Ammo Box
+                if (objectHitByRaycast.GetComponent<AmmoBox>())
+                {
+                    hoveredAmmoBox = objectHitByRaycast.gameObject.GetComponent<AmmoBox>();
+                    hoveredAmmoBox.GetComponent<Outline>().enabled = true;
+
+                    if (interact)
+                    {
+                        WeaponManager.Instance.PickupAmmo(hoveredAmmoBox);
+                        Destroy(objectHitByRaycast.gameObject);
+                    }
+                }
+                else
+                {
+                    if (hoveredAmmoBox)
+                    {
+                        hoveredAmmoBox.GetComponent<Outline>().enabled = false;
+                    }
+                }
+            }
+        }
+
     }
 }
