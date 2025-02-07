@@ -40,6 +40,7 @@ namespace Platformer397
         private void OnDisable()
         {
             input.Move -= GetMovement;
+            input.Interact -= HandleInteraction;
         }
 
         private void FixedUpdate()
