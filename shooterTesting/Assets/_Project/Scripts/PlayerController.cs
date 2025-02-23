@@ -46,15 +46,16 @@ namespace Platformer397
         private void FixedUpdate()
         {
             UpdateMovement();
+            UpdateRotation();
         }
 
         private void UpdateMovement()
         {
-            var adjustedDirection = Quaternion.AngleAxis(mainCam.eulerAngles.y, Vector3.up) * movement;
+            Vector3 adjustedDirection = new Vector3((mainCam.right * movement.x).x, 0f, (mainCam.forward * movement.z).z);
+
             if (adjustedDirection.magnitude > 0f)
             {
-                //Handle rotation and movement
-                HandleRotation(adjustedDirection);
+                //handle movement
                 HandleMovement(adjustedDirection);
             }
             else
@@ -70,10 +71,10 @@ namespace Platformer397
             rb.linearVelocity = new Vector3(velocity.x, rb.linearVelocity.y, velocity.z);
         }
 
-        private void HandleRotation(Vector3 adjustedMovement)
+        private void UpdateRotation()
         {
-            var targetRotation = Quaternion.LookRotation(adjustedMovement);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            Vector3 newRotation = new Vector3(0, mainCam.eulerAngles.y, 0);
+            transform.rotation = Quaternion.Euler(newRotation);
         }
 
         private void GetMovement(Vector2 move)

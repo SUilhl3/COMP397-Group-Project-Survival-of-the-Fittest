@@ -25,28 +25,31 @@ public class InteractionManager : MonoBehaviour
 
     private void Update()
     {
-        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-        RaycastHit hit;
+        Vector3 rayOrigin = Camera.main.transform.position 
+        + Camera.main.transform.forward * 3.25f 
+        - Camera.main.transform.right * .1f; // Moves it 4 units ahead, seems good but player has to pretty much be against
+        //the gun to buy
 
-        if (Physics.Raycast(ray, out hit))
+        Ray ray = new Ray(rayOrigin, Camera.main.transform.forward); 
+
+
+        RaycastHit hit;
+        Debug.DrawRay(ray.origin, ray.direction, Color.red);
+        if (Physics.Raycast(ray, out hit, 0.5f) && hit.collider.gameObject.tag == "weapon") //checks if raycast hit is a weapon
         {
             GameObject objectHitByRaycast = hit.transform.gameObject;
 
-            if (objectHitByRaycast.GetComponent<Weapon>() && objectHitByRaycast.GetComponent<Weapon>().isActiveWeapon == false)
+            // Debug.Log(objectHitByRaycast.name);
+
+            if (objectHitByRaycast.GetComponent<Weapon>() && objectHitByRaycast.GetComponent<Weapon>().isActiveWeapon == false) 
             {
+                //highlight weapon if raycast is on collider
                 hoveredWeapon = objectHitByRaycast.gameObject.GetComponent<Weapon>();
                 hoveredWeapon.GetComponent<Outline>().enabled = true;
 
                 if (Input.GetKeyDown(KeyCode.F))
                 {
                     WeaponManager.Instance.PickUpWeapon(objectHitByRaycast.gameObject); 
-                }
-            }
-            else
-            {
-                if (hoveredWeapon)
-                {
-                    hoveredWeapon.GetComponent<Outline>().enabled = false;
                 }
             }
 
@@ -70,6 +73,7 @@ public class InteractionManager : MonoBehaviour
                 }
             }
         }
+        else{hoveredWeapon.GetComponent<Outline>().enabled = false;}
     }
 
 }

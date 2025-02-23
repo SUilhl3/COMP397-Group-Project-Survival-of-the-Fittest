@@ -64,13 +64,14 @@ public class WeaponManager : MonoBehaviour
 
     public void PickUpWeapon(GameObject pickedUpWeapon)
     {
+        Debug.Log("Pick up weapon");
         AddWeaponIntoActiveSlot(pickedUpWeapon);
     }
 
     private void AddWeaponIntoActiveSlot(GameObject pickedUpWeapon)
     {
-
-        DropCurrentWeapon(pickedUpWeapon);
+        Debug.Log("Add weapon");
+        if(activeWeaponSlot.transform.gameObject != null){DropCurrentWeapon(pickedUpWeapon);}
 
         pickedUpWeapon.transform.SetParent(activeWeaponSlot.transform, false);
 
