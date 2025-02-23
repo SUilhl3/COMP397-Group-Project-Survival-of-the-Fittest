@@ -10,6 +10,7 @@ public class InteractionManager : MonoBehaviour
 
     public Weapon hoveredWeapon = null;
     public AmmoBox hoveredAmmoBox = null;
+    [SerializeField] private float rayCastLength = 3.5f;
 
     private void Awake()
     {
@@ -26,16 +27,15 @@ public class InteractionManager : MonoBehaviour
     private void Update()
     {
         Vector3 rayOrigin = Camera.main.transform.position 
-        + Camera.main.transform.forward * 3.25f 
-        - Camera.main.transform.right * .1f; // Moves it 4 units ahead, seems good but player has to pretty much be against
-        //the gun to buy
+        + Camera.main.transform.forward * rayCastLength 
+        - Camera.main.transform.right * .1f; // Moves it .1 units ahead
 
         Ray ray = new Ray(rayOrigin, Camera.main.transform.forward); 
 
 
         RaycastHit hit;
         Debug.DrawRay(ray.origin, ray.direction, Color.red);
-        if (Physics.Raycast(ray, out hit, 0.5f) && hit.collider.gameObject.tag == "weapon") //checks if raycast hit is a weapon
+        if (Physics.Raycast(ray, out hit, 2f) && hit.collider.gameObject.tag == "weapon") //checks if raycast hit is a weapon
         {
             GameObject objectHitByRaycast = hit.transform.gameObject;
 

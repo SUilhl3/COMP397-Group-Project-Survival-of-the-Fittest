@@ -51,7 +51,8 @@ namespace Platformer397
 
         private void UpdateMovement()
         {
-            Vector3 adjustedDirection = new Vector3((mainCam.right * movement.x).x, 0f, (mainCam.forward * movement.z).z);
+            var adjustedDirection = mainCam.forward * movement.z + mainCam.right * movement.x;
+            adjustedDirection.y = 0f; // Prevents unwanted vertical movement
 
             if (adjustedDirection.magnitude > 0f)
             {
