@@ -633,8 +633,8 @@ MonoBehaviour:
   - {fileID: 821445738}
   - {fileID: 593376082}
   activeWeaponSlot: {fileID: 0}
-  totalRifleAmmo: 0
-  totalPistolAmmo: 0
+  totalRifleAmmo: 30
+  totalPistolAmmo: 21
 --- !u!4 &387716892
 Transform:
   m_ObjectHideFlags: 0
@@ -916,6 +916,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 593376083}
+  - component: {fileID: 593376084}
   m_Layer: 6
   m_Name: WeaponSlot_2
   m_TagString: Untagged
@@ -932,12 +933,25 @@ Transform:
   m_GameObject: {fileID: 593376082}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.54, y: -1.17, z: -0.29}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 623219005}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &593376084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 593376082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c3be5446c8453b47b3c93c6967cc5d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCam: {fileID: 0}
 --- !u!1 &623219004
 GameObject:
   m_ObjectHideFlags: 0
@@ -2285,14 +2299,14 @@ MonoBehaviour:
   Radius: 10
   Orbits:
     Top:
-      Radius: 1
-      Height: 5
+      Radius: 2
+      Height: 3
     Center:
       Radius: 4
       Height: 3
     Bottom:
       Radius: 2
-      Height: -2.1
+      Height: -3
     SplineCurvature: 0.502
   RecenteringTarget: 2
   HorizontalAxis:
@@ -3692,6 +3706,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: M1911
+      objectReference: {fileID: 0}
+    - target: {fileID: 6177633490810220330, guid: b36c211644e3eb54c8df83387ac9e88e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6177633490810220330, guid: b36c211644e3eb54c8df83387ac9e88e,
         type: 3}

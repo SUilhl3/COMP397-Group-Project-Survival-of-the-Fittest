@@ -68,6 +68,7 @@ public class Weapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(bulletsLeft);
         if (isActiveWeapon)
         {
             GetComponent<Outline>().enabled = false;
@@ -112,7 +113,6 @@ public class Weapon : MonoBehaviour
     private void FireWeapon()
     {
         bulletsLeft--;
-
 
         muzzleEffect.GetComponent<ParticleSystem>().Play();
         animator.SetTrigger("Recoil");
@@ -163,15 +163,17 @@ public class Weapon : MonoBehaviour
 
     private void ReloadCompleted()
     {
-        if(WeaponManager.Instance.CheckAmmoLeftFor(thisWeaponModel) > magazineSize)
-        {
+        int requiredAmount = magazineSize - bulletsLeft;
+        if(WeaponManager.Instance.CheckAmmoLeftFor(thisWeaponModel) > requiredAmount)
+        { 
             bulletsLeft = magazineSize;
-            WeaponManager.Instance.DecreaseTotalAmmo(bulletsLeft, thisWeaponModel);
+            WeaponManager.Instance.DecreaseTotalAmmo(requiredAmount, thisWeaponModel);
         }
         else
         {
-            bulletsLeft = WeaponManager.Instance.CheckAmmoLeftFor(thisWeaponModel);
-            WeaponManager.Instance.DecreaseTotalAmmo(bulletsLeft, thisWeaponModel);
+            int temp = WeaponManager.Instance.CheckAmmoLeftFor(thisWeaponModel);
+            bulletsLeft = WeaponManager.Instance.CheckAmmoLeftFor(thisWeaponModel) + bulletsLeft;
+            WeaponManager.Instance.DecreaseTotalAmmo(temp, thisWeaponModel);   
         }
 
         isReloading = false;

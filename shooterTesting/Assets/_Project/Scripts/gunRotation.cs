@@ -7,7 +7,6 @@ public class gunRotation : MonoBehaviour
     void Awake()
     {
         mainCam = Camera.main.transform;
-        Debug.Log(mainCam.rotation.x);
     }
     void Update()
     {
@@ -18,6 +17,5 @@ public class gunRotation : MonoBehaviour
     {
         Vector3 newRotation = new Vector3(weaponRotationX, 0f, 0f);
         transform.localRotation = Quaternion.Euler(newRotation);
-        Debug.Log(transform.rotation.x);
     }
 }
