@@ -6,7 +6,6 @@ using TMPro;
 
 public class Weapon : MonoBehaviour
 {
-
     public bool isActiveWeapon;
 
 
@@ -39,7 +38,6 @@ public class Weapon : MonoBehaviour
 
     public Vector3 spawnPosition;
     public Vector3 spawnRotation;
-
 
     public enum WeaponModel
     {
@@ -209,9 +207,7 @@ public class Weapon : MonoBehaviour
 
         // Returning the shooting direction and spread
         return direction + new Vector3(x, y, 0);
-
     }
-
 
     private IEnumerator DestroyBulletAfterTime(GameObject bullet, float delay)
     {
