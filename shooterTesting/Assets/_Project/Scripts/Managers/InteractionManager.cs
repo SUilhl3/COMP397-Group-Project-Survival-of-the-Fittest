@@ -50,7 +50,7 @@ public class InteractionManager : MonoBehaviour
                 hoveredWeapon = objectHitByRaycast.gameObject.GetComponent<Weapon>();
                 hoveredWeapon.GetComponent<Outline>().enabled = true;
                 int weaponPrice = hoveredWeapon.getCost();
-                Debug.Log(weaponPrice);
+                // Debug.Log(weaponPrice);
 
                 if(Input.GetKeyDown(KeyCode.F)){
                     if (weaponPrice < player.getMoney())

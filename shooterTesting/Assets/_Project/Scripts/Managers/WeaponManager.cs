@@ -71,23 +71,46 @@ public class WeaponManager : MonoBehaviour
     private void AddWeaponIntoActiveSlot(GameObject pickedUpWeapon)
     {
         Debug.Log("Add weapon");
-        if(activeWeaponSlot.transform.gameObject != null){DropCurrentWeapon(pickedUpWeapon);}
+        //if there is a weapon in the active and non-active slot, drop the current weapon for the new one
+        if(activeWeaponSlot.transform.childCount > 0 && weaponSlots[1].transform.childCount > 0){Debug.Log("Both are full");DropCurrentWeapon(pickedUpWeapon);}
 
-        pickedUpWeapon.transform.SetParent(activeWeaponSlot.transform, false);
+        //if there is a weapon in the primary slot but not the secondary, put the current weapon in second slot and take the new gun as active weapon
+        if(activeWeaponSlot.transform.childCount > 0 && weaponSlots[1].transform.childCount == 0)
+        {
+            Debug.Log("Second slot free");
+            //change the active weapon to secondary slot
+            Weapon currentWeapon = activeWeaponSlot.transform.GetChild(0).GetComponent<Weapon>();
+            currentWeapon.isActiveWeapon = false;
+            currentWeapon.transform.SetParent(weaponSlots[1].transform, false);
 
-        Weapon weapon = pickedUpWeapon.GetComponent<Weapon>();
+            //pickup and assign the weapon to the active slot
+            pickedUpWeapon.transform.SetParent(activeWeaponSlot.transform, false);
 
-        pickedUpWeapon.transform.localPosition = new Vector3(weapon.spawnPosition.x, weapon.spawnPosition.y, weapon.spawnPosition.z);
-        pickedUpWeapon.transform.localRotation = Quaternion.Euler(weapon.spawnRotation.x, weapon.spawnRotation.y, weapon.spawnRotation.z);
+            Weapon weapon = pickedUpWeapon.GetComponent<Weapon>();
 
-        weapon.isActiveWeapon = true;
-        weapon.animator.enabled = true;
+            pickedUpWeapon.transform.localPosition = new Vector3(weapon.spawnPosition.x, weapon.spawnPosition.y, weapon.spawnPosition.z);
+            pickedUpWeapon.transform.localRotation = Quaternion.Euler(weapon.spawnRotation.x, weapon.spawnRotation.y, weapon.spawnRotation.z);
+
+            weapon.isActiveWeapon = true;
+            weapon.animator.enabled = true;
+        }
+        
+        //if the player has no gun in hand, pick up gun
+        else{
+            pickedUpWeapon.transform.SetParent(activeWeaponSlot.transform, false);
+
+            Weapon weapon = pickedUpWeapon.GetComponent<Weapon>();
+
+            pickedUpWeapon.transform.localPosition = new Vector3(weapon.spawnPosition.x, weapon.spawnPosition.y, weapon.spawnPosition.z);
+            pickedUpWeapon.transform.localRotation = Quaternion.Euler(weapon.spawnRotation.x, weapon.spawnRotation.y, weapon.spawnRotation.z);
+
+            weapon.isActiveWeapon = true;
+            weapon.animator.enabled = true;
+        }
     }
 
     private void DropCurrentWeapon(GameObject pickedUpWeapon)
     {
-        if(activeWeaponSlot.transform.childCount > 0)
-        {
             var weaponToDrop = activeWeaponSlot.transform.GetChild(0).gameObject;
 
             weaponToDrop.GetComponent<Weapon>().isActiveWeapon = false;
@@ -96,7 +119,6 @@ public class WeaponManager : MonoBehaviour
             weaponToDrop.transform.SetParent(pickedUpWeapon.transform.parent);
             weaponToDrop.transform.localPosition = pickedUpWeapon.transform.localPosition;
             weaponToDrop.transform.localRotation = pickedUpWeapon.transform.localRotation;
-        }
     }
 
 
