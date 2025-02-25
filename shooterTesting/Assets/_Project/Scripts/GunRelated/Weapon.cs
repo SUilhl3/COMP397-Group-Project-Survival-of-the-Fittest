@@ -7,7 +7,7 @@ using TMPro;
 public class Weapon : MonoBehaviour
 {
     public bool isActiveWeapon;
-
+    [SerializeField] private int weaponCost;
 
     //Shooting
     public bool isShooting, readyToShoot;
@@ -27,13 +27,14 @@ public class Weapon : MonoBehaviour
     public Transform bulletSpawn;
     public float bulletVelocity = 30f;
     public float bulletPrefabLifeTime = 3f;
+    public int gunDamage;
 
     public GameObject muzzleEffect;
     internal Animator animator;
 
     // Loading
     public float reloadTime;
-    public int magazineSize, bulletsLeft;
+    public int magazineSize, bulletsLeft, bulletReserve;
     public bool isReloading;
 
     public Vector3 spawnPosition;
@@ -68,7 +69,6 @@ public class Weapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(bulletsLeft);
         if (isActiveWeapon)
         {
             GetComponent<Outline>().enabled = false;
@@ -126,6 +126,7 @@ public class Weapon : MonoBehaviour
 
         //Instantiate the bullet
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.identity);
+        bullet.GetComponent<Bullet>().damage = gunDamage;
 
         //point the bullet to face shooting direction
         bullet.transform.forward = shootingDirection;
@@ -150,7 +151,6 @@ public class Weapon : MonoBehaviour
         }
     }
 
-
     private void Reload()
     {
         SoundManager.Instance.PlayReloadSound(thisWeaponModel);
@@ -163,21 +163,22 @@ public class Weapon : MonoBehaviour
 
     private void ReloadCompleted()
     {
-        int requiredAmount = magazineSize - bulletsLeft;
-        if(WeaponManager.Instance.CheckAmmoLeftFor(thisWeaponModel) > requiredAmount)
+        int requiredAmount = magazineSize - bulletsLeft; //bullet reserve keeps the bullets relative to the gun rather than having a supply of general ammo
+        if(bulletReserve > requiredAmount) 
         { 
-            bulletsLeft = magazineSize;
-            WeaponManager.Instance.DecreaseTotalAmmo(requiredAmount, thisWeaponModel);
+            bulletsLeft = magazineSize; 
+            bulletReserve -= requiredAmount;
         }
         else
         {
-            int temp = WeaponManager.Instance.CheckAmmoLeftFor(thisWeaponModel);
-            bulletsLeft = WeaponManager.Instance.CheckAmmoLeftFor(thisWeaponModel) + bulletsLeft;
-            WeaponManager.Instance.DecreaseTotalAmmo(temp, thisWeaponModel);   
+            bulletsLeft = bulletReserve + bulletsLeft;
+            bulletReserve -= bulletReserve;   
         }
 
         isReloading = false;
     }
+
+    public int getCost(){return weaponCost;}
 
 
     private void ResetShot()

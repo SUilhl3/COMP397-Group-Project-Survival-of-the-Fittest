@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Platformer397;
 
 public class InteractionManager : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class InteractionManager : MonoBehaviour
     public Weapon hoveredWeapon = null;
     public AmmoBox hoveredAmmoBox = null;
     [SerializeField] private float rayCastLength = 3.5f;
+    [SerializeField] private PlayerController player;
 
     private void Awake()
     {
@@ -22,6 +24,7 @@ public class InteractionManager : MonoBehaviour
         {
             Instance = this;
         }
+        player = FindObjectOfType<PlayerController>();
     }
 
     private void Update()
@@ -46,11 +49,18 @@ public class InteractionManager : MonoBehaviour
                 //highlight weapon if raycast is on collider
                 hoveredWeapon = objectHitByRaycast.gameObject.GetComponent<Weapon>();
                 hoveredWeapon.GetComponent<Outline>().enabled = true;
+                int weaponPrice = hoveredWeapon.getCost();
+                Debug.Log(weaponPrice);
 
-                if (Input.GetKeyDown(KeyCode.F))
-                {
-                    WeaponManager.Instance.PickUpWeapon(objectHitByRaycast.gameObject); 
-                }
+                if(Input.GetKeyDown(KeyCode.F)){
+                    if (weaponPrice < player.getMoney())
+                        {
+                            player.decreaseMoney(weaponPrice);
+                            Debug.Log("Purchased " + hoveredWeapon.name);    
+                            WeaponManager.Instance.PickUpWeapon(objectHitByRaycast.gameObject); 
+                        }
+                    else{Debug.Log("Not enough money");}
+                    }
             }
 
             //Ammo Box

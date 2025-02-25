@@ -16,6 +16,9 @@ namespace Platformer397
 
         [SerializeField] private Transform mainCam;
 
+
+        [SerializeField] private int money = 500;
+
         public Weapon hoveredWeapon = null;
         public AmmoBox hoveredAmmoBox = null;
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -84,6 +87,15 @@ namespace Platformer397
             movement.z = move.y;
         }
 
+        public int getMoney(){return money;}
+        public void addMoney(int amount){money += amount;}
+
+        public void decreaseMoney(int amount)
+        {
+            if (money - amount < 0){}
+            else{money -= amount;}
+        }
+        //I dont think this does anything
         private void HandleInteraction(bool interact)
         {
             Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));

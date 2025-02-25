@@ -5,12 +5,14 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-
+    public int damage;
 
     private void OnCollisionEnter(Collision objectWeHit)
     {
         if (objectWeHit.gameObject.CompareTag("Target"))
         {
+            Target target = objectWeHit.gameObject.GetComponent<Target>();
+            target.takeDamage(damage);
             print("hit " + objectWeHit.gameObject.name + " !");
 
             CreateBulletImpactEffect(objectWeHit);

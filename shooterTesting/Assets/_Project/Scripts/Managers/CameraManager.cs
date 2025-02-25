@@ -16,10 +16,5 @@ namespace Platformer397
             if (player != null) { return; }
             player = GameObject.FindWithTag("Player").transform;
         }
-
-        private void OnEnable()
-        {
-            freeLookCam.Target.TrackingTarget = player;
-        }
     }
 }
