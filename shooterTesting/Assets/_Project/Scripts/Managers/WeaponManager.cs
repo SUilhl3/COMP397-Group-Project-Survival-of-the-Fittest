@@ -72,7 +72,7 @@ public class WeaponManager : MonoBehaviour
     {
         Debug.Log("Add weapon");
         //if there is a weapon in the active and non-active slot, drop the current weapon for the new one
-        if(activeWeaponSlot.transform.childCount > 0 && weaponSlots[1].transform.childCount > 0){Debug.Log("Both are full");DropCurrentWeapon(pickedUpWeapon);}
+        if(activeWeaponSlot.transform.childCount > 0 && weaponSlots[1].transform.childCount > 0){Debug.Log("Both are full");Destroy(activeWeaponSlot.transform.GetChild(0).gameObject);}
 
         //if there is a weapon in the primary slot but not the secondary, put the current weapon in second slot and take the new gun as active weapon
         if(activeWeaponSlot.transform.childCount > 0 && weaponSlots[1].transform.childCount == 0)
@@ -111,16 +111,16 @@ public class WeaponManager : MonoBehaviour
 
     private void DropCurrentWeapon(GameObject pickedUpWeapon)
     {
-            var weaponToDrop = activeWeaponSlot.transform.GetChild(0).gameObject;
+        //get the gun from the active weapon slot
+        var weaponToDrop = activeWeaponSlot.transform.GetChild(0).gameObject;
+    
+        weaponToDrop.GetComponent<Weapon>().isActiveWeapon = false;
+        weaponToDrop.GetComponent<Weapon>().animator.enabled = false;
 
-            weaponToDrop.GetComponent<Weapon>().isActiveWeapon = false;
-            weaponToDrop.GetComponent<Weapon>().animator.enabled = false;
-
-            weaponToDrop.transform.SetParent(pickedUpWeapon.transform.parent);
-            weaponToDrop.transform.localPosition = pickedUpWeapon.transform.localPosition;
-            weaponToDrop.transform.localRotation = pickedUpWeapon.transform.localRotation;
+        weaponToDrop.transform.SetParent(pickedUpWeapon.transform.parent);
+        weaponToDrop.transform.localPosition = pickedUpWeapon.transform.localPosition;
+        weaponToDrop.transform.localRotation = pickedUpWeapon.transform.localRotation;
     }
-
 
     public void SwitchActiveSlot(int slotNumber)
     {
