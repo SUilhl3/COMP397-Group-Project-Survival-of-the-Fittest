@@ -28,6 +28,12 @@ public class Bullet : MonoBehaviour
 
             Destroy(gameObject);
         }
+
+        if(objectWeHit.gameObject.CompareTag("enemy"))
+        {
+            basicEnemy enemy = objectWeHit.gameObject.GetComponent<basicEnemy>();
+            enemy.takeDamage(damage);
+        }
     }
 
     void CreateBulletImpactEffect(Collision objectWeHit)
