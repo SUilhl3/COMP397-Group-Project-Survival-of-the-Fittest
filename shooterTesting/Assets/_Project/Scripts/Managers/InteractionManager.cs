@@ -55,12 +55,17 @@ public class InteractionManager : MonoBehaviour
                 if(Input.GetKeyDown(KeyCode.F)){
                     if (weaponPrice < player.getMoney()) //if you have enough money to buy the gun
                         {
-                            player.decreaseMoney(weaponPrice);
-                            Debug.Log("Purchased " + hoveredWeapon.name);    
                             //makes a copy of the gun selected and adds said copy to the player instead of the buy
                             GameObject copyOfGun = Instantiate(objectHitByRaycast.gameObject);
-                            WeaponManager.Instance.PickUpWeapon(copyOfGun);
-                            // WeaponManager.Instance.PickUpWeapon(objectHitByRaycast.gameObject); 
+                            bool duplicate = WeaponManager.Instance.PickUpWeapon(copyOfGun);
+                            // Debug.Log(duplicate);
+                            if(duplicate == false)
+                            {
+                                player.decreaseMoney(weaponPrice);
+                                Debug.Log("Purchased " + hoveredWeapon.name);    
+                                
+                            }
+                            else{Debug.Log("You already have this gun! Couldn't purchase"); Destroy(copyOfGun);}
                         }
                     else{Debug.Log("Not enough money");}
                     }

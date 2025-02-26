@@ -62,11 +62,42 @@ public class WeaponManager : MonoBehaviour
     }
 
 
-    public void PickUpWeapon(GameObject pickedUpWeapon)
+    public bool PickUpWeapon(GameObject pickedUpWeapon)
+{
+    // Debug.Log("Pick up weapon");
+    bool isDuplicate = false; 
+
+    try
     {
-        Debug.Log("Pick up weapon");
-        AddWeaponIntoActiveSlot(pickedUpWeapon);
+        if (pickedUpWeapon.name == weaponSlots[0].transform.GetChild(0).gameObject.name || pickedUpWeapon.name == weaponSlots[1].transform.GetChild(0).gameObject.name)
+        {
+            Debug.Log("Duplicate weapon, cannot buy");
+            isDuplicate = true; // Mark as duplicate
+        }
     }
+    catch (IndexOutOfRangeException e)
+    {
+        Debug.LogError("Error: Out of bounds object - " + e.Message);
+    }
+    catch (NullReferenceException e)
+    {
+        Debug.LogError("Error: Null reference - " + e.Message);
+    }
+    catch (Exception e) // Catch any other unexpected errors
+    {
+        Debug.LogError("An unexpected error occurred: " + e.Message);
+    }
+    finally
+    {
+        // If it's NOT a duplicate, add the weapon
+        if (!isDuplicate)
+        {
+            AddWeaponIntoActiveSlot(pickedUpWeapon);
+        }
+    }
+    return isDuplicate;
+}
+
 
     private void AddWeaponIntoActiveSlot(GameObject pickedUpWeapon)
     {
@@ -109,6 +140,7 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
+    //not much point at the moment
     private void DropCurrentWeapon(GameObject pickedUpWeapon)
     {
         //get the gun from the active weapon slot
