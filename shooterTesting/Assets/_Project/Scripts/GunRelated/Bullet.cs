@@ -13,7 +13,7 @@ public class Bullet : MonoBehaviour
         {
             Target target = objectWeHit.gameObject.GetComponent<Target>();
             target.takeDamage(damage);
-            print("hit " + objectWeHit.gameObject.name + " !");
+            // print("hit " + objectWeHit.gameObject.name + " !");
 
             CreateBulletImpactEffect(objectWeHit);
 
@@ -22,7 +22,7 @@ public class Bullet : MonoBehaviour
 
         if (objectWeHit.gameObject.CompareTag("Wall"))
         {
-            print("hit a wall");
+            // print("hit a wall");
 
             CreateBulletImpactEffect(objectWeHit);
 

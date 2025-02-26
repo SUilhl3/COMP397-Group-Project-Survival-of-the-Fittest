@@ -102,6 +102,7 @@ public class WeaponManager : MonoBehaviour
     private void AddWeaponIntoActiveSlot(GameObject pickedUpWeapon)
     {
         Debug.Log("Add weapon");
+        pickedUpWeapon.GetComponent<Collider>().enabled = false;
         //if there is a weapon in the active and non-active slot, drop the current weapon for the new one
         if(activeWeaponSlot.transform.childCount > 0 && weaponSlots[1].transform.childCount > 0){Debug.Log("Both are full");Destroy(activeWeaponSlot.transform.GetChild(0).gameObject);}
 
