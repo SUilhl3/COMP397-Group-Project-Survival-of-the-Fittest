@@ -7,6 +7,8 @@ TagManager:
   - Target
   - Wall
   - weapon
+  - enemy
+  - enemSpawnPoint
   layers:
   - Default
   - TransparentFX

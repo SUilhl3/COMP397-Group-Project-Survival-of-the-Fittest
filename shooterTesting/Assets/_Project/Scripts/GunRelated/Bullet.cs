@@ -2,10 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.UI;
 using UnityEngine;
+using Platformer397;
 
 public class Bullet : MonoBehaviour
 {
     public int damage;
+    private PlayerController player;
+
+    void Awake()
+    {
+        player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+    }
 
     private void OnCollisionEnter(Collision objectWeHit)
     {
@@ -32,6 +39,7 @@ public class Bullet : MonoBehaviour
         if(objectWeHit.gameObject.CompareTag("enemy"))
         {
             basicEnemy enemy = objectWeHit.gameObject.GetComponent<basicEnemy>();
+            player.addMoney(10);
             enemy.takeDamage(damage);
         }
     }

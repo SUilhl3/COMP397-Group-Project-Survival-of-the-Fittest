@@ -9,7 +9,9 @@ public class WeaponManager : MonoBehaviour
 
     public static WeaponManager Instance { get; private set; }
 
-    public List<GameObject> weaponSlots;
+    // public List<GameObject> weaponSlots;
+    public GameObject weaponSlot1;
+    public GameObject weaponSlot2;
 
     public GameObject activeWeaponSlot;
 
@@ -27,27 +29,32 @@ public class WeaponManager : MonoBehaviour
         {
             Instance = this;
         }
+        activeWeaponSlot = weaponSlot1;
     }
-
-
-    private void Start()
-    {
-        activeWeaponSlot = weaponSlots[0];
-    }
-
 
     private void Update()
     {
-        foreach (GameObject weaponSlot in weaponSlots)
+        // foreach (GameObject weaponSlot in weaponSlots)
+        // {
+        //     if(weaponSlot == activeWeaponSlot)
+        //     {
+        //         weaponSlot.SetActive(true);
+        //     }
+        //     else
+        //     {
+        //         weaponSlot.SetActive(false);
+        //     }
+        // }
+
+        if(activeWeaponSlot == weaponSlot1)
         {
-            if(weaponSlot == activeWeaponSlot)
-            {
-                weaponSlot.SetActive(true);
-            }
-            else
-            {
-                weaponSlot.SetActive(false);
-            }
+            weaponSlot1.SetActive(true);
+            weaponSlot2.SetActive(false);
+        }
+        else if(activeWeaponSlot == weaponSlot2)
+        {
+            weaponSlot1.SetActive(false);
+            weaponSlot2.SetActive(true);
         }
         
         if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -69,7 +76,7 @@ public class WeaponManager : MonoBehaviour
 
     try
     {
-        if (pickedUpWeapon.name == weaponSlots[0].transform.GetChild(0).gameObject.name || pickedUpWeapon.name == weaponSlots[1].transform.GetChild(0).gameObject.name)
+        if (pickedUpWeapon.name == weaponSlot1.transform.GetChild(0).gameObject.name || pickedUpWeapon.name == weaponSlot2.transform.GetChild(0).gameObject.name)
         {
             Debug.Log("Duplicate weapon, cannot buy");
             isDuplicate = true; // Mark as duplicate
@@ -101,19 +108,41 @@ public class WeaponManager : MonoBehaviour
 
     private void AddWeaponIntoActiveSlot(GameObject pickedUpWeapon)
     {
-        Debug.Log("Add weapon");
+        // Debug.Log("Add weapon");
         pickedUpWeapon.GetComponent<Collider>().enabled = false;
-        //if there is a weapon in the active and non-active slot, drop the current weapon for the new one
-        if(activeWeaponSlot.transform.childCount > 0 && weaponSlots[1].transform.childCount > 0){Debug.Log("Both are full");Destroy(activeWeaponSlot.transform.GetChild(0).gameObject);}
+        // //if there is a weapon in the active and non-active slot, drop the current weapon for the new one
+        if(activeWeaponSlot.transform.childCount > 0 && weaponSlot1.transform.childCount > 0 && weaponSlot2.transform.childCount > 0){
+            Debug.Log("Both are full");
+            Destroy(activeWeaponSlot.transform.GetChild(0).gameObject);
+            }
 
-        //if there is a weapon in the primary slot but not the secondary, put the current weapon in second slot and take the new gun as active weapon
-        if(activeWeaponSlot.transform.childCount > 0 && weaponSlots[1].transform.childCount == 0)
+        // //if there is a weapon in the primary slot but not the secondary, put the current weapon in second slot and take the new gun as active weapon
+        if(activeWeaponSlot.transform.childCount > 0 && weaponSlot2.transform.childCount == 0)
         {
-            Debug.Log("Second slot free");
+            // Debug.Log("Second slot free");
             //change the active weapon to secondary slot
             Weapon currentWeapon = activeWeaponSlot.transform.GetChild(0).GetComponent<Weapon>();
             currentWeapon.isActiveWeapon = false;
-            currentWeapon.transform.SetParent(weaponSlots[1].transform, false);
+            currentWeapon.transform.SetParent(weaponSlot2.transform, false);
+
+            //pickup and assign the weapon to the active slot
+            pickedUpWeapon.transform.SetParent(activeWeaponSlot.transform, false);
+
+            Weapon weapon = pickedUpWeapon.GetComponent<Weapon>();
+
+            pickedUpWeapon.transform.localPosition = new Vector3(weapon.spawnPosition.x, weapon.spawnPosition.y, weapon.spawnPosition.z);
+            pickedUpWeapon.transform.localRotation = Quaternion.Euler(weapon.spawnRotation.x, weapon.spawnRotation.y, weapon.spawnRotation.z);
+
+            weapon.isActiveWeapon = true;
+            weapon.animator.enabled = true;
+        }
+        else if(activeWeaponSlot.transform.childCount > 0 && weaponSlot1.transform.childCount == 0)
+        {
+            // Debug.Log("First slot free");
+            //change the active weapon to primary slot
+            Weapon currentWeapon = activeWeaponSlot.transform.GetChild(0).GetComponent<Weapon>();
+            currentWeapon.isActiveWeapon = false;
+            currentWeapon.transform.SetParent(weaponSlot1.transform, false);
 
             //pickup and assign the weapon to the active slot
             pickedUpWeapon.transform.SetParent(activeWeaponSlot.transform, false);
@@ -127,9 +156,10 @@ public class WeaponManager : MonoBehaviour
             weapon.animator.enabled = true;
         }
         
-        //if the player has no gun in hand, pick up gun
+        // //if the player has no gun in hand, pick up gun
         else{
-            pickedUpWeapon.transform.SetParent(activeWeaponSlot.transform, false);
+        //     Debug.Log("No gun in hand");
+            pickedUpWeapon.transform.SetParent(activeWeaponSlot.transform);
 
             Weapon weapon = pickedUpWeapon.GetComponent<Weapon>();
 
@@ -141,20 +171,6 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
-    //not much point at the moment
-    private void DropCurrentWeapon(GameObject pickedUpWeapon)
-    {
-        //get the gun from the active weapon slot
-        var weaponToDrop = activeWeaponSlot.transform.GetChild(0).gameObject;
-    
-        weaponToDrop.GetComponent<Weapon>().isActiveWeapon = false;
-        weaponToDrop.GetComponent<Weapon>().animator.enabled = false;
-
-        weaponToDrop.transform.SetParent(pickedUpWeapon.transform.parent);
-        weaponToDrop.transform.localPosition = pickedUpWeapon.transform.localPosition;
-        weaponToDrop.transform.localRotation = pickedUpWeapon.transform.localRotation;
-    }
-
     public void SwitchActiveSlot(int slotNumber)
     {
         if (activeWeaponSlot.transform.childCount > 0)
@@ -163,7 +179,14 @@ public class WeaponManager : MonoBehaviour
             currentWeapon.isActiveWeapon = false;
         }
 
-        activeWeaponSlot = weaponSlots[slotNumber];
+        if(slotNumber == 0)
+        {
+            activeWeaponSlot = weaponSlot1;
+        }
+        else if(slotNumber == 1)
+        {
+            activeWeaponSlot = weaponSlot2;
+        }
 
         if (activeWeaponSlot.transform.childCount > 0)
         {
