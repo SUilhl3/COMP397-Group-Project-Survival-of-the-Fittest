@@ -98,7 +98,6 @@ public class Weapon : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && isReloading == false && bulletReserve > 0)
             {
-                Debug.Log("Should reload");
                 Reload();
             }
             if (readyToShoot && isShooting == false && isReloading == false && bulletsLeft <= 0)

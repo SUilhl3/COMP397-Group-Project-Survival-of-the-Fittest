@@ -5,16 +5,16 @@ public class basicEnemy : MonoBehaviour
 {
     //want to make the hp relative to the round late when rounds are implemented
     [SerializeField] private int hp = 150;
-    PlayerController player;
-    EnemySpawner enemSpawn;
+    private PlayerController player;
+    [SerializeField] private EnemyManager enemyManager;
 
     void Awake()
     {
         player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
-        // enemSpawn = GameObject.FindWithTag("enemSpawnPoint").GetComponent<EnemySpawner>();
+        enemyManager = GameObject.FindWithTag("enemyManager").GetComponent<EnemyManager>();
     }
 
-    void Update(){if(hp <= 0){player.addMoney(70);/*enemSpawn.SpawnEnem();*/Destroy(gameObject);}}
+    void Update(){if(hp <= 0){player.addMoney(70);enemyManager.EnemyDied();Destroy(gameObject);}}
 
     //deal with enemy taking damage
     public void takeDamage(int amount)

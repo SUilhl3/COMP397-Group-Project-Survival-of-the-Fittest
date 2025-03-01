@@ -21,9 +21,8 @@ public class EnemySpawner : MonoBehaviour
         // Find the closest valid position on the NavMesh
         if (UnityEngine.AI.NavMesh.SamplePosition(spawnPos, out hit, spawnRadius, UnityEngine.AI.NavMesh.AllAreas))
         {
-            GameObject enemy = Instantiate(enemyPrefab, hit.position, Quaternion.identity);
-            enemy.GetComponent<UnityEngine.AI.NavMeshAgent>().SetDestination(player.position); 
-            Debug.Log("Spawned thing");
+            GameObject enemy = Instantiate(enemyPrefab, hit.position, Quaternion.identity); 
+            enemy.GetComponent<UnityEngine.AI.NavMeshAgent>().SetDestination(player.position); // Set the destination of the enemy to the player
         }
         else
         {
