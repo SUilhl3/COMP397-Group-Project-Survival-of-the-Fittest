@@ -92,7 +92,16 @@ public class InteractionManager : MonoBehaviour
                 }
             }
         }
-        else{hoveredWeapon.GetComponent<Outline>().enabled = false;}
+        else{
+        try{if(hoveredWeapon == null){throw new System.NullReferenceException("Hovered weapon is null");}
+        else if(hoveredWeapon.GetComponent<Outline>().enabled == true){hoveredWeapon.GetComponent<Outline>().enabled = false;}}
+        catch(System.NullReferenceException e) 
+        {
+            //Do this if you want a lot of messages in the console
+            // Debug.LogError("Null reference exception caught: " + e);
+        }
+        }
+
     }
 
 }

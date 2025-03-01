@@ -322,7 +322,7 @@ MonoBehaviour:
   input: {fileID: 11400000, guid: 7c9877c872d3d1c48886dc5b9e1d1087, type: 2}
   rb: {fileID: 15111649}
   movement: {x: 0, y: 0, z: 0}
-  moveSpeed: 200
+  moveSpeed: 400
   rotationSpeed: 200
   mainCam: {fileID: 330585546}
   money: 5000
@@ -954,6 +954,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab69c29562a4fb748bbefd7b56fe5fc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  magazineAmmoUI: {fileID: 0}
+  totalAmmoUI: {fileID: 0}
+  ammoTypeUI: {fileID: 0}
+  activeWeaponUI: {fileID: 0}
+  unActiveWeaponUI: {fileID: 0}
+  lethalUI: {fileID: 0}
+  lethalAmountUI: {fileID: 0}
+  tacticalUI: {fileID: 0}
+  tacticalAmountUI: {fileID: 0}
+  emptySlot: {fileID: 0}
 --- !u!1 &203660155
 GameObject:
   m_ObjectHideFlags: 0
@@ -1509,6 +1519,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c61dceb0a17b824cb75c3a02bf986c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponSlot1: {fileID: 821445738}
+  weaponSlot2: {fileID: 593376082}
+  activeWeaponSlot: {fileID: 0}
+  totalRifleAmmo: 0
+  totalPistolAmmo: 0
 --- !u!4 &387716892
 Transform:
   m_ObjectHideFlags: 0
@@ -2414,6 +2429,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c3be5446c8453b47b3c93c6967cc5d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCam: {fileID: 0}
 --- !u!1 &597233884
 GameObject:
   m_ObjectHideFlags: 0
@@ -2427,9 +2443,11 @@ GameObject:
   - component: {fileID: 597233886}
   - component: {fileID: 597233885}
   - component: {fileID: 597233889}
+  - component: {fileID: 597233890}
+  - component: {fileID: 597233891}
   m_Layer: 8
   m_Name: enemPrototype
-  m_TagString: Untagged
+  m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2539,7 +2557,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 1
+  m_StoppingDistance: 2
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -2547,6 +2565,31 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &597233890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 597233884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a27b291da91b704b903f26f286504b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 150
+--- !u!114 &597233891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 597233884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32cf4f9bb877718479f969f631832e2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &623219004
 GameObject:
   m_ObjectHideFlags: 0
@@ -3018,6 +3061,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 144063058fde29146af6803b7b36c827, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  freeLookCam: {fileID: 0}
+  player: {fileID: 0}
 --- !u!4 &711964047
 Transform:
   m_ObjectHideFlags: 0
@@ -3155,7 +3200,6 @@ GameObject:
   - component: {fileID: 721755057}
   - component: {fileID: 721755062}
   - component: {fileID: 721755061}
-  - component: {fileID: 721755060}
   - component: {fileID: 721755059}
   m_Layer: 0
   m_Name: SoundManager
@@ -3176,6 +3220,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8280e1080005336419cd2dddec1260ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shootingChannel: {fileID: 721755062}
+  RifleShootSound: {fileID: 8300000, guid: 431784163a866694db16961e5bb9746c, type: 3}
+  PistolShootSound: {fileID: 8300000, guid: e8ec0372992ce56428760451ba44ed66, type: 3}
+  reloadingChannel: {fileID: 721755061}
+  pistolReloadSound: {fileID: 8300000, guid: bebf4bbd6410a1b4990aabb654e1a56e, type: 3}
+  rifleReloadSound: {fileID: 8300000, guid: ae58719f8bf11f14583224d0cb3a80da, type: 3}
+  emptyPistolMagazine: {fileID: 721755059}
 --- !u!4 &721755058
 Transform:
   m_ObjectHideFlags: 0
@@ -3288,103 +3339,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!82 &721755060
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 721755055}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: bebf4bbd6410a1b4990aabb654e1a56e, type: 3}
-  m_Resource: {fileID: 8300000, guid: bebf4bbd6410a1b4990aabb654e1a56e, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!82 &721755061
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3395,8 +3349,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: ae58719f8bf11f14583224d0cb3a80da, type: 3}
-  m_Resource: {fileID: 8300000, guid: ae58719f8bf11f14583224d0cb3a80da, type: 3}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -3692,6 +3646,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c3be5446c8453b47b3c93c6967cc5d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCam: {fileID: 0}
 --- !u!4 &822189257 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6751219360918534824, guid: 78cd0927715c76748a4c4a3008995e25,
@@ -6480,7 +6435,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 9f3de598644f9c84ca6e7c2acbaea56c, type: 3}
   m_Resource: {fileID: 8300000, guid: 9f3de598644f9c84ca6e7c2acbaea56c, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.527
+  m_Volume: 0
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -6960,6 +6915,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4aad431c5d9f4f341ad609e8d4ee55fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoveredWeapon: {fileID: 0}
+  hoveredAmmoBox: {fileID: 0}
+  rayCastLength: 5
+  player: {fileID: 15111648}
 --- !u!4 &1700275944
 Transform:
   m_ObjectHideFlags: 0
@@ -8680,6 +8639,11 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 302a526c3593ca04e91fcdb8a86af987, type: 2}
+    - target: {fileID: 7941098463076305699, guid: b36c211644e3eb54c8df83387ac9e88e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

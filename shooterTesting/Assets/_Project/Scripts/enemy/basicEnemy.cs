@@ -11,10 +11,10 @@ public class basicEnemy : MonoBehaviour
     void Awake()
     {
         player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
-        enemSpawn = GameObject.FindWithTag("enemSpawnPoint").GetComponent<EnemySpawner>();
+        // enemSpawn = GameObject.FindWithTag("enemSpawnPoint").GetComponent<EnemySpawner>();
     }
 
-    void Update(){if(hp <= 0){player.addMoney(70);enemSpawn.SpawnEnem();Destroy(gameObject);}}
+    void Update(){if(hp <= 0){player.addMoney(70);/*enemSpawn.SpawnEnem();*/Destroy(gameObject);}}
 
     //deal with enemy taking damage
     public void takeDamage(int amount)

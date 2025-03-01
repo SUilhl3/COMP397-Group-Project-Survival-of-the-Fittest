@@ -40,6 +40,10 @@ public class Weapon : MonoBehaviour
     public Vector3 spawnPosition;
     public Vector3 spawnRotation;
 
+    //cooldown for audio 
+    float cooldownTime = .5f;
+    float lastTimeExecuted = -Mathf.Infinity;
+
     public enum WeaponModel
     {
         Pistol,
@@ -74,8 +78,9 @@ public class Weapon : MonoBehaviour
             GetComponent<Outline>().enabled = false;
 
             // Empty Magazine Sound
-            if (bulletsLeft == 0 && isShooting)
+            if (bulletsLeft == 0 && isShooting && Time.time - lastTimeExecuted >= cooldownTime)
             {
+                lastTimeExecuted = Time.time;
                 SoundManager.Instance.emptyPistolMagazine.Play();
             }
 
@@ -91,8 +96,9 @@ public class Weapon : MonoBehaviour
                 isShooting = Input.GetKeyDown(KeyCode.Mouse0);
             }
 
-            if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && isReloading == false && WeaponManager.Instance.CheckAmmoLeftFor(thisWeaponModel) > 0)
+            if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && isReloading == false && bulletReserve > 0)
             {
+                Debug.Log("Should reload");
                 Reload();
             }
             if (readyToShoot && isShooting == false && isReloading == false && bulletsLeft <= 0)
@@ -105,7 +111,6 @@ public class Weapon : MonoBehaviour
                 burstBulletsLeft = bulletsPerBurst;
                 FireWeapon();
             }
-
         }
 
     }
@@ -179,8 +184,6 @@ public class Weapon : MonoBehaviour
     }
 
     public int getCost(){return weaponCost;}
-
-
     private void ResetShot()
     {
         readyToShoot = true;
