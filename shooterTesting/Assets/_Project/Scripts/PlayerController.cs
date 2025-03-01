@@ -16,6 +16,7 @@ namespace Platformer397
 
         [SerializeField] private Transform mainCam;
 
+        public string currentRoom = "Room1";
 
         [SerializeField] private int money = 500;
 

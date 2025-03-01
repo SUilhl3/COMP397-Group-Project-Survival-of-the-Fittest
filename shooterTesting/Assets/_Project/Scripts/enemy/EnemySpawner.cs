@@ -4,8 +4,9 @@ public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private Transform enemySpawner;
-    public float spawnRadius = 5f;
     private Transform player;
+    public float spawnRadius = 5f;
+    public string spawnersRoom; //just going to manually assign these for now
 
     void Awake()
     {
