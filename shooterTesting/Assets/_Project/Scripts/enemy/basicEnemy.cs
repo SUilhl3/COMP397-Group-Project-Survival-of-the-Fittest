@@ -7,6 +7,9 @@ public class basicEnemy : MonoBehaviour
     [SerializeField] private int hp = 150;
     private PlayerController player;
     [SerializeField] private EnemyManager enemyManager;
+    public float timeInside = 0f; //time inside trigger
+    public float requiredTimeInside = 0.5f; //how many seconds before player gets slapped
+    public bool playerInside = false;
 
     void Awake()
     {
@@ -23,6 +26,42 @@ public class basicEnemy : MonoBehaviour
     }
 
     //deal damage function
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player")) // Ensure only the player triggers it
+        {
+            playerInside = true;
+            timeInside = 0f; // Reset timer when the player enters
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (playerInside && other.CompareTag("Player"))
+        {
+            timeInside += Time.deltaTime;
+
+            if (timeInside >= requiredTimeInside)
+            {
+                damagePlayer();
+                timeInside = 0f; // Reset timer when the player takes damage
+            }
+        }
+    }
+
+    private void OntTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerInside = false;
+            timeInside = 0f; // Reset timer when the player leaves
+        }
+    }
+
+    private void damagePlayer()
+    {
+        player.takeDamage(45);
+    }
 
     //deal with animations
 

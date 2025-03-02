@@ -7,21 +7,31 @@ namespace Platformer397
     public class PlayerController : MonoBehaviour
     {
 
+        [Header("Player Movement")]
         [SerializeField] private InputReader input;
         [SerializeField] private Rigidbody rb;
         [SerializeField] private Vector3 movement;
 
         [SerializeField] private float moveSpeed = 200f;
         [SerializeField] private float rotationSpeed = 200f;
-
+        [Header("Camera")]
         [SerializeField] private Transform mainCam;
 
+        [Header("Misc")]
         public string currentRoom = "Room1";
 
         [SerializeField] private int money = 500;
 
         public Weapon hoveredWeapon = null;
         public AmmoBox hoveredAmmoBox = null;
+
+        [Header("Player Health")]
+        [SerializeField] private float playerHealth = 100f;
+        [SerializeField] private int playerMaxHealth = 100;
+        [SerializeField] private float lastTimeHit = 0f;
+        [SerializeField] private float timeToHeal = 3f;
+        private float regenTimer = 0f;
+        private float regenDuration = 3f; //time it takes to regen to full hp
 
         private void Awake()
         {
@@ -32,6 +42,18 @@ namespace Platformer397
         void Start()
         {
             input.EnablePlayerActions();
+        }
+
+        void Update()
+        {
+            lastTimeHit += Time.deltaTime;
+            if(lastTimeHit >= timeToHeal && playerHealth < playerMaxHealth)
+            {
+                regenTimer += Time.deltaTime;
+                playerHealth += (playerMaxHealth / regenDuration) * Time.deltaTime;
+                playerHealth = Mathf.Min(playerHealth, playerMaxHealth);
+            }
+            else{regenTimer = 0f;}
         }
 
         private void OnEnable()
@@ -142,6 +164,19 @@ namespace Platformer397
                         hoveredAmmoBox.GetComponent<Outline>().enabled = false;
                     }
                 }
+            }
+        } //end of HandleInteraction
+
+        public void takeDamage(int amount)
+        {
+            Debug.Log("Player took damage");
+            playerHealth -= amount;
+            lastTimeHit = 0;
+            if (playerHealth <= 0)
+            {
+                //do game over stuff 
+                //transistion to game over screen
+                Debug.Log("Game Over");
             }
         }
 
