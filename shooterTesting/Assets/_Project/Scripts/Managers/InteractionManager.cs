@@ -58,6 +58,7 @@ public class InteractionManager : MonoBehaviour
                             //makes a copy of the gun selected and adds said copy to the player instead of the buy
                         
                             GameObject copyOfGun = Instantiate(objectHitByRaycast.gameObject);
+                            
                             // copyOfGun.transform.SetParent(WeaponManager.Instance.weaponSlot1.transform);
                             bool duplicate = WeaponManager.Instance.PickUpWeapon(copyOfGun);
                             // Debug.Log(duplicate);
@@ -73,24 +74,24 @@ public class InteractionManager : MonoBehaviour
             }
 
             //Ammo Box
-            if (objectHitByRaycast.GetComponent<AmmoBox>())
-            {
-                hoveredAmmoBox = objectHitByRaycast.gameObject.GetComponent<AmmoBox>();
-                hoveredAmmoBox.GetComponent<Outline>().enabled = true;
+            // if (objectHitByRaycast.GetComponent<AmmoBox>())
+            // {
+            //     hoveredAmmoBox = objectHitByRaycast.gameObject.GetComponent<AmmoBox>();
+            //     hoveredAmmoBox.GetComponent<Outline>().enabled = true;
 
-                if (Input.GetKeyDown(KeyCode.F))
-                {
-                    WeaponManager.Instance.PickupAmmo(hoveredAmmoBox);
-                    Destroy(objectHitByRaycast.gameObject);
-                }
-            }
-            else
-            {
-                if (hoveredAmmoBox)
-                {
-                    hoveredAmmoBox.GetComponent<Outline>().enabled = false;
-                }
-            }
+            //     if (Input.GetKeyDown(KeyCode.F))
+            //     {
+            //         // WeaponManager.Instance.PickupAmmo(hoveredAmmoBox);
+            //         Destroy(objectHitByRaycast.gameObject);
+            //     }
+            // }
+            // else
+            // {
+            //     if (hoveredAmmoBox)
+            //     {
+            //         hoveredAmmoBox.GetComponent<Outline>().enabled = false;
+            //     }
+            // }
         }
         else{
         try{if(hoveredWeapon == null){throw new System.NullReferenceException("Hovered weapon is null");}

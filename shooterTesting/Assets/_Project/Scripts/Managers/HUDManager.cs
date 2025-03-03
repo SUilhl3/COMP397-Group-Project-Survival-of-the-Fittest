@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class HUDManager : MonoBehaviour
 {
+
+    //Stuff that is commented out is to be worked on later because it currently just clones sprites a bunch
     public static HUDManager Instance { get; private set; }
 
     [Header("Ammo")]
@@ -46,16 +48,16 @@ public class HUDManager : MonoBehaviour
         if (activeWeapon)
         {
             magazineAmmoUI.text = $"{activeWeapon.bulletsLeft / activeWeapon.bulletsPerBurst}";
-            totalAmmoUI.text = $"{WeaponManager.Instance.CheckAmmoLeftFor(activeWeapon.thisWeaponModel)}";
+            // totalAmmoUI.text = $"{WeaponManager.Instance.CheckAmmoLeftFor(activeWeapon.thisWeaponModel)}";
 
             Weapon.WeaponModel model = activeWeapon.thisWeaponModel;
-            ammoTypeUI.sprite = GetAmmoSprite(model);
+            // ammoTypeUI.sprite = GetAmmoSprite(model);
 
-            activeWeaponUI.sprite = GetWeaponSprite(model);
+            // activeWeaponUI.sprite = GetWeaponSprite(model);
         }
         if (unActiveWeapon)
         {
-            unActiveWeaponUI.sprite = GetWeaponSprite(unActiveWeapon.thisWeaponModel);
+            // unActiveWeaponUI.sprite = GetWeaponSprite(unActiveWeapon.thisWeaponModel);
         }
         else if (!activeWeapon && !unActiveWeapon)
         {
@@ -70,35 +72,35 @@ public class HUDManager : MonoBehaviour
     }
 
     //have to edit this eventually to include more models
-    private Sprite GetWeaponSprite(Weapon.WeaponModel model)
-    {
-        switch (model)
-        {
-            case Weapon.WeaponModel.Pistol:
-                return Instantiate(Resources.Load<GameObject>("Pistol1911_Weapon")).GetComponent<SpriteRenderer>().sprite;
+    // private Sprite GetWeaponSprite(Weapon.WeaponModel model)
+    // {
+    //     switch (model)
+    //     {
+    //         case Weapon.WeaponModel.Pistol:
+    //             return Instantiate(Resources.Load<GameObject>("Pistol1911_Weapon")).GetComponent<SpriteRenderer>().sprite;
                 
-            case Weapon.WeaponModel.Rifle:
-                return Instantiate(Resources.Load<GameObject>("M16_Weapon")).GetComponent<SpriteRenderer>().sprite;
+    //         case Weapon.WeaponModel.Rifle:
+    //             return Instantiate(Resources.Load<GameObject>("M16_Weapon")).GetComponent<SpriteRenderer>().sprite;
 
-            default:
-                return null;
-        }
-    }
+    //         default:
+    //             return null;
+    //     }
+    // }
 
-    private Sprite GetAmmoSprite(Weapon.WeaponModel model)
-    {
-        switch (model)
-        {
-            case Weapon.WeaponModel.Pistol:
-                return Instantiate(Resources.Load<GameObject>("Pistol_Ammo")).GetComponent<SpriteRenderer>().sprite;
+    // private Sprite GetAmmoSprite(Weapon.WeaponModel model)
+    // {
+    //     switch (model)
+    //     {
+    //         case Weapon.WeaponModel.Pistol:
+    //             return Instantiate(Resources.Load<GameObject>("Pistol_Ammo")).GetComponent<SpriteRenderer>().sprite;
 
-            case Weapon.WeaponModel.Rifle:
-                return Instantiate(Resources.Load<GameObject>("Rifle_Ammo")).GetComponent <SpriteRenderer>().sprite;
+    //         case Weapon.WeaponModel.Rifle:
+    //             return Instantiate(Resources.Load<GameObject>("Rifle_Ammo")).GetComponent <SpriteRenderer>().sprite;
 
-            default:
-                return null;
-        }
-    }
+    //         default:
+    //             return null;
+    //     }
+    // }
 
     private GameObject GetUnActiveWeaponSlot()
     {

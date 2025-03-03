@@ -13,9 +13,9 @@ public class WeaponManager : MonoBehaviour
 
     public GameObject activeWeaponSlot;
 
-    [Header("Ammo")]
-    public int totalRifleAmmo = 0;
-    public int totalPistolAmmo = 0;
+    // [Header("Ammo")]
+    // public int totalRifleAmmo = 0;
+    // public int totalPistolAmmo = 0;
 
     private void Awake()
     {
@@ -32,12 +32,12 @@ public class WeaponManager : MonoBehaviour
 
     private void Update()
     {
-        if(activeWeaponSlot == weaponSlot1)
+        if(activeWeaponSlot == weaponSlot1 && !weaponSlot1.activeSelf) 
         {
             weaponSlot1.SetActive(true);
             weaponSlot2.SetActive(false);
         }
-        else if(activeWeaponSlot == weaponSlot2)
+        else if(activeWeaponSlot == weaponSlot2 && !weaponSlot2.activeSelf)
         {
             weaponSlot1.SetActive(false);
             weaponSlot2.SetActive(true);
@@ -62,7 +62,8 @@ public class WeaponManager : MonoBehaviour
 
     try
     {
-        if (pickedUpWeapon.name == weaponSlot1.transform.GetChild(0).gameObject.name || pickedUpWeapon.name == weaponSlot2.transform.GetChild(0).gameObject.name)
+        if (pickedUpWeapon.GetInstanceID() == weaponSlot1.transform.GetChild(0).GetInstanceID() ||
+         pickedUpWeapon.GetInstanceID() == weaponSlot2.transform.GetChild(0).GetInstanceID())
         {
             Debug.Log("Duplicate weapon, cannot buy");
             isDuplicate = true; // Mark as duplicate
@@ -124,36 +125,16 @@ public class WeaponManager : MonoBehaviour
             weapon.isActiveWeapon = true;
             weapon.animator.enabled = true;
         }
-        else if(activeWeaponSlot.transform.childCount > 0 && weaponSlot1.transform.childCount == 0)
-        {
-            // Debug.Log("First slot free");
-            //change the active weapon to primary slot
-            Weapon currentWeapon = activeWeaponSlot.transform.GetChild(0).GetComponent<Weapon>();
-            currentWeapon.isActiveWeapon = false;
-            currentWeapon.transform.SetParent(weaponSlot1.transform, false);
-
-            //pickup and assign the weapon to the active slot
-            pickedUpWeapon.transform.SetParent(activeWeaponSlot.transform, false);
-
+        
+        // //if the player has no gun in hand, pick up gun
+        else{
+            // Debug.Log("No gun in hand");
+            pickedUpWeapon.transform.SetParent(weaponSlot1.transform);
             Weapon weapon = pickedUpWeapon.GetComponent<Weapon>();
 
             pickedUpWeapon.transform.localPosition = new Vector3(weapon.spawnPosition.x, weapon.spawnPosition.y, weapon.spawnPosition.z);
             pickedUpWeapon.transform.localRotation = Quaternion.Euler(weapon.spawnRotation.x, weapon.spawnRotation.y, weapon.spawnRotation.z);
             pickedUpWeapon.transform.localScale = Vector3.one;
-
-            weapon.isActiveWeapon = true;
-            weapon.animator.enabled = true;
-        }
-        
-        // //if the player has no gun in hand, pick up gun
-        else{
-        //     Debug.Log("No gun in hand");
-            pickedUpWeapon.transform.SetParent(activeWeaponSlot.transform);
-
-            Weapon weapon = pickedUpWeapon.GetComponent<Weapon>();
-
-            pickedUpWeapon.transform.localPosition = new Vector3(weapon.spawnPosition.x, weapon.spawnPosition.y, weapon.spawnPosition.z);
-            pickedUpWeapon.transform.localRotation = Quaternion.Euler(weapon.spawnRotation.x, weapon.spawnRotation.y, weapon.spawnRotation.z);
 
             weapon.isActiveWeapon = true;
             weapon.animator.enabled = true;
@@ -184,44 +165,44 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
-    internal void PickupAmmo(AmmoBox ammo)
-    {
-        switch (ammo.ammoType)
-        {
-            case AmmoBox.AmmoType.PistolAmmo:
-                totalPistolAmmo += ammo.ammoAmount;
-                break;
-            case AmmoBox.AmmoType.RifleAmmo:
-                totalRifleAmmo += ammo.ammoAmount;
-                break;
-        }
-    }
+    // internal void PickupAmmo(AmmoBox ammo)
+    // {
+    //     switch (ammo.ammoType)
+    //     {
+    //         case AmmoBox.AmmoType.PistolAmmo:
+    //             totalPistolAmmo += ammo.ammoAmount;
+    //             break;
+    //         case AmmoBox.AmmoType.RifleAmmo:
+    //             totalRifleAmmo += ammo.ammoAmount;
+    //             break;
+    //     }
+    // }
 
-    internal void DecreaseTotalAmmo(int bulletsToDecrease, Weapon.WeaponModel thisWeaponModel)
-    {
-        switch (thisWeaponModel)
-        {
-            case Weapon.WeaponModel.Rifle:
-                totalRifleAmmo -= bulletsToDecrease;
-                break;
-            case Weapon.WeaponModel.Pistol:
-                totalPistolAmmo -= bulletsToDecrease;
-                break;
-        }
-    }
+    // internal void DecreaseTotalAmmo(int bulletsToDecrease, Weapon.WeaponModel thisWeaponModel)
+    // {
+    //     switch (thisWeaponModel)
+    //     {
+    //         case Weapon.WeaponModel.Rifle:
+    //             totalRifleAmmo -= bulletsToDecrease;
+    //             break;
+    //         case Weapon.WeaponModel.Pistol:
+    //             totalPistolAmmo -= bulletsToDecrease;
+    //             break;
+    //     }
+    // }
 
-    public int CheckAmmoLeftFor(Weapon.WeaponModel thisWeaponModel)
-    {
-        switch (thisWeaponModel)
-        {
-            case Weapon.WeaponModel.Rifle:
-                return totalRifleAmmo;
+    // public int CheckAmmoLeftFor(Weapon.WeaponModel thisWeaponModel)
+    // {
+    //     switch (thisWeaponModel)
+    //     {
+    //         case Weapon.WeaponModel.Rifle:
+    //             return totalRifleAmmo;
 
-            case Weapon.WeaponModel.Pistol:
-                return totalPistolAmmo;
+    //         case Weapon.WeaponModel.Pistol:
+    //             return totalPistolAmmo;
 
-            default:
-                return 0;
-        }
-    }
+    //         default:
+    //             return 0;
+    //     }
+    // }
 }

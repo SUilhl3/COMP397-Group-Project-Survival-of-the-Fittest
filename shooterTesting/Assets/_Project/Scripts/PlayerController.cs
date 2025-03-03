@@ -144,25 +144,25 @@ namespace Platformer397
                     }
                 }
 
-                //Ammo Box
-                if (objectHitByRaycast.GetComponent<AmmoBox>())
-                {
-                    hoveredAmmoBox = objectHitByRaycast.gameObject.GetComponent<AmmoBox>();
-                    hoveredAmmoBox.GetComponent<Outline>().enabled = true;
+                // //Ammo Box
+                // if (objectHitByRaycast.GetComponent<AmmoBox>())
+                // {
+                //     hoveredAmmoBox = objectHitByRaycast.gameObject.GetComponent<AmmoBox>();
+                //     hoveredAmmoBox.GetComponent<Outline>().enabled = true;
 
-                    if (interact)
-                    {
-                        WeaponManager.Instance.PickupAmmo(hoveredAmmoBox);
-                        Destroy(objectHitByRaycast.gameObject);
-                    }
-                }
-                else
-                {
-                    if (hoveredAmmoBox)
-                    {
-                        hoveredAmmoBox.GetComponent<Outline>().enabled = false;
-                    }
-                }
+                //     if (interact)
+                //     {
+                //         WeaponManager.Instance.PickupAmmo(hoveredAmmoBox);
+                //         Destroy(objectHitByRaycast.gameObject);
+                //     }
+                // }
+                // else
+                // {
+                //     if (hoveredAmmoBox)
+                //     {
+                //         hoveredAmmoBox.GetComponent<Outline>().enabled = false;
+                //     }
+                // }
             }
         } //end of HandleInteraction
 
