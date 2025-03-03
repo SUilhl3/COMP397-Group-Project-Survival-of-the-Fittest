@@ -64,7 +64,7 @@ public class InteractionManager : MonoBehaviour
                             if(duplicate == false)
                             {
                                 player.decreaseMoney(weaponPrice);
-                                Debug.Log("Purchased " + hoveredWeapon.name);    
+                                // Debug.Log("Purchased " + hoveredWeapon.name);    
                             }
                             else{Debug.Log("You already have this gun! Couldn't purchase"); Destroy(copyOfGun);}
                         }

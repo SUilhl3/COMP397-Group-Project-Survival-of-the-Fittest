@@ -8,8 +8,6 @@ public class WeaponManager : MonoBehaviour
 {
 
     public static WeaponManager Instance { get; private set; }
-
-    // public List<GameObject> weaponSlots;
     public GameObject weaponSlot1;
     public GameObject weaponSlot2;
 
@@ -34,18 +32,6 @@ public class WeaponManager : MonoBehaviour
 
     private void Update()
     {
-        // foreach (GameObject weaponSlot in weaponSlots)
-        // {
-        //     if(weaponSlot == activeWeaponSlot)
-        //     {
-        //         weaponSlot.SetActive(true);
-        //     }
-        //     else
-        //     {
-        //         weaponSlot.SetActive(false);
-        //     }
-        // }
-
         if(activeWeaponSlot == weaponSlot1)
         {
             weaponSlot1.SetActive(true);

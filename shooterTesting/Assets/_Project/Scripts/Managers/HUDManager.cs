@@ -69,6 +69,7 @@ public class HUDManager : MonoBehaviour
         }
     }
 
+    //have to edit this eventually to include more models
     private Sprite GetWeaponSprite(Weapon.WeaponModel model)
     {
         switch (model)

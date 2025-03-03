@@ -44,10 +44,12 @@ public class Weapon : MonoBehaviour
     float cooldownTime = .5f;
     float lastTimeExecuted = -Mathf.Infinity;
 
+    //I think these will be based off the guns we have 
     public enum WeaponModel
     {
         Pistol,
-        Rifle
+        Rifle,
+        Assault57
     }
 
     public WeaponModel thisWeaponModel;
@@ -121,6 +123,8 @@ public class Weapon : MonoBehaviour
         muzzleEffect.GetComponent<ParticleSystem>().Play();
         animator.SetTrigger("Recoil");
 
+        //for now, we will use the rifle or pistol sounds for any new guns until we get more sounds set up, not a priority
+        if(thisWeaponModel == WeaponModel.Assault57){SoundManager.Instance.PlayShootingSound(WeaponModel.Rifle);}
         SoundManager.Instance.PlayShootingSound(thisWeaponModel);
 
         readyToShoot = false;
