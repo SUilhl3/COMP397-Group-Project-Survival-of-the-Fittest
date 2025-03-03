@@ -13,7 +13,6 @@ namespace Platformer397
         [SerializeField] private Vector3 movement;
 
         [SerializeField] private float moveSpeed = 200f;
-        [SerializeField] private float rotationSpeed = 200f;
         [Header("Camera")]
         [SerializeField] private Transform mainCam;
 

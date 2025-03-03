@@ -110,6 +110,7 @@ public class WeaponManager : MonoBehaviour
             Weapon currentWeapon = activeWeaponSlot.transform.GetChild(0).GetComponent<Weapon>();
             currentWeapon.isActiveWeapon = false;
             currentWeapon.transform.SetParent(weaponSlot2.transform, false);
+            currentWeapon.transform.localScale = Vector3.one;
 
             //pickup and assign the weapon to the active slot
             pickedUpWeapon.transform.SetParent(activeWeaponSlot.transform, false);
@@ -118,6 +119,7 @@ public class WeaponManager : MonoBehaviour
 
             pickedUpWeapon.transform.localPosition = new Vector3(weapon.spawnPosition.x, weapon.spawnPosition.y, weapon.spawnPosition.z);
             pickedUpWeapon.transform.localRotation = Quaternion.Euler(weapon.spawnRotation.x, weapon.spawnRotation.y, weapon.spawnRotation.z);
+            pickedUpWeapon.transform.localScale = Vector3.one;
 
             weapon.isActiveWeapon = true;
             weapon.animator.enabled = true;
@@ -137,6 +139,7 @@ public class WeaponManager : MonoBehaviour
 
             pickedUpWeapon.transform.localPosition = new Vector3(weapon.spawnPosition.x, weapon.spawnPosition.y, weapon.spawnPosition.z);
             pickedUpWeapon.transform.localRotation = Quaternion.Euler(weapon.spawnRotation.x, weapon.spawnRotation.y, weapon.spawnRotation.z);
+            pickedUpWeapon.transform.localScale = Vector3.one;
 
             weapon.isActiveWeapon = true;
             weapon.animator.enabled = true;

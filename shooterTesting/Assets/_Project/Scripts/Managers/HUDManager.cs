@@ -111,8 +111,6 @@ public class HUDManager : MonoBehaviour
         // }
         if(WeaponManager.Instance.activeWeaponSlot == WeaponManager.Instance.weaponSlot1){return WeaponManager.Instance.weaponSlot1;}
         else{return WeaponManager.Instance.weaponSlot2;}
-        // this will never happen, but have to return something (all code paths must return something)
-        return null;
     }
 
 }
