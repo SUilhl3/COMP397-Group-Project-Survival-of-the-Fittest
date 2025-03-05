@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -115,4 +116,8 @@ public class HUDManager : MonoBehaviour
         else{return WeaponManager.Instance.weaponSlot2;}
     }
 
+    internal void UpdateThrowables(Throwable.ThrowableType grenade)
+    {
+        throw new NotImplementedException();
+    }
 }
