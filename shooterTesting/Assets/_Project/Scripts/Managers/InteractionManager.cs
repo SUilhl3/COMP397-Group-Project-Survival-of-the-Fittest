@@ -11,6 +11,7 @@ public class InteractionManager : MonoBehaviour
 
     public Weapon hoveredWeapon = null;
     public AmmoBox hoveredAmmoBox = null;
+    public Throwable hoveredThrowable = null;
     [SerializeField] private float rayCastLength = 3.5f;
     [SerializeField] private PlayerController player;
 
@@ -38,7 +39,7 @@ public class InteractionManager : MonoBehaviour
 
         RaycastHit hit;
         Debug.DrawRay(ray.origin, ray.direction, Color.red);
-        if (Physics.Raycast(ray, out hit, 2f) && hit.collider.gameObject.tag == "weapon") //checks if raycast hit is a weapon
+        if (Physics.Raycast(ray, out hit, 3f)) //checks if raycast hit is a weapon
         {
             GameObject objectHitByRaycast = hit.transform.gameObject;
 
@@ -92,8 +93,28 @@ public class InteractionManager : MonoBehaviour
             //         hoveredAmmoBox.GetComponent<Outline>().enabled = false;
             //     }
             // }
+
+            // Throwable
+            if (objectHitByRaycast.GetComponent<Throwable>())
+            {
+                 hoveredThrowable = objectHitByRaycast.gameObject.GetComponent<Throwable>();
+                 hoveredThrowable.GetComponent<Outline>().enabled = true;
+
+                 if (Input.GetKeyDown(KeyCode.F))
+                 {
+                     WeaponManager.Instance.PickupThrowable(hoveredThrowable);
+                 }
+             }
+             else
+             {
+                 if (hoveredThrowable)
+                 {
+                     hoveredThrowable.GetComponent<Outline>().enabled = false;
+                 }
+             }
         }
-        else{
+        else
+        {
         try{if(hoveredWeapon == null){throw new System.NullReferenceException("Hovered weapon is null");}
         else if(hoveredWeapon.GetComponent<Outline>().enabled == true){hoveredWeapon.GetComponent<Outline>().enabled = false;}}
         catch(System.NullReferenceException e) 

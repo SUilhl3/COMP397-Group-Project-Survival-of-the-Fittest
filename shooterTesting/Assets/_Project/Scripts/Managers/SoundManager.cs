@@ -18,6 +18,9 @@ public class SoundManager : MonoBehaviour
     public AudioClip pistolReloadSound;
     public AudioClip rifleReloadSound;
 
+    public AudioSource throwablesChannel;
+    public AudioClip GrenadeSound;
+
     //not working
     public AudioSource emptyPistolMagazine;
 

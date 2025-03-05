@@ -28,6 +28,7 @@ public class HUDManager : MonoBehaviour
     public TextMeshProUGUI tacticalAmountUI;
 
     public Sprite emptySlot;
+    public Sprite greySlot;
 
     private void Awake()
     {
@@ -70,38 +71,47 @@ public class HUDManager : MonoBehaviour
             activeWeaponUI.sprite = emptySlot;
             unActiveWeaponUI.sprite = emptySlot;
         }
+
+        if (WeaponManager.Instance.lethalsCount <= 0)
+        {
+            lethalUI.sprite = greySlot;
+        }
+        if (WeaponManager.Instance.tacticalsCount <= 0)
+        {
+            tacticalUI.sprite = greySlot;
+        }
     }
 
     //have to edit this eventually to include more models
-    // private Sprite GetWeaponSprite(Weapon.WeaponModel model)
-    // {
-    //     switch (model)
-    //     {
-    //         case Weapon.WeaponModel.Pistol:
-    //             return Instantiate(Resources.Load<GameObject>("Pistol1911_Weapon")).GetComponent<SpriteRenderer>().sprite;
-                
-    //         case Weapon.WeaponModel.Rifle:
-    //             return Instantiate(Resources.Load<GameObject>("M16_Weapon")).GetComponent<SpriteRenderer>().sprite;
+    private Sprite GetWeaponSprite(Weapon.WeaponModel model)
+    {
+        switch (model)
+        {
+            case Weapon.WeaponModel.Pistol:
+                return Resources.Load<GameObject>("Pistol1911_Weapon").GetComponent<SpriteRenderer>().sprite;
 
-    //         default:
-    //             return null;
-    //     }
-    // }
+            case Weapon.WeaponModel.Rifle:
+                return Resources.Load<GameObject>("M16_Weapon").GetComponent<SpriteRenderer>().sprite;
 
-    // private Sprite GetAmmoSprite(Weapon.WeaponModel model)
-    // {
-    //     switch (model)
-    //     {
-    //         case Weapon.WeaponModel.Pistol:
-    //             return Instantiate(Resources.Load<GameObject>("Pistol_Ammo")).GetComponent<SpriteRenderer>().sprite;
+            default:
+                return null;
+        }
+    }
 
-    //         case Weapon.WeaponModel.Rifle:
-    //             return Instantiate(Resources.Load<GameObject>("Rifle_Ammo")).GetComponent <SpriteRenderer>().sprite;
+    private Sprite GetAmmoSprite(Weapon.WeaponModel model)
+    {
+        switch (model)
+        {
+            case Weapon.WeaponModel.Pistol:
+                return Resources.Load<GameObject>("Pistol_Ammo").GetComponent<SpriteRenderer>().sprite;
 
-    //         default:
-    //             return null;
-    //     }
-    // }
+            case Weapon.WeaponModel.Rifle:
+                return Resources.Load<GameObject>("Rifle_Ammo").GetComponent<SpriteRenderer>().sprite;
+
+            default:
+                return null;
+        }
+    }
 
     private GameObject GetUnActiveWeaponSlot()
     {
@@ -116,8 +126,23 @@ public class HUDManager : MonoBehaviour
         else{return WeaponManager.Instance.weaponSlot2;}
     }
 
-    internal void UpdateThrowables(Throwable.ThrowableType grenade)
+    internal void UpdateThrowables()
     {
-        throw new NotImplementedException();
+        lethalAmountUI.text = $"{WeaponManager.Instance.lethalsCount}";
+        tacticalAmountUI.text = $"{WeaponManager.Instance.tacticalsCount}";
+
+        switch (WeaponManager.Instance.equippedLethalType)
+        {
+            case Throwable.ThrowableType.Grenade:
+                lethalUI.sprite = Resources.Load<GameObject>("Grenade").GetComponent<SpriteRenderer>().sprite;
+                break;
+        }
+
+        switch (WeaponManager.Instance.equippedTacticalType)
+        {
+            case Throwable.ThrowableType.Smoke_Grenade:
+                tacticalUI.sprite = Resources.Load<GameObject>("Smoke_Grenade").GetComponent<SpriteRenderer>().sprite;
+                break;
+        }
     }
 }
