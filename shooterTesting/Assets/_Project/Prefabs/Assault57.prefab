@@ -4899,7 +4899,7 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: 963dece3cc213944f8be2538e4daaef9,
         type: 3}
       propertyPath: m_Name
-      value: Assault57 1 1
+      value: Assault57
       objectReference: {fileID: 0}
     - target: {fileID: -927199367670048503, guid: 963dece3cc213944f8be2538e4daaef9,
         type: 3}
@@ -4979,7 +4979,7 @@ MonoBehaviour:
   reloadTime: 2
   magazineSize: 30
   bulletsLeft: 30
-  bulletReserve: 90
+  bulletReserve: 120
   isReloading: 0
   spawnPosition: {x: 0, y: 0, z: 0}
   spawnRotation: {x: 0, y: 0, z: 0}

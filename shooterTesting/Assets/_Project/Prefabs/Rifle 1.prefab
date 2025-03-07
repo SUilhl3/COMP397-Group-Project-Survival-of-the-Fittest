@@ -126,7 +126,7 @@ MonoBehaviour:
   reloadTime: 2
   magazineSize: 30
   bulletsLeft: 30
-  bulletReserve: 90
+  bulletReserve: 120
   isReloading: 0
   spawnPosition: {x: 0, y: 0, z: 0.487}
   spawnRotation: {x: 0, y: 180, z: -5.707}
