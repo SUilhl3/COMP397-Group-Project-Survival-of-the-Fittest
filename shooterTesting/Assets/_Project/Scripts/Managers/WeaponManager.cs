@@ -179,11 +179,32 @@ public class WeaponManager : MonoBehaviour
             weapon.isActiveWeapon = true;
             weapon.animator.enabled = true;
         }
+        else if(activeWeaponSlot.transform.childCount > 0 && weaponSlot1.transform.childCount == 0)
+        {
+            // Debug.Log("First slot free");
+            //change the active weapon to primary slot
+            Weapon currentWeapon = activeWeaponSlot.transform.GetChild(0).GetComponent<Weapon>();
+            currentWeapon.isActiveWeapon = false;
+            currentWeapon.transform.SetParent(weaponSlot1.transform, false);
+            currentWeapon.transform.localScale = Vector3.one;
+
+            //pickup and assign the weapon to the active slot
+            pickedUpWeapon.transform.SetParent(activeWeaponSlot.transform, false);
+
+            Weapon weapon = pickedUpWeapon.GetComponent<Weapon>();
+
+            pickedUpWeapon.transform.localPosition = new Vector3(weapon.spawnPosition.x, weapon.spawnPosition.y, weapon.spawnPosition.z);
+            pickedUpWeapon.transform.localRotation = Quaternion.Euler(weapon.spawnRotation.x, weapon.spawnRotation.y, weapon.spawnRotation.z);
+            pickedUpWeapon.transform.localScale = Vector3.one;
+
+            weapon.isActiveWeapon = true;
+            weapon.animator.enabled = true;
+        }
         
         // //if the player has no gun in hand, pick up gun
         else{
             // Debug.Log("No gun in hand");
-            pickedUpWeapon.transform.SetParent(weaponSlot1.transform);
+            pickedUpWeapon.transform.SetParent(activeWeaponSlot.transform);
             Weapon weapon = pickedUpWeapon.GetComponent<Weapon>();
 
             pickedUpWeapon.transform.localPosition = new Vector3(weapon.spawnPosition.x, weapon.spawnPosition.y, weapon.spawnPosition.z);

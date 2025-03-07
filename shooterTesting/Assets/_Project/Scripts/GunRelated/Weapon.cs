@@ -52,7 +52,9 @@ public class Weapon : MonoBehaviour
         Assault57,
         Buzzsub,
         M249,
-        AUGE
+        AUGE,
+        M82,
+        Mkb16
     }
 
     public WeaponModel thisWeaponModel;
@@ -127,7 +129,8 @@ public class Weapon : MonoBehaviour
         animator.SetTrigger("Recoil");
 
         //for now, we will use the rifle or pistol sounds for any new guns until we get more sounds set up, not a priority
-        if(thisWeaponModel == WeaponModel.Assault57 || thisWeaponModel == WeaponModel.M249 || thisWeaponModel == WeaponModel.AUGE)
+        if(thisWeaponModel == WeaponModel.Assault57 || thisWeaponModel == WeaponModel.M249 || thisWeaponModel == WeaponModel.AUGE || thisWeaponModel == WeaponModel.M82 
+        || thisWeaponModel == WeaponModel.Mkb16)
         {SoundManager.Instance.PlayShootingSound(WeaponModel.Rifle);}
         else if(thisWeaponModel == WeaponModel.Buzzsub){SoundManager.Instance.PlayShootingSound(WeaponModel.Pistol);}
         SoundManager.Instance.PlayShootingSound(thisWeaponModel);
