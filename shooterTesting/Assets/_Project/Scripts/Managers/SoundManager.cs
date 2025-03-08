@@ -57,6 +57,9 @@ public class SoundManager : MonoBehaviour
             case WeaponModel.Pistol:
             case WeaponModel.Python:
             case WeaponModel.Buzzsub:
+            case WeaponModel.skorp6:
+            case WeaponModel.tac:
+            case WeaponModel.mp5k:
                 reloadingChannel.PlayOneShot(pistolReloadSound);
                 // Debug.Log("Pistol reload sound");
                 break;
@@ -68,6 +71,8 @@ public class SoundManager : MonoBehaviour
             case WeaponModel.M249:
             case WeaponModel.Assault57:
             case WeaponModel.SCE5:
+            case WeaponModel.Sturmgewehr46:
+            case WeaponModel.tar:
                 reloadingChannel.PlayOneShot(rifleReloadSound);
                 // Debug.Log("Rifle reload sound");
                 break;

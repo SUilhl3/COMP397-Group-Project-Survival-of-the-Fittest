@@ -57,7 +57,12 @@ public class Weapon : MonoBehaviour
         Mkb16,
         Python,
         SVDmr,
-        SCE5
+        SCE5,
+        skorp6,
+        tac,
+        Sturmgewehr46,
+        mp5k,
+        tar
     }
 
     public WeaponModel thisWeaponModel;
@@ -132,9 +137,11 @@ public class Weapon : MonoBehaviour
         animator.SetTrigger("Recoil");
         //for now, we will use the rifle or pistol sounds for any new guns until we get more sounds set up, not a priority
         if(thisWeaponModel == WeaponModel.Assault57 || thisWeaponModel == WeaponModel.M249 || thisWeaponModel == WeaponModel.AUGE || thisWeaponModel == WeaponModel.M82 
-        || thisWeaponModel == WeaponModel.Mkb16 || thisWeaponModel == WeaponModel.SVDmr || thisWeaponModel == WeaponModel.SCE5)
+        || thisWeaponModel == WeaponModel.Mkb16 || thisWeaponModel == WeaponModel.SVDmr || thisWeaponModel == WeaponModel.SCE5 || thisWeaponModel == WeaponModel.Sturmgewehr46
+        || thisWeaponModel == WeaponModel.tar)
         {SoundManager.Instance.PlayShootingSound(WeaponModel.Rifle);}
-        else if(thisWeaponModel == WeaponModel.Buzzsub || thisWeaponModel == WeaponModel.Python)
+        else if(thisWeaponModel == WeaponModel.Buzzsub || thisWeaponModel == WeaponModel.Python || thisWeaponModel == WeaponModel.skorp6 || thisWeaponModel == WeaponModel.tac
+        || thisWeaponModel == WeaponModel.mp5k)
         {SoundManager.Instance.PlayShootingSound(WeaponModel.Pistol);}
         SoundManager.Instance.PlayShootingSound(thisWeaponModel);
 
