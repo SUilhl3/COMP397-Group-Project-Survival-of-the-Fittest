@@ -10,6 +10,7 @@ TagManager:
   - enemy
   - enemSpawnPoint
   - enemyManager
+  - perk_machine
   layers:
   - Default
   - TransparentFX

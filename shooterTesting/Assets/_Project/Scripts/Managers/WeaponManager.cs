@@ -172,7 +172,7 @@ public class WeaponManager : MonoBehaviour
 
             Weapon weapon = pickedUpWeapon.GetComponent<Weapon>();
 
-            pickedUpWeapon.transform.localPosition = new Vector3(weapon.spawnPosition.x, weapon.spawnPosition.y, weapon.spawnPosition.z);
+            pickedUpWeapon.transform.localPosition = new Vector3(weapon.spawnPosition.x + 0.2f, weapon.spawnPosition.y, weapon.spawnPosition.z);
             pickedUpWeapon.transform.localRotation = Quaternion.Euler(weapon.spawnRotation.x, weapon.spawnRotation.y, weapon.spawnRotation.z);
             pickedUpWeapon.transform.localScale = Vector3.one;
 
@@ -193,7 +193,7 @@ public class WeaponManager : MonoBehaviour
 
             Weapon weapon = pickedUpWeapon.GetComponent<Weapon>();
 
-            pickedUpWeapon.transform.localPosition = new Vector3(weapon.spawnPosition.x, weapon.spawnPosition.y, weapon.spawnPosition.z);
+            pickedUpWeapon.transform.localPosition = new Vector3(weapon.spawnPosition.x + 0.2f, weapon.spawnPosition.y, weapon.spawnPosition.z);
             pickedUpWeapon.transform.localRotation = Quaternion.Euler(weapon.spawnRotation.x, weapon.spawnRotation.y, weapon.spawnRotation.z);
             pickedUpWeapon.transform.localScale = Vector3.one;
 
@@ -207,7 +207,7 @@ public class WeaponManager : MonoBehaviour
             pickedUpWeapon.transform.SetParent(activeWeaponSlot.transform);
             Weapon weapon = pickedUpWeapon.GetComponent<Weapon>();
 
-            pickedUpWeapon.transform.localPosition = new Vector3(weapon.spawnPosition.x, weapon.spawnPosition.y, weapon.spawnPosition.z);
+            pickedUpWeapon.transform.localPosition = new Vector3(weapon.spawnPosition.x + 0.2f, weapon.spawnPosition.y, weapon.spawnPosition.z);
             pickedUpWeapon.transform.localRotation = Quaternion.Euler(weapon.spawnRotation.x, weapon.spawnRotation.y, weapon.spawnRotation.z);
             pickedUpWeapon.transform.localScale = Vector3.one;
 
