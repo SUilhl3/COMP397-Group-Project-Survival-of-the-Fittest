@@ -9572,8 +9572,9 @@ MonoBehaviour:
   hoveredWeapon: {fileID: 0}
   hoveredAmmoBox: {fileID: 0}
   hoveredThrowable: {fileID: 0}
-  rayCastLength: 5
+  rayCastLength: 3
   player: {fileID: 15111648}
+  jugger: {fileID: 0}
 --- !u!4 &1700275944
 Transform:
   m_ObjectHideFlags: 0
@@ -13018,6 +13019,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4758703517573639285}
   - component: {fileID: 5278675122592462544}
+  - component: {fileID: 5278675122592462545}
   m_Layer: 0
   m_Name: double-tap
   m_TagString: perk_machine
@@ -13046,6 +13048,24 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 41.043854, y: 58.5507, z: 24.622955}
   m_Center: {x: -0.72057724, y: 29.297094, z: 0.8568859}
+--- !u!114 &5278675122592462545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5278675122592462543}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1001 &5292611190913015173
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13573,8 +13593,10 @@ GameObject:
   m_Component:
   - component: {fileID: 6015820473971668810}
   - component: {fileID: 6356739020070465009}
+  - component: {fileID: 6356739020070465010}
+  - component: {fileID: 6356739020070465011}
   m_Layer: 0
-  m_Name: Jug
+  m_Name: jug
   m_TagString: perk_machine
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13599,8 +13621,41 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 27.658182, y: 101.91276, z: 37.071556}
-  m_Center: {x: -7.962015, y: 50.361668, z: 4.352078}
+  m_Size: {x: 27.611279, y: 101.91276, z: 37.071556}
+  m_Center: {x: 0.54701567, y: 50.361668, z: 4.352078}
+--- !u!114 &6356739020070465010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6356739020070465008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85dc14b65b5e5544c979df749988a423, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  price: 2500
+  hpIncAmount: 100
+  player: {fileID: 0}
+--- !u!114 &6356739020070465011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6356739020070465008}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!4 &6510403566074295857 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7429402529818745421, guid: 2d05abf7676324640bda189538d01bde,

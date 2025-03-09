@@ -32,6 +32,13 @@ namespace Platformer397
         private float regenTimer = 0f;
         private float regenDuration = 3f; //time it takes to regen to full hp
 
+        [Header("Perks: ")]
+        private bool hasJug = false;
+        private bool hasSpeedCola = false;
+        private bool hasDoubleTap = false;
+        private bool hasQuickRevive = false;
+        private bool hasDeadshot = false;
+
         private void Awake()
         {
             rb = GetComponent<Rigidbody>();
@@ -176,6 +183,73 @@ namespace Platformer397
                 //do game over stuff 
                 //transistion to game over screen
                 Debug.Log("Game Over");
+            }
+        }
+
+        public void maxHPChange(int amount)
+        {
+            playerMaxHealth += amount;
+        }
+
+        public bool checkPerk(string perk)
+        {
+            switch(perk)
+            {
+                case "jug":
+                    return hasJug;
+                case "speed":
+                    return hasSpeedCola;
+                case "double-tap":
+                    return hasDoubleTap;
+                case "quick-revive":
+                    return hasQuickRevive;
+                case "deadshot":
+                    return hasDeadshot;
+                default:
+                    return false;
+            }
+        }
+        public void losePerk(string perk)
+        {
+            switch(perk)
+            {
+                case "jug":
+                    hasJug = false;
+                    break;
+                case "speed":
+                    hasSpeedCola = false;
+                    break;
+                case "double-tap":
+                    hasDoubleTap = false;
+                    break;
+                case "quick-revive":
+                    hasQuickRevive = false;
+                    break;
+                case "deadshot":
+                    hasDeadshot = false;
+                    break;
+            }
+        }
+
+        public void addPerk(string perk)
+        {
+            switch(perk)
+            {
+                case "jug":
+                    hasJug = true;
+                    break;
+                case "speed":
+                    hasSpeedCola = true;
+                    break;
+                case "double-tap":
+                    hasDoubleTap = true;
+                    break;
+                case "quick-revive":
+                    hasQuickRevive = true;
+                    break;
+                case "deadshot":
+                    hasDeadshot = true;
+                    break;
             }
         }
 

@@ -15,7 +15,7 @@ public class EnemySpawner : MonoBehaviour
 
     public void SpawnEnem()
     {
-        Debug.Log("Spawn function");
+        // Debug.Log("Spawn function");
         Vector3 spawnPos = enemySpawner.position;
         UnityEngine.AI.NavMeshHit hit;
         
