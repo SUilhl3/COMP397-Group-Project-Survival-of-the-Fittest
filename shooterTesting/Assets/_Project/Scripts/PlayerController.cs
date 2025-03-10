@@ -33,11 +33,11 @@ namespace Platformer397
         private float regenDuration = 3f; //time it takes to regen to full hp
 
         [Header("Perks: ")]
-        private bool hasJug = false;
-        private bool hasSpeedCola = false;
-        private bool hasDoubleTap = false;
-        private bool hasQuickRevive = false;
-        private bool hasDeadshot = false;
+        public bool hasJug = false;
+        public bool hasSpeedCola = false;
+        public bool hasDoubleTap = false;
+        public bool hasQuickRevive = false;
+        public bool hasDeadshot = false;
 
         private void Awake()
         {

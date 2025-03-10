@@ -17,6 +17,7 @@ public class InteractionManager : MonoBehaviour
 
     //perk initialization for disabling the outline
     public jug jugger = null;
+    public doubleTap dbTap = null;
 
 
     private void Awake()
@@ -71,6 +72,9 @@ public class InteractionManager : MonoBehaviour
                             {
                                 player.decreaseMoney(weaponPrice);
                                 // Debug.Log("Purchased " + hoveredWeapon.name);    
+                                dbTap.requestWeapons();
+                                dbTap.increaseDamage(dbTap.weapon1);
+                                dbTap.increaseDamage(dbTap.weapon2);
                             }
                             else{Debug.Log("You already have this gun! Couldn't purchase"); Destroy(copyOfGun);}
                         }
@@ -109,17 +113,26 @@ public class InteractionManager : MonoBehaviour
                 //         else{Debug.Log("Not enough money");}
                 //     }
                 //     break;
-                // case "double-tap":
-                //     if(Input.GetKeyDown(KeyCode.F))
-                //     {
-                //         if(player.getMoney() >= objectHitByRaycast.GetComponent<DoubleTap>().getCost())
-                //         {
-                //             player.decreaseMoney(objectHitByRaycast.GetComponent<DoubleTap>().getCost());
-                //             objectHitByRaycast.GetComponent<DoubleTap>().increaseFireRate();
-                //         }
-                //         else{Debug.Log("Not enough money");}
-                //     }
-                //     break;
+                case "double-tap":
+                    if(player.checkPerk("double-tap")){/*Debug.Log("Already have double-tap");*/break;}
+                    dbTap = objectHitByRaycast.gameObject.GetComponent<doubleTap>();
+                    dbTap.GetComponent<Outline>().enabled = true;
+                    int dbTapPrice = dbTap.getCost();
+                    if(Input.GetKeyDown(KeyCode.F))
+                    {
+                        if(player.getMoney() >= dbTapPrice)
+                        {
+                            //buy perk
+                            player.decreaseMoney(dbTapPrice);
+                            dbTap.requestWeapons(); //get the current weapons in the weapon slots
+                            dbTap.increaseDamage(dbTap.weapon1); //increase the damage of the weapons
+                            dbTap.increaseDamage(dbTap.weapon2);
+                            player.addPerk("double-tap");
+                            Debug.Log("Purchased Double-tap");
+                        }
+                        else{Debug.Log("Not enough money");}
+                    }
+                    break;
                 // case "quick-revive":
                 //     if(Input.GetKeyDown(KeyCode.F))
                 //     {
@@ -200,9 +213,14 @@ public class InteractionManager : MonoBehaviour
                 {
                     if (jugger == null) {throw new System.NullReferenceException("Jug is null");}
                     else if (jugger.GetComponent<Outline>().enabled == true) {jugger.GetComponent<Outline>().enabled = false;}}
-                catch (System.NullReferenceException ex) {Debug.LogError(ex.Message);}
+                catch (System.NullReferenceException ex) {/*Debug.LogError(ex.Message);*/}
 
                 // Disable the outline of the rest of the perks when made:
+                try
+                {
+                    if (dbTap == null) {throw new System.NullReferenceException("Double-tap is null");}
+                    else if (dbTap.GetComponent<Outline>().enabled == true) {dbTap.GetComponent<Outline>().enabled = false;}
+                }catch (System.NullReferenceException ex) {/*Debug.LogError(ex.Message);*/}
         
             }catch (System.Exception ex) {/*Debug.LogError("An unexpected error occurred: " + ex.Message);*/}
         }

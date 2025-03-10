@@ -333,6 +333,11 @@ MonoBehaviour:
   playerMaxHealth: 100
   lastTimeHit: 0
   timeToHeal: 3
+  hasJug: 0
+  hasSpeedCola: 0
+  hasDoubleTap: 0
+  hasQuickRevive: 0
+  hasDeadshot: 0
 --- !u!54 &15111649
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2179,7 +2184,7 @@ GameObject:
   - component: {fileID: 387716891}
   m_Layer: 0
   m_Name: WeaponManager
-  m_TagString: Untagged
+  m_TagString: WeaponManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2211,7 +2216,8 @@ MonoBehaviour:
   maxTacticals: 2
   tacticalsCount: 0
   equippedTacticalType: 0
-  smokeGrenadePrefab: {fileID: 0}
+  smokeGrenadePrefab: {fileID: 6808565211055191814, guid: bd1688594ab192641b3a6fdb9a9ddfc9,
+    type: 3}
 --- !u!4 &387716892
 Transform:
   m_ObjectHideFlags: 0
@@ -3032,7 +3038,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &484218001
 Transform:
   m_ObjectHideFlags: 0
@@ -9572,9 +9578,10 @@ MonoBehaviour:
   hoveredWeapon: {fileID: 0}
   hoveredAmmoBox: {fileID: 0}
   hoveredThrowable: {fileID: 0}
-  rayCastLength: 3
+  rayCastLength: 5
   player: {fileID: 15111648}
   jugger: {fileID: 0}
+  dbTap: {fileID: 0}
 --- !u!4 &1700275944
 Transform:
   m_ObjectHideFlags: 0
@@ -13020,6 +13027,7 @@ GameObject:
   - component: {fileID: 4758703517573639285}
   - component: {fileID: 5278675122592462544}
   - component: {fileID: 5278675122592462545}
+  - component: {fileID: 5278675122592462546}
   m_Layer: 0
   m_Name: double-tap
   m_TagString: perk_machine
@@ -13046,8 +13054,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 41.043854, y: 58.5507, z: 24.622955}
-  m_Center: {x: -0.72057724, y: 29.297094, z: 0.8568859}
+  m_Size: {x: 40.456238, y: 58.5507, z: 24.622955}
+  m_Center: {x: 13.9507675, y: 29.297094, z: 0.8568859}
 --- !u!114 &5278675122592462545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13066,6 +13074,24 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!114 &5278675122592462546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5278675122592462543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61ac8e094b3defb4f81cbc87c35f393c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  price: 2000
+  damageIncrease: 2
+  player: {fileID: 0}
+  weaponManager: {fileID: 0}
+  weapon1: {fileID: 0}
+  weapon2: {fileID: 0}
 --- !u!1001 &5292611190913015173
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14130,8 +14156,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 56.378185, y: 82.75549, z: 57.331017}
-  m_Center: {x: 0.8038024, y: 34.61572, z: 0.9678453}
+  m_Size: {x: 56.378143, y: 82.75549, z: 60.374615}
+  m_Center: {x: 0.8038024, y: 34.61572, z: 42.08337}
 --- !u!4 &8170889816885450660
 Transform:
   m_ObjectHideFlags: 0

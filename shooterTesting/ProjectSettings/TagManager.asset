@@ -11,6 +11,8 @@ TagManager:
   - enemSpawnPoint
   - enemyManager
   - perk_machine
+  - FxTemporaire
+  - WeaponManager
   layers:
   - Default
   - TransparentFX

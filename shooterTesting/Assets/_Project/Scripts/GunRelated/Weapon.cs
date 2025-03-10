@@ -28,6 +28,7 @@ public class Weapon : MonoBehaviour
     public float bulletVelocity = 30f;
     public float bulletPrefabLifeTime = 3f;
     public int gunDamage;
+    public int originalGunDamage;
 
     public GameObject muzzleEffect;
     internal Animator animator;
@@ -83,6 +84,7 @@ public class Weapon : MonoBehaviour
         animator = GetComponent<Animator>();
 
         bulletsLeft = magazineSize;
+        originalGunDamage = gunDamage;
     }
 
     // Update is called once per frame
