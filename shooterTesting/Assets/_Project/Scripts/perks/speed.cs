@@ -1,19 +1,22 @@
 using UnityEngine;
 using Platformer397;
 
-public class doubleTap : MonoBehaviour
+public class speed : MonoBehaviour
 {
-    [SerializeField] private int price = 2000;
-    [SerializeField] private int damageIncrease = 2;
+    [SerializeField] private int price = 3000;
+    [SerializeField] private float speedIncrease = 1.05f;
+    [SerializeField] private PlayerController player;
     [SerializeField] private WeaponManager weaponManager;
     public Weapon weapon1 = null;
     public Weapon weapon2 = null;
-    [SerializeField] private float fireRateIncrease = .85f;
+    private float reloadSpeedIncrease = .5f;
 
     void Awake()
     {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         weaponManager = GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>();
     }
+
     public void requestWeapons()
     {
         //If weapon slot 1 is not empty, then get the weapon in slot 1 and change damage
@@ -28,23 +31,23 @@ public class doubleTap : MonoBehaviour
             // Debug.Log("Weapon 2: " + weapon2.name);
         }
     }
-
-    public void increaseDamage(Weapon weapon)
+    public void increaseMoveSpeed()
     {
-        try{weapon.gunDamage = weapon.originalGunDamage * damageIncrease;}
+        player.moveSpeed *= speedIncrease;
+    }
+    public void increaseReloadSpeed(Weapon weapon)
+    {
+        try{weapon.reloadTime = weapon.originalReloadTime * reloadSpeedIncrease;}
         catch(System.NullReferenceException e){/*Debug.LogError("Weapon is null");*/}
     }
-    public void resetEverything(Weapon weapon)
+    public void resetEverything()
     {
-        weapon.gunDamage = weapon.originalGunDamage;
-        weapon.shootingDelay = weapon.originalShootingDelay;
-    }
-    public void increaseFireRate(Weapon weapon)
-    {
-        try{weapon.shootingDelay = weapon.originalShootingDelay * fireRateIncrease;}
+        player.moveSpeed = player.originalSpeed;
+        try{weapon1.reloadTime = weapon1.originalReloadTime;}
+        catch(System.NullReferenceException e){/*Debug.LogError("Weapon is null");*/}
+        try{weapon2.reloadTime = weapon2.originalReloadTime;}
         catch(System.NullReferenceException e){/*Debug.LogError("Weapon is null");*/}
     }
-        
     public int getCost()
     {
         return price;

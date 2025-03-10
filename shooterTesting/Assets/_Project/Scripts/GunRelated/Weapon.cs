@@ -29,12 +29,13 @@ public class Weapon : MonoBehaviour
     public float bulletPrefabLifeTime = 3f;
     public int gunDamage;
     public int originalGunDamage;
+    public float originalShootingDelay;
 
     public GameObject muzzleEffect;
     internal Animator animator;
 
     // Loading
-    public float reloadTime;
+    public float reloadTime, originalReloadTime;
     public int magazineSize, bulletsLeft, bulletReserve;
     public bool isReloading;
 
@@ -85,6 +86,8 @@ public class Weapon : MonoBehaviour
 
         bulletsLeft = magazineSize;
         originalGunDamage = gunDamage;
+        originalReloadTime = reloadTime;
+        originalShootingDelay = shootingDelay;  
     }
 
     // Update is called once per frame

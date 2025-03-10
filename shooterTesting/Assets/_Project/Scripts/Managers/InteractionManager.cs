@@ -18,6 +18,7 @@ public class InteractionManager : MonoBehaviour
     //perk initialization for disabling the outline
     public jug jugger = null;
     public doubleTap dbTap = null;
+    public speed speedCola = null;
 
 
     private void Awake()
@@ -75,6 +76,12 @@ public class InteractionManager : MonoBehaviour
                                 dbTap.requestWeapons();
                                 dbTap.increaseDamage(dbTap.weapon1);
                                 dbTap.increaseDamage(dbTap.weapon2);
+                                dbTap.increaseFireRate(dbTap.weapon1);
+                                dbTap.increaseFireRate(dbTap.weapon2);
+                                speedCola.requestWeapons();
+                                speedCola.increaseMoveSpeed();
+                                speedCola.increaseReloadSpeed(speedCola.weapon1);
+                                speedCola.increaseReloadSpeed(speedCola.weapon2);
                             }
                             else{Debug.Log("You already have this gun! Couldn't purchase"); Destroy(copyOfGun);}
                         }
@@ -102,17 +109,27 @@ public class InteractionManager : MonoBehaviour
                         else{Debug.Log("Not enough money");}
                     }
                     break;
-                // case "speed":
-                //     if(Input.GetKeyDown(KeyCode.F))
-                //     {
-                //         if(player.getMoney() >= objectHitByRaycast.GetComponent<SpeedCola>().getCost())
-                //         {
-                //             player.decreaseMoney(objectHitByRaycast.GetComponent<SpeedCola>().getCost());
-                //             objectHitByRaycast.GetComponent<SpeedCola>().increaseSpeed();
-                //         }
-                //         else{Debug.Log("Not enough money");}
-                //     }
-                //     break;
+                case "speed":
+                    if(player.checkPerk("speed")){/*Debug.Log("Already have speed");*/break;}
+                    speedCola = objectHitByRaycast.gameObject.GetComponent<speed>();
+                    speedCola.GetComponent<Outline>().enabled = true;
+                    int speedPrice = speedCola.getCost();
+                    if(Input.GetKeyDown(KeyCode.F))
+                    {
+                        if(player.getMoney() >= speedPrice)
+                        {
+                            //buy perk
+                            player.decreaseMoney(speedPrice);
+                            speedCola.requestWeapons();
+                            speedCola.increaseMoveSpeed();
+                            speedCola.increaseReloadSpeed(speedCola.weapon1);
+                            speedCola.increaseReloadSpeed(speedCola.weapon2);
+                            player.addPerk("speed");
+                            Debug.Log("Purchased Speed Cola");
+                        }
+                        else{Debug.Log("Not enough money");}
+                    }
+                    break;
                 case "double-tap":
                     if(player.checkPerk("double-tap")){/*Debug.Log("Already have double-tap");*/break;}
                     dbTap = objectHitByRaycast.gameObject.GetComponent<doubleTap>();
@@ -127,6 +144,8 @@ public class InteractionManager : MonoBehaviour
                             dbTap.requestWeapons(); //get the current weapons in the weapon slots
                             dbTap.increaseDamage(dbTap.weapon1); //increase the damage of the weapons
                             dbTap.increaseDamage(dbTap.weapon2);
+                            dbTap.increaseFireRate(dbTap.weapon1); //increase the fire rate of the weapons
+                            dbTap.increaseFireRate(dbTap.weapon2);
                             player.addPerk("double-tap");
                             Debug.Log("Purchased Double-tap");
                         }
@@ -220,6 +239,11 @@ public class InteractionManager : MonoBehaviour
                 {
                     if (dbTap == null) {throw new System.NullReferenceException("Double-tap is null");}
                     else if (dbTap.GetComponent<Outline>().enabled == true) {dbTap.GetComponent<Outline>().enabled = false;}
+                }catch (System.NullReferenceException ex) {/*Debug.LogError(ex.Message);*/}
+                try
+                {
+                    if (speedCola == null) {throw new System.NullReferenceException("Speed Cola is null");}
+                    else if (speedCola.GetComponent<Outline>().enabled == true) {speedCola.GetComponent<Outline>().enabled = false;}
                 }catch (System.NullReferenceException ex) {/*Debug.LogError(ex.Message);*/}
         
             }catch (System.Exception ex) {/*Debug.LogError("An unexpected error occurred: " + ex.Message);*/}

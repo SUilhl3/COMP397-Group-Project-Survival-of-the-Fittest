@@ -12,7 +12,8 @@ namespace Platformer397
         [SerializeField] private Rigidbody rb;
         [SerializeField] private Vector3 movement;
 
-        [SerializeField] private float moveSpeed = 200f;
+        public float moveSpeed = 200f;
+        public float originalSpeed;
         [Header("Camera")]
         [SerializeField] private Transform mainCam;
 
@@ -44,6 +45,7 @@ namespace Platformer397
             rb = GetComponent<Rigidbody>();
             rb.freezeRotation = true;
             mainCam = Camera.main.transform;
+            originalSpeed = moveSpeed;
         }
         void Start()
         {
