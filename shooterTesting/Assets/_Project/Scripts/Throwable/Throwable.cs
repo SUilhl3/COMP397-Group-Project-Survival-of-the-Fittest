@@ -1,3 +1,4 @@
+using Platformer397;
 using System;
 using System.Runtime.ExceptionServices;
 using UnityEngine;
@@ -8,11 +9,14 @@ public class Throwable : MonoBehaviour
     [SerializeField] float delay = 3.0f;
     [SerializeField] float damageRadius = 20f;
     [SerializeField] float explosionForce = 1200f;
+    [SerializeField] private int damage = 10;
 
     float countdown;
 
     bool hasExploded = false;
     public bool hasBeenThrown = false;
+
+    private PlayerController player;
 
     public enum ThrowableType
     {
@@ -23,6 +27,11 @@ public class Throwable : MonoBehaviour
     }
 
     public ThrowableType throwableType;
+
+    private void Awake()
+    {
+        player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+    }
 
     private void Start()
     {
@@ -78,10 +87,17 @@ public class Throwable : MonoBehaviour
             Rigidbody rb = objectInRange.GetComponent<Rigidbody>();
             if (rb != null)
             {
-                // Apply blindness to enemies
+                rb.AddExplosionForce(explosionForce, transform.position, damageRadius);
+            }
+            if (objectInRange.gameObject.CompareTag("enemy"))
+            {
+                //Reaches in to navigation script and turns blindness to true for each enemy caught in radius
+                EnemyNavigation enemy = objectInRange.gameObject.GetComponent<EnemyNavigation>();
+                enemy.isBlinded = true;
             }
 
-            //Also apply damage over here
+
+
         }
     }
 
@@ -102,6 +118,13 @@ public class Throwable : MonoBehaviour
             if(rb!= null)
             {
                 rb.AddExplosionForce(explosionForce, transform.position, damageRadius);
+            }
+            if (objectInRange.gameObject.CompareTag("enemy"))
+            {
+                //For each enemy in radius, causes damage to enemy and adds money to player
+                basicEnemy enemy = objectInRange.gameObject.GetComponent<basicEnemy>();
+                player.addMoney(50);
+                enemy.takeDamage(damage);
             }
 
             //Also apply damage over here

@@ -7,6 +7,9 @@ namespace Platformer397
     {
         private NavMeshAgent agent;
         private Transform player;
+
+        private float timer;
+        public bool isBlinded = false;
         private void Awake()
         {
             agent = GetComponent<NavMeshAgent>();
@@ -16,15 +19,27 @@ namespace Platformer397
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         private void Update()
         {
-            agent.destination = player.position;
-            if (agent.remainingDistance > agent.stoppingDistance)
+            // If not blinded work as normal
+            if (!isBlinded)
             {
-                RotateTowardsVelocity();
+                // Starts timer for blindness effect
+                timer += Time.deltaTime;
+                agent.destination = player.position;
+                if (agent.remainingDistance > agent.stoppingDistance)
+                {
+                    RotateTowardsVelocity();
+                }
+                else
+                {
+                    RotateTowardsPlayer();
+                }
+                if(timer > 5.0f)
+                {
+                    // Turns blindness back to false once timer is up
+                    isBlinded = false;
+                }
             }
-            else
-            {
-                RotateTowardsPlayer();
-            }
+
         }
 
         void RotateTowardsVelocity()
