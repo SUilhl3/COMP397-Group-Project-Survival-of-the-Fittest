@@ -26,8 +26,8 @@ namespace Platformer397
         public AmmoBox hoveredAmmoBox = null;
 
         [Header("Player Health")]
-        [SerializeField] private float playerHealth = 100f;
-        [SerializeField] private int playerMaxHealth = 100;
+        public float playerHealth = 100f;
+        public int playerMaxHealth = 100;
         [SerializeField] private float lastTimeHit = 0f;
         [SerializeField] private float timeToHeal = 3f;
         private float regenTimer = 0f;
@@ -39,6 +39,10 @@ namespace Platformer397
         public bool hasDoubleTap = false;
         public bool hasQuickRevive = false;
         public bool hasDeadshot = false;
+        public jug jugger = null;
+        public doubleTap dbTap = null;
+        public speed speedCola = null;
+        public quickRevive quick = null;
 
         private void Awake()
         {
@@ -184,13 +188,13 @@ namespace Platformer397
             {
                 //do game over stuff 
                 //transistion to game over screen
-                Debug.Log("Game Over");
-            }
-        }
 
-        public void maxHPChange(int amount)
-        {
-            playerMaxHealth += amount;
+                // Debug.Log("Game Over");
+
+                //should add all the perks to game manager so we can reference the game manager instance rather than having multiple game objects on the things that need them
+                if(checkPerk("quick-revive")){quick.downed();}
+                else{playerHealth = 0;} //reset health for now so we can test things but later we need to change scenes or have something happen to end game
+            }
         }
 
         public bool checkPerk(string perk)
@@ -217,12 +221,15 @@ namespace Platformer397
             {
                 case "jug":
                     hasJug = false;
+                    jugger.resetHealth();
                     break;
                 case "speed":
                     hasSpeedCola = false;
+                    speedCola.resetEverything();
                     break;
                 case "double-tap":
                     hasDoubleTap = false;
+                    dbTap.resetEverything();
                     break;
                 case "quick-revive":
                     hasQuickRevive = false;
@@ -233,24 +240,38 @@ namespace Platformer397
             }
         }
 
+        public void loseAllPerks()
+        {
+            if(hasJug){losePerk("jug");}
+            if(hasSpeedCola){losePerk("speed");}
+            if(hasDoubleTap){losePerk("double-tap");}
+            if(hasQuickRevive){losePerk("quick-revive");}
+            if(hasDeadshot){losePerk("deadshot");}
+        }
+
         public void addPerk(string perk)
         {
             switch(perk)
             {
                 case "jug":
                     hasJug = true;
+                    jugger = InteractionManager.Instance.jugger;
                     break;
                 case "speed":
                     hasSpeedCola = true;
+                    speedCola = InteractionManager.Instance.speedCola;
                     break;
                 case "double-tap":
                     hasDoubleTap = true;
+                    dbTap = InteractionManager.Instance.dbTap;
                     break;
                 case "quick-revive":
                     hasQuickRevive = true;
+                    quick = InteractionManager.Instance.quick;
                     break;
                 case "deadshot":
                     hasDeadshot = true;
+                    
                     break;
             }
         }

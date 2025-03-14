@@ -29,19 +29,31 @@ public class doubleTap : MonoBehaviour
         }
     }
 
-    public void increaseDamage(Weapon weapon)
+    public void increaseDamage()
     {
-        try{weapon.gunDamage = weapon.originalGunDamage * damageIncrease;}
+        try{weapon1.gunDamage = weapon1.originalGunDamage * damageIncrease;}
+        catch(System.NullReferenceException e){/*Debug.LogError("Weapon is null");*/}
+        try{weapon2.gunDamage = weapon2.originalGunDamage * damageIncrease;}
         catch(System.NullReferenceException e){/*Debug.LogError("Weapon is null");*/}
     }
-    public void resetEverything(Weapon weapon)
+    public void resetEverything()
     {
-        weapon.gunDamage = weapon.originalGunDamage;
-        weapon.shootingDelay = weapon.originalShootingDelay;
+        try{
+            weapon1.gunDamage = weapon1.originalGunDamage;
+            weapon1.shootingDelay = weapon1.originalShootingDelay;
+            }catch(System.NullReferenceException e){/*Debug.LogError("Weapon is null");*/}
+        try{
+            weapon2.gunDamage = weapon2.originalGunDamage;
+            weapon2.shootingDelay = weapon2.originalShootingDelay;
+            }catch(System.NullReferenceException e){/*Debug.LogError("Weapon is null");*/}
+        weapon1 = null;
+        weapon2 = null;
     }
-    public void increaseFireRate(Weapon weapon)
+    public void increaseFireRate()
     {
-        try{weapon.shootingDelay = weapon.originalShootingDelay * fireRateIncrease;}
+        try{weapon1.shootingDelay = weapon1.originalShootingDelay * fireRateIncrease;}
+        catch(System.NullReferenceException e){/*Debug.LogError("Weapon is null");*/}
+        try{weapon2.shootingDelay = weapon2.originalShootingDelay * fireRateIncrease;}
         catch(System.NullReferenceException e){/*Debug.LogError("Weapon is null");*/}
     }
         

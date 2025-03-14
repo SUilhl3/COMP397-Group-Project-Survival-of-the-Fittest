@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -24,6 +25,7 @@ public class EnemySpawner : MonoBehaviour
         {
             GameObject enemy = Instantiate(enemyPrefab, hit.position, Quaternion.identity); 
             enemy.GetComponent<UnityEngine.AI.NavMeshAgent>().SetDestination(player.position); // Set the destination of the enemy to the player
+            EnemyManager.Instance.allEnemies.Add(enemy);
         }
         else
         {

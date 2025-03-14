@@ -19,6 +19,7 @@ public class InteractionManager : MonoBehaviour
     public jug jugger = null;
     public doubleTap dbTap = null;
     public speed speedCola = null;
+    public quickRevive quick = null;
 
 
     private void Awake()
@@ -73,15 +74,18 @@ public class InteractionManager : MonoBehaviour
                             {
                                 player.decreaseMoney(weaponPrice);
                                 // Debug.Log("Purchased " + hoveredWeapon.name);    
-                                dbTap.requestWeapons();
-                                dbTap.increaseDamage(dbTap.weapon1);
-                                dbTap.increaseDamage(dbTap.weapon2);
-                                dbTap.increaseFireRate(dbTap.weapon1);
-                                dbTap.increaseFireRate(dbTap.weapon2);
-                                speedCola.requestWeapons();
-                                speedCola.increaseMoveSpeed();
-                                speedCola.increaseReloadSpeed(speedCola.weapon1);
-                                speedCola.increaseReloadSpeed(speedCola.weapon2);
+                                if(player.checkPerk("double-tap"))
+                                {
+                                    dbTap.requestWeapons();
+                                    dbTap.increaseDamage();
+                                    dbTap.increaseFireRate();
+                                }   
+                                if(player.checkPerk("speed"))
+                                {
+                                    speedCola.requestWeapons();
+                                    speedCola.increaseMoveSpeed();
+                                    speedCola.increaseReloadSpeed();
+                                }
                             }
                             else{Debug.Log("You already have this gun! Couldn't purchase"); Destroy(copyOfGun);}
                         }
@@ -122,8 +126,7 @@ public class InteractionManager : MonoBehaviour
                             player.decreaseMoney(speedPrice);
                             speedCola.requestWeapons();
                             speedCola.increaseMoveSpeed();
-                            speedCola.increaseReloadSpeed(speedCola.weapon1);
-                            speedCola.increaseReloadSpeed(speedCola.weapon2);
+                            speedCola.increaseReloadSpeed();
                             player.addPerk("speed");
                             Debug.Log("Purchased Speed Cola");
                         }
@@ -142,27 +145,29 @@ public class InteractionManager : MonoBehaviour
                             //buy perk
                             player.decreaseMoney(dbTapPrice);
                             dbTap.requestWeapons(); //get the current weapons in the weapon slots
-                            dbTap.increaseDamage(dbTap.weapon1); //increase the damage of the weapons
-                            dbTap.increaseDamage(dbTap.weapon2);
-                            dbTap.increaseFireRate(dbTap.weapon1); //increase the fire rate of the weapons
-                            dbTap.increaseFireRate(dbTap.weapon2);
+                            dbTap.increaseDamage(); //increase the damage of the weapons
+                            dbTap.increaseFireRate(); //increase the fire rate of the weapons
                             player.addPerk("double-tap");
                             Debug.Log("Purchased Double-tap");
                         }
                         else{Debug.Log("Not enough money");}
                     }
                     break;
-                // case "quick-revive":
-                //     if(Input.GetKeyDown(KeyCode.F))
-                //     {
-                //         if(player.getMoney() >= objectHitByRaycast.GetComponent<QuickRevive>().getCost())
-                //         {
-                //             player.decreaseMoney(objectHitByRaycast.GetComponent<QuickRevive>().getCost());
-                //             objectHitByRaycast.GetComponent<QuickRevive>().revive();
-                //         }
-                //         else{Debug.Log("Not enough money");}
-                //     }
-                //     break;
+                case "quick-revive":
+                    if(player.checkPerk("quick-revive")){/*Debug.Log("Already have quick-revive");*/break;}
+                    quick = objectHitByRaycast.gameObject.GetComponent<quickRevive>();
+                    quick.GetComponent<Outline>().enabled = true;
+                    int quickPrice = quick.getCost();
+                    if(Input.GetKeyDown(KeyCode.F))
+                    {
+                        if(player.getMoney() >= quickPrice)
+                        {
+                            player.decreaseMoney(quickPrice);
+                            player.addPerk("quick-revive");
+                        }
+                        else{Debug.Log("Not enough money");}
+                    }
+                    break;
                 // case "MysteryBox":
                 //     if(Input.GetKeyDown(KeyCode.F))
                 //     {
@@ -244,6 +249,11 @@ public class InteractionManager : MonoBehaviour
                 {
                     if (speedCola == null) {throw new System.NullReferenceException("Speed Cola is null");}
                     else if (speedCola.GetComponent<Outline>().enabled == true) {speedCola.GetComponent<Outline>().enabled = false;}
+                }catch (System.NullReferenceException ex) {/*Debug.LogError(ex.Message);*/}
+                try
+                {
+                    if (quick == null) {throw new System.NullReferenceException("Quick-revive is null");}
+                    else if (quick.GetComponent<Outline>().enabled == true) {quick.GetComponent<Outline>().enabled = false;}
                 }catch (System.NullReferenceException ex) {/*Debug.LogError(ex.Message);*/}
         
             }catch (System.Exception ex) {/*Debug.LogError("An unexpected error occurred: " + ex.Message);*/}

@@ -5527,12 +5527,15 @@ MonoBehaviour:
   bulletVelocity: 600
   bulletPrefabLifeTime: 3
   gunDamage: 55
+  originalGunDamage: 0
+  originalShootingDelay: 0
   muzzleEffect: {fileID: 945887695195885284}
   reloadTime: 2
+  originalReloadTime: 0
   magazineSize: 30
   bulletsLeft: 30
   bulletReserve: 120
-  isReloading: 1
+  isReloading: 0
   spawnPosition: {x: 0, y: 0, z: 0}
   spawnRotation: {x: 0, y: 0, z: 0}
   thisWeaponModel: 5

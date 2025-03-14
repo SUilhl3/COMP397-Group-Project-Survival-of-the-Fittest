@@ -133,7 +133,7 @@ public class WeaponManager : MonoBehaviour
     }
     catch (Exception e) // Catch any other unexpected errors
     {
-        Debug.LogError("An unexpected error occurred: " + e.Message);
+        // Debug.LogError("An unexpected error occurred: " + e.Message);
     }
     finally
     {

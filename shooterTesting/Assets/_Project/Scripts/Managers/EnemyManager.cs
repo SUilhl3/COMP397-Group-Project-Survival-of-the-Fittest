@@ -2,13 +2,17 @@ using UnityEngine;
 using System.Threading.Tasks;
 using System.Linq;
 using Platformer397;
+using System.Collections.Generic;
 
 public class EnemyManager : MonoBehaviour
 {
+    public static EnemyManager Instance {get;private set;}
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private EnemySpawner[] allSpawners; //holds the spawners available
+    public List<GameObject> allEnemies = new List<GameObject>(); //holds all enemies to be reference in certain circumstances
+    public int test = 0;
     [SerializeField] private EnemySpawner enemSpawn; //the selected spawner
-    private float changeInterval = 5f; //the time it takes to spawn an enemy
+    [SerializeField] private float changeInterval = 5f; //the time it takes to spawn an enemy
 
     [SerializeField] private int round = 0; //the current round
     [SerializeField] private int enemyStartingAmount; //the amount of enemies in the round
@@ -20,6 +24,14 @@ public class EnemyManager : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
         player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
         playerRoom = player.currentRoom;
     }
@@ -38,8 +50,11 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
-    public void EnemyDied()
+
+
+    public void EnemyDied(GameObject deadEnemy)
     {
+        allEnemies.Remove(deadEnemy);
         enemiesLeft--;
     }
     async void AssignRandomSpawner()
@@ -104,5 +119,32 @@ public class EnemyManager : MonoBehaviour
 
         enemiesLeft = enemyStartingAmount;
         Debug.Log("Round: " + round + " Enemy Amount: " + enemyStartingAmount);
+    }
+
+    public void stopAllEnemies()
+    {
+        foreach(GameObject enemy in allEnemies)
+        {
+            if(enemy != null)
+            {
+                UnityEngine.AI.NavMeshAgent agent = enemy.GetComponent<UnityEngine.AI.NavMeshAgent>();
+                if(agent != null)
+                {
+                    agent.isStopped = true;
+                }
+            }
+        }
+    }
+
+    public void continueAllEnemies()
+    {
+        foreach(GameObject enemy in allEnemies)
+        {
+            if(enemy != null) //in case list is empty due to dying to not an enemy when there are no enemies
+            {
+                UnityEngine.AI.NavMeshAgent agent = enemy.GetComponent<UnityEngine.AI.NavMeshAgent>(); //get the navmesh agent of each enemy. Made to a foreach local so the previous enemy doesnt affect the next check
+                if(agent != null){agent.isStopped = false;} //if the agent is valid, resume the agent
+            }
+        }
     }
 }

@@ -4,7 +4,6 @@ using Platformer397;
 public class jug : MonoBehaviour
 {
     [SerializeField] private int price = 2500;
-    [SerializeField] private int hpIncAmount = 100; //serializefield in case we want to change it for balancing purposes
     [SerializeField] private PlayerController player;
 
     void Awake()
@@ -14,11 +13,11 @@ public class jug : MonoBehaviour
 
     public void increaseHealth()
     {
-        player.maxHPChange(hpIncAmount);
+        player.playerMaxHealth = 200;
     }
     public void resetHealth()
     {
-        player.maxHPChange(-hpIncAmount);
+        player.playerMaxHealth = 100;
     }
     public int getCost()
     {

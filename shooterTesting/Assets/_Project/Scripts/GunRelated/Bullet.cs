@@ -38,9 +38,19 @@ public class Bullet : MonoBehaviour
 
         if(objectWeHit.gameObject.CompareTag("enemy"))
         {
-            basicEnemy enemy = objectWeHit.gameObject.GetComponent<basicEnemy>();
+            bool head = false;
+            if(objectWeHit.gameObject.name == "head"){
+                head = true;
+                basicEnemy enemy = objectWeHit.gameObject.transform.parent.GetComponent<basicEnemy>();
+                enemy.takeDamage(damage*2);
+                Debug.Log("Headshot");
+            }
+            else if(head == false){
+                basicEnemy enemy = objectWeHit.gameObject.GetComponent<basicEnemy>();
+                enemy.takeDamage(damage);
+                Debug.Log("body shot");
+                }
             player.addMoney(10);
-            enemy.takeDamage(damage);
         }
     }
 

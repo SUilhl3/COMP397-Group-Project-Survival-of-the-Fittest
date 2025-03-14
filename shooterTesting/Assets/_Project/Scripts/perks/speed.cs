@@ -35,9 +35,11 @@ public class speed : MonoBehaviour
     {
         player.moveSpeed *= speedIncrease;
     }
-    public void increaseReloadSpeed(Weapon weapon)
+    public void increaseReloadSpeed()
     {
-        try{weapon.reloadTime = weapon.originalReloadTime * reloadSpeedIncrease;}
+        try{weapon1.reloadTime = weapon1.originalReloadTime * reloadSpeedIncrease;}
+        catch(System.NullReferenceException e){/*Debug.LogError("Weapon is null");*/}
+        try{weapon2.reloadTime = weapon2.originalReloadTime * reloadSpeedIncrease;}
         catch(System.NullReferenceException e){/*Debug.LogError("Weapon is null");*/}
     }
     public void resetEverything()
@@ -47,6 +49,8 @@ public class speed : MonoBehaviour
         catch(System.NullReferenceException e){/*Debug.LogError("Weapon is null");*/}
         try{weapon2.reloadTime = weapon2.originalReloadTime;}
         catch(System.NullReferenceException e){/*Debug.LogError("Weapon is null");*/}
+        weapon1 = null;
+        weapon2 = null;
     }
     public int getCost()
     {
