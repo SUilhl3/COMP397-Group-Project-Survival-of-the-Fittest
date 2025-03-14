@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEditor.UI;
 using UnityEngine;
 using Platformer397;
-
+using System;
 public class Bullet : MonoBehaviour
 {
     public int damage;
+    public float headShotMultiplier;
     private PlayerController player;
 
     void Awake()
@@ -42,7 +43,7 @@ public class Bullet : MonoBehaviour
             if(objectWeHit.gameObject.name == "head"){
                 head = true;
                 basicEnemy enemy = objectWeHit.gameObject.transform.parent.GetComponent<basicEnemy>();
-                enemy.takeDamage(damage*2);
+                enemy.takeDamage((int)Math.Floor(damage*headShotMultiplier));
                 Debug.Log("Headshot");
             }
             else if(head == false){

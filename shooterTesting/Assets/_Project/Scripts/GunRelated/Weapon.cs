@@ -20,6 +20,7 @@ public class Weapon : MonoBehaviour
 
     //Spread
     public float spreadIntensity;
+    public float originalSpread;
 
     // Bullet
 
@@ -28,6 +29,8 @@ public class Weapon : MonoBehaviour
     public float bulletVelocity = 30f;
     public float bulletPrefabLifeTime = 3f;
     public int gunDamage;
+    public float headShotMultiplier;
+    public float originalHSM;
     public int originalGunDamage;
     public float originalShootingDelay;
 
@@ -45,6 +48,9 @@ public class Weapon : MonoBehaviour
     //cooldown for audio 
     float cooldownTime = .5f;
     float lastTimeExecuted = -Mathf.Infinity;
+
+    static System.Random random = new System.Random();
+    public double bigDamageChance = 0.0;
 
     //I think these will be based off the guns we have 
     public enum WeaponModel
@@ -86,8 +92,10 @@ public class Weapon : MonoBehaviour
 
         bulletsLeft = magazineSize;
         originalGunDamage = gunDamage;
+        originalHSM = headShotMultiplier;
         originalReloadTime = reloadTime;
         originalShootingDelay = shootingDelay;  
+        originalSpread = spreadIntensity;
     }
 
     // Update is called once per frame
@@ -134,6 +142,12 @@ public class Weapon : MonoBehaviour
 
     }
 
+    public bool bigDamage(double chance)
+    {
+        if(random.NextDouble() < chance) {return true;}
+        return false;
+    }
+
     private void FireWeapon()
     {
         bulletsLeft--;
@@ -158,6 +172,8 @@ public class Weapon : MonoBehaviour
         //Instantiate the bullet
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.identity);
         bullet.GetComponent<Bullet>().damage = gunDamage;
+        if(bigDamage(bigDamageChance)){bullet.GetComponent<Bullet>().headShotMultiplier = headShotMultiplier*50;Debug.Log("BIG DAMAGE");}
+        else{bullet.GetComponent<Bullet>().headShotMultiplier = headShotMultiplier;}
 
         //point the bullet to face shooting direction
         bullet.transform.forward = shootingDirection;

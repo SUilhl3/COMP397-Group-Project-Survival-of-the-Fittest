@@ -5222,8 +5222,13 @@ MonoBehaviour:
   bulletVelocity: 600
   bulletPrefabLifeTime: 3
   gunDamage: 35
+  headShotMultiplier: 2
+  originalHSM: 0
+  originalGunDamage: 0
+  originalShootingDelay: 0
   muzzleEffect: {fileID: 3304168134382029712}
   reloadTime: 1.3
+  originalReloadTime: 0
   magazineSize: 32
   bulletsLeft: 32
   bulletReserve: 192

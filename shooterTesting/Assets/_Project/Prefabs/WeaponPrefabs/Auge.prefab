@@ -5527,6 +5527,8 @@ MonoBehaviour:
   bulletVelocity: 600
   bulletPrefabLifeTime: 3
   gunDamage: 55
+  headShotMultiplier: 2
+  originalHSM: 0
   originalGunDamage: 0
   originalShootingDelay: 0
   muzzleEffect: {fileID: 945887695195885284}

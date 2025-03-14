@@ -44,7 +44,10 @@ public class speed : MonoBehaviour
     }
     public void resetEverything()
     {
-        player.moveSpeed = player.originalSpeed;
+        //doesn't reset speed since the only time this will be called is if we reach 0hp with quick revive, quick revive resets speed already so we don't need it here
+        //speed reset until menus are working properly
+        if(player.checkPerk("quick-revive")){}
+        else{player.moveSpeed = player.originalSpeed;}
         try{weapon1.reloadTime = weapon1.originalReloadTime;}
         catch(System.NullReferenceException e){/*Debug.LogError("Weapon is null");*/}
         try{weapon2.reloadTime = weapon2.originalReloadTime;}

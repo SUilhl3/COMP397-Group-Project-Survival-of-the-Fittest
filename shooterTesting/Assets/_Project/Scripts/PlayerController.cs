@@ -43,6 +43,7 @@ namespace Platformer397
         public doubleTap dbTap = null;
         public speed speedCola = null;
         public quickRevive quick = null;
+        public deadshot dShot = null;
 
         private void Awake()
         {
@@ -194,6 +195,7 @@ namespace Platformer397
                 //should add all the perks to game manager so we can reference the game manager instance rather than having multiple game objects on the things that need them
                 if(checkPerk("quick-revive")){quick.downed();}
                 else{playerHealth = 0;} //reset health for now so we can test things but later we need to change scenes or have something happen to end game
+                loseAllPerks();
             }
         }
 
@@ -236,6 +238,7 @@ namespace Platformer397
                     break;
                 case "deadshot":
                     hasDeadshot = false;
+                    dShot.resetEverything();
                     break;
             }
         }
@@ -271,7 +274,7 @@ namespace Platformer397
                     break;
                 case "deadshot":
                     hasDeadshot = true;
-                    
+                    dShot = InteractionManager.Instance.dShot;
                     break;
             }
         }

@@ -20,6 +20,7 @@ public class InteractionManager : MonoBehaviour
     public doubleTap dbTap = null;
     public speed speedCola = null;
     public quickRevive quick = null;
+    public deadshot dShot = null;
 
 
     private void Awake()
@@ -85,6 +86,11 @@ public class InteractionManager : MonoBehaviour
                                     speedCola.requestWeapons();
                                     speedCola.increaseMoveSpeed();
                                     speedCola.increaseReloadSpeed();
+                                }
+                                if(player.checkPerk("deadshot"))
+                                {
+                                    dShot.requestWeapons();
+                                    dShot.increaseHSM();
                                 }
                             }
                             else{Debug.Log("You already have this gun! Couldn't purchase"); Destroy(copyOfGun);}
@@ -168,6 +174,26 @@ public class InteractionManager : MonoBehaviour
                         else{Debug.Log("Not enough money");}
                     }
                     break;
+
+                case "deadshot":
+                    if(player.checkPerk("deadshot")){/*Debug.Log("Already have deadshot");*/break;}
+                    dShot = objectHitByRaycast.gameObject.GetComponent<deadshot>();
+                    dShot.GetComponent<Outline>().enabled = true;
+                    int dShotPrice = dShot.getCost();
+                    if(Input.GetKeyDown(KeyCode.F))
+                    {
+                        if(player.getMoney() >= dShotPrice)
+                        {
+                            player.decreaseMoney(dShotPrice);
+                            dShot.requestWeapons();
+                            dShot.increaseHSM();
+                            dShot.reduceSpread();
+                            player.addPerk("deadshot");
+                        }
+                        else{Debug.Log("Not enough money");}
+                    }
+                    break;
+
                 // case "MysteryBox":
                 //     if(Input.GetKeyDown(KeyCode.F))
                 //     {
@@ -254,6 +280,11 @@ public class InteractionManager : MonoBehaviour
                 {
                     if (quick == null) {throw new System.NullReferenceException("Quick-revive is null");}
                     else if (quick.GetComponent<Outline>().enabled == true) {quick.GetComponent<Outline>().enabled = false;}
+                }catch (System.NullReferenceException ex) {/*Debug.LogError(ex.Message);*/}
+                try
+                {
+                    if (dShot == null) {throw new System.NullReferenceException("Deadshot is null");}
+                    else if (dShot.GetComponent<Outline>().enabled == true) {dShot.GetComponent<Outline>().enabled = false;}
                 }catch (System.NullReferenceException ex) {/*Debug.LogError(ex.Message);*/}
         
             }catch (System.Exception ex) {/*Debug.LogError("An unexpected error occurred: " + ex.Message);*/}
