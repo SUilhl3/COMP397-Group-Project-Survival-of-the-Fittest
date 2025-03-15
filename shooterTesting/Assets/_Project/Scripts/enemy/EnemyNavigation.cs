@@ -8,7 +8,7 @@ namespace Platformer397
         private NavMeshAgent agent;
         private Transform player;
 
-        private float timer;
+        [SerializeField] private float timer;
         public bool isBlinded = false;
         private void Awake()
         {
@@ -22,8 +22,8 @@ namespace Platformer397
             // If not blinded work as normal
             if (!isBlinded)
             {
+
                 // Starts timer for blindness effect
-                timer += Time.deltaTime;
                 agent.destination = player.position;
                 if (agent.remainingDistance > agent.stoppingDistance)
                 {
@@ -33,10 +33,16 @@ namespace Platformer397
                 {
                     RotateTowardsPlayer();
                 }
-                if(timer > 5.0f)
+
+            }
+            if (isBlinded)
+            {
+                timer += Time.deltaTime;
+                if (timer > 5.0f)
                 {
                     // Turns blindness back to false once timer is up
                     isBlinded = false;
+                    timer = 0;
                 }
             }
 

@@ -6,8 +6,42 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Audio;
 
-public class PauseMenu : MonoBehaviour
+public class PauseMenuController : MonoBehaviour
 {
+
+    public static PauseMenuController Instance { get; private set; }
+    private PauseMenu menu;
+    public GameObject pause;
+
+    private void Awake()
+    {
+        if(Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        pause.SetActive(false);
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        menu = GetComponent<PauseMenu>();
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            pause.SetActive(true);
+            Pause();
+        }
+    }
+
     [Header("Pause Menu Buttons")]
     [SerializeField] private GameObject firstSelected;
 
@@ -18,28 +52,13 @@ public class PauseMenu : MonoBehaviour
 
 
     // Update is called once per frame
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape) && !GameIsPause)
-        {
-            if (GameIsPause)
-            {
-                Resume();
-            }
-            else
-            {
-                Pause();
-            }
-        }
-
-    }
 
     public void Resume()
     {
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         GameIsPause = false;
-        hideUI.SetActive(false);
+        hideUI.SetActive(true);
     }
 
     public void Pause()
@@ -47,8 +66,7 @@ public class PauseMenu : MonoBehaviour
         StartCoroutine(SelectFirstChoice());
         Time.timeScale = 0f;
         GameIsPause = true;
-        hideUI.SetActive(true);
-        pauseMenuUI.SetActive(true);
+        hideUI.SetActive(false);
     }
     public void SetVolume(float volume)
     {

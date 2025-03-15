@@ -46,6 +46,7 @@ public class Throwable : MonoBehaviour
             if(countdown <= 0f && !hasExploded)
             {
                 Explode();
+                Destroy(gameObject);
                 hasExploded = true;
             }
         }
@@ -84,20 +85,11 @@ public class Throwable : MonoBehaviour
         Collider[] colliders = Physics.OverlapSphere(transform.position, damageRadius);
         foreach (Collider objectInRange in colliders)
         {
-            Rigidbody rb = objectInRange.GetComponent<Rigidbody>();
-            if (rb != null)
+            EnemyNavigation en = objectInRange.GetComponent<EnemyNavigation>();
+            if (en != null)
             {
-                rb.AddExplosionForce(explosionForce, transform.position, damageRadius);
+                en.isBlinded = true; 
             }
-            if (objectInRange.gameObject.CompareTag("enemy"))
-            {
-                //Reaches in to navigation script and turns blindness to true for each enemy caught in radius
-                EnemyNavigation enemy = objectInRange.gameObject.GetComponent<EnemyNavigation>();
-                enemy.isBlinded = true;
-            }
-
-
-
         }
     }
 
@@ -114,18 +106,13 @@ public class Throwable : MonoBehaviour
         Collider[] colliders = Physics.OverlapSphere(transform.position, damageRadius);
         foreach(Collider objectInRange in colliders)
         {
-            Rigidbody rb = objectInRange.GetComponent<Rigidbody>();
-            if(rb!= null)
+            basicEnemy be = objectInRange.GetComponent<basicEnemy>();
+            if (be != null)
             {
-                rb.AddExplosionForce(explosionForce, transform.position, damageRadius);
-            }
-            if (objectInRange.gameObject.CompareTag("enemy"))
-            {
-                //For each enemy in radius, causes damage to enemy and adds money to player
-                basicEnemy enemy = objectInRange.gameObject.GetComponent<basicEnemy>();
+                be.takeDamage(damage);
                 player.addMoney(50);
-                enemy.takeDamage(damage);
             }
+
 
             //Also apply damage over here
         }

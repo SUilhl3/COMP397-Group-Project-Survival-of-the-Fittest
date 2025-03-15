@@ -290,6 +290,8 @@ public class InteractionManager : MonoBehaviour
             }catch (System.Exception ex) {/*Debug.LogError("An unexpected error occurred: " + ex.Message);*/}
         }
 
-    } //end of update
+
+    } //end of update 
+    // christ that's a long update
 
 }

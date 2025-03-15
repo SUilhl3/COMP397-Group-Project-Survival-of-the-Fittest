@@ -332,7 +332,7 @@ public class WeaponManager : MonoBehaviour
 
         if (tacticalsCount <= 0)
         {
-            equippedLethalType = Throwable.ThrowableType.None;
+            equippedTacticalType = Throwable.ThrowableType.None;
         }
 
         HUDManager.Instance.UpdateThrowables();

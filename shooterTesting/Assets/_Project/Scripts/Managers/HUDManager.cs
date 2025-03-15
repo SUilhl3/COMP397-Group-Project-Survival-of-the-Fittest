@@ -30,6 +30,7 @@ public class HUDManager : MonoBehaviour
     public Sprite emptySlot;
     public Sprite greySlot;
 
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -41,6 +42,7 @@ public class HUDManager : MonoBehaviour
             Instance = this;
         }
     }
+
 
     private void Update()
     {
@@ -80,6 +82,7 @@ public class HUDManager : MonoBehaviour
         {
             tacticalUI.sprite = greySlot;
         }
+
     }
 
     //have to edit this eventually to include more models
