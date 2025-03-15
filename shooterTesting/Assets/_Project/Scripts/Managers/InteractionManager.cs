@@ -21,6 +21,8 @@ public class InteractionManager : MonoBehaviour
     public speed speedCola = null;
     public quickRevive quick = null;
     public deadshot dShot = null;
+    //barrier init for disabling the outline
+    public buyBarriers barrier;
 
 
     private void Awake()
@@ -97,6 +99,18 @@ public class InteractionManager : MonoBehaviour
                         }
                     else{Debug.Log("Not enough money");}
                     }
+            }
+
+            else if(objectHitByRaycast.GetComponent<buyBarriers>())
+            {
+                barrier = objectHitByRaycast.GetComponent<buyBarriers>();
+                barrier.GetComponent<Outline>().enabled = true;
+                int barrierCost = barrier.getCost();
+                if(Input.GetKeyDown(KeyCode.F))
+                {
+                    if(player.getMoney() >= barrierCost) {barrier.purchased();player.decreaseMoney(barrierCost);}
+                    else{Debug.Log("Not enough money");}
+                }
             }
             
             switch(objectHitByRaycast.gameObject.name) //checks if raycast hit is a jug, speedcola, doubletap, quickrevive, or mysterybox
@@ -285,6 +299,11 @@ public class InteractionManager : MonoBehaviour
                 {
                     if (dShot == null) {throw new System.NullReferenceException("Deadshot is null");}
                     else if (dShot.GetComponent<Outline>().enabled == true) {dShot.GetComponent<Outline>().enabled = false;}
+                }catch (System.NullReferenceException ex) {/*Debug.LogError(ex.Message);*/}
+                try
+                {
+                    if (barrier == null) {throw new System.NullReferenceException("Barrier is null");}
+                    else if (barrier.GetComponent<Outline>().enabled == true) {barrier.GetComponent<Outline>().enabled = false;}
                 }catch (System.NullReferenceException ex) {/*Debug.LogError(ex.Message);*/}
         
             }catch (System.Exception ex) {/*Debug.LogError("An unexpected error occurred: " + ex.Message);*/}

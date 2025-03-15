@@ -5313,8 +5313,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6177633490810220330}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.54900026, y: 0.070000015, z: 1.392}
+  m_LocalRotation: {x: 0, y: 0.99955314, z: 0, w: 0.029892955}
+  m_LocalPosition: {x: 0.3, y: 1.15, z: 0.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5335,7 +5335,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b21e009860d515c48a1bce07ae9a89e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isActiveWeapon: 0
+  isActiveWeapon: 1
   weaponCost: 0
   isShooting: 0
   readyToShoot: 0
@@ -5343,6 +5343,7 @@ MonoBehaviour:
   bulletsPerBurst: 1
   burstBulletsLeft: 0
   spreadIntensity: 0.05
+  originalSpread: 0
   bulletPrefab: {fileID: 3421263116825398914, guid: 7313e887589952a45b4ca3292141bf77,
     type: 3}
   bulletSpawn: {fileID: 4823669198585917906}
@@ -5362,6 +5363,7 @@ MonoBehaviour:
   isReloading: 0
   spawnPosition: {x: 0.1, y: 1.15, z: 0.6}
   spawnRotation: {x: 0, y: 176.574, z: 0}
+  bigDamageChance: 0
   thisWeaponModel: 0
   currentShootingMode: 0
 --- !u!65 &4454580505049091211
@@ -5381,7 +5383,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 0.1, y: 0.15, z: 0.3}
   m_Center: {x: 0, y: -0.02, z: -0.02}

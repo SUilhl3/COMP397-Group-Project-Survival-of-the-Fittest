@@ -59,10 +59,10 @@ public class EnemyManager : MonoBehaviour
     async void AssignRandomSpawner()
     {
         //if the round is 5, stop the spawners from spawning
-        if(round == 5)
-        {
-            CancelInvoke("AssignRandomSpawner");
-        }
+        // if(round == 5)
+        // {
+        //     CancelInvoke("AssignRandomSpawner");
+        // }
         //if there are no enemies left in the round, increase the round
         if(enemiesLeft <= 0)
         {

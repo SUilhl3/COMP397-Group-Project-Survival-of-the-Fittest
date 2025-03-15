@@ -10,6 +10,7 @@ public class WeaponManager : MonoBehaviour
     public static WeaponManager Instance { get; private set; }
     public GameObject weaponSlot1;
     public GameObject weaponSlot2;
+    [SerializeField] private GameObject startingGun;
 
     public GameObject activeWeaponSlot;
 
@@ -45,13 +46,14 @@ public class WeaponManager : MonoBehaviour
         {
             Instance = this;
         }
-        activeWeaponSlot = weaponSlot1;
     }
 
     public void Start()
     {
         equippedLethalType = Throwable.ThrowableType.None;
         equippedTacticalType = Throwable.ThrowableType.None;
+        activeWeaponSlot = weaponSlot1;
+        PickUpWeapon(startingGun);
     }
 
     private void Update()
