@@ -10,7 +10,6 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private EnemySpawner[] allSpawners; //holds the spawners available
     public List<GameObject> allEnemies = new List<GameObject>(); //holds all enemies to be reference in certain circumstances
-    public int test = 0;
     [SerializeField] private EnemySpawner enemSpawn; //the selected spawner
     [SerializeField] private float changeInterval = 5f; //the time it takes to spawn an enemy
 
