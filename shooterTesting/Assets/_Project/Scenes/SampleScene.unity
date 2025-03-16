@@ -1047,6 +1047,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2013048288722773268}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &179467530 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3233580349899501117, guid: 78cd0927715c76748a4c4a3008995e25,
+    type: 3}
+  m_PrefabInstance: {fileID: 7120873200664558097}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &203660155
 GameObject:
   m_ObjectHideFlags: 0
@@ -2046,8 +2052,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponSlot1: {fileID: 821445738}
   weaponSlot2: {fileID: 593376082}
-  startingGun: {fileID: 0}
-  activeWeaponSlot: {fileID: 0}
+  startingGun: {fileID: 179467530}
+  activeWeaponSlot: {fileID: 531734642}
   throwForce: 40
   throwableSpawn: {fileID: 1402127350}
   forceMultiplier: 0
@@ -2959,6 +2965,12 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &531734642 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6177633490810220330, guid: c14da227beeee944ca43415804f81688,
+    type: 3}
+  m_PrefabInstance: {fileID: 8967181877111502475}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &553467792
 GameObject:
   m_ObjectHideFlags: 0
