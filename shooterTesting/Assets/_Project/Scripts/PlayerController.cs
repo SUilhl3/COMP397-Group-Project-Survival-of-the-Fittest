@@ -67,6 +67,7 @@ namespace Platformer397
                 playerHealth = Mathf.Min(playerHealth, playerMaxHealth);
             }
             else{regenTimer = 0f;}
+            HUDManager.Instance.HealthShower(playerHealth, playerMaxHealth);
         }
 
         private void OnEnable()

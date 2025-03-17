@@ -14,6 +14,7 @@ public class jug : MonoBehaviour
     public void increaseHealth()
     {
         player.playerMaxHealth = 200;
+        player.playerHealth = 200;
     }
     public void resetHealth()
     {
