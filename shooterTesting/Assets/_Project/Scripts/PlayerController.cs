@@ -1,4 +1,5 @@
 using UnityEngine;
+using Unity.Cinemachine;
 
 namespace Platformer397
 {
@@ -16,6 +17,12 @@ namespace Platformer397
         public float originalSpeed;
         [Header("Camera")]
         [SerializeField] private Transform mainCam;
+        private float previousYRotation;
+        private float rotationSpeed;
+        [SerializeField] private float rotationAmount = 100f;
+        [SerializeField] private CinemachinePanTilt panTilt;
+        private float panAxisValue;
+        private float camSpeed;
 
         [Header("Misc")]
         public string currentRoom = "Room1";
@@ -55,6 +62,7 @@ namespace Platformer397
         void Start()
         {
             input.EnablePlayerActions();
+            previousYRotation = panTilt.PanAxis.Value;
         }
 
         void Update()
@@ -67,7 +75,7 @@ namespace Platformer397
                 playerHealth = Mathf.Min(playerHealth, playerMaxHealth);
             }
             else{regenTimer = 0f;}
-            HUDManager.Instance.HealthShower(playerHealth, playerMaxHealth);
+            // HUDManager.Instance.HealthShower(playerHealth, playerMaxHealth);
         }
 
         private void OnEnable()
@@ -81,11 +89,12 @@ namespace Platformer397
             input.Move -= GetMovement;
             input.Interact -= HandleInteraction;
         }
-
         private void FixedUpdate()
         {
             UpdateMovement();
-            UpdateRotation();
+            if(panTilt != null) {panAxisValue = panTilt.PanAxis.Value;}
+            camSpeed = CalculateCameraPanSpeed(panAxisValue);
+            UpdateRotation(camSpeed);
         }
 
         private void UpdateMovement()
@@ -101,21 +110,32 @@ namespace Platformer397
             else
             {
                 //not change, but need to apply rigidbody y movement for gravity
-                rb.linearVelocity = new Vector3(0f, rb.linearVelocity.y, 0f);
+                rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
             }
+        }
+
+        private void UpdateRotation(float speed)
+        {   
+            // transform.Rotate(0f, 500f * Time.deltaTime, 0f);
+            transform.Rotate(0f,speed,0f);
+        }
+
+        private float CalculateCameraPanSpeed(float panValue)
+        {
+            //get the rotation of the camera
+            float currentYRotation = panValue;
+            float rotationDelta = Mathf.DeltaAngle(previousYRotation, currentYRotation);
+            previousYRotation = currentYRotation; //update the previous rotation so that is accurate next time function is called
+            return rotationDelta;
         }
 
         private void HandleMovement(Vector3 adjustedMovement)
         {
-            var velocity = adjustedMovement * moveSpeed * Time.fixedDeltaTime;
-            rb.linearVelocity = new Vector3(velocity.x, rb.linearVelocity.y, velocity.z);
+            Vector3 velocity = rb.position + adjustedMovement.normalized * moveSpeed / 1000;
+            rb.MovePosition(velocity);
         }
 
-        private void UpdateRotation()
-        {
-            Vector3 newRotation = new Vector3(0, mainCam.eulerAngles.y, 0);
-            transform.rotation = Quaternion.Euler(newRotation);
-        }
+
 
         private void GetMovement(Vector2 move)
         {
