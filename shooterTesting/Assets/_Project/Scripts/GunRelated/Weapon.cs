@@ -27,7 +27,7 @@ public class Weapon : MonoBehaviour
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
     public float bulletVelocity = 30f;
-    public float bulletPrefabLifeTime = 3f;
+    public float bulletPrefabLifeTime = 30f;
     public int gunDamage;
     public float headShotMultiplier;
     public float originalHSM;
@@ -167,7 +167,7 @@ public class Weapon : MonoBehaviour
         readyToShoot = false;
 
         Vector3 shootingDirection = CalculateDirectionAndSpread().normalized;
-
+        // Debug.DrawRay(bulletSpawn.position, shootingDirection * 100f, Color.blue, 1f);
 
         //Instantiate the bullet
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.identity);
@@ -179,7 +179,7 @@ public class Weapon : MonoBehaviour
         bullet.transform.forward = shootingDirection;
 
         //shoot the bullet
-        bullet.GetComponent<Rigidbody>().AddForce(shootingDirection * bulletVelocity, ForceMode.Impulse);
+        bullet.GetComponent<Rigidbody>().AddForce(shootingDirection.normalized * bulletVelocity, ForceMode.Impulse);
         // destroy the bullet after some time
         StartCoroutine(DestroyBulletAfterTime(bullet, bulletPrefabLifeTime));
 
@@ -234,11 +234,11 @@ public class Weapon : MonoBehaviour
 
     public Vector3 CalculateDirectionAndSpread()
     {
-        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f,0));
         RaycastHit hit;
 
         Vector3 targetPoint;
-        if(Physics.Raycast(ray, out hit))
+        if(Physics.Raycast(ray, out hit, 10000f))
         {
             // Hitting something
             targetPoint = hit.point;
@@ -247,8 +247,12 @@ public class Weapon : MonoBehaviour
         {
             // Shooting the air
             targetPoint = ray.GetPoint(100);
+            // targetPoint = new Vector3(1f, 0f,0f);
         }
-        Vector3 direction = targetPoint - bulletSpawn.position;
+
+        Debug.DrawRay(bulletSpawn.position, (targetPoint - bulletSpawn.position).normalized * 1000f, Color.green, 1f);
+        Vector3 direction = (targetPoint - bulletSpawn.position).normalized;
+        // Debug.Log(direction);
 
         float x = UnityEngine.Random.Range(-spreadIntensity, spreadIntensity);
         float y = UnityEngine.Random.Range(-spreadIntensity, spreadIntensity);

@@ -203,7 +203,7 @@ namespace Platformer397
 
         public void takeDamage(int amount)
         {
-            Debug.Log("Player took damage");
+            // Debug.Log("Player took damage");
             playerHealth -= amount;
             lastTimeHit = 0;
             if (playerHealth <= 0)

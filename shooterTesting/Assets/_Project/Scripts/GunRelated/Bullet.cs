@@ -17,6 +17,7 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision objectWeHit)
     {
+        // Debug.Log(objectWeHit.gameObject.name);
         if (objectWeHit.gameObject.CompareTag("Target"))
         {
             Target target = objectWeHit.gameObject.GetComponent<Target>();
@@ -44,11 +45,13 @@ public class Bullet : MonoBehaviour
                 head = true;
                 basicEnemy enemy = objectWeHit.gameObject.transform.parent.GetComponent<basicEnemy>();
                 enemy.takeDamage((int)Math.Floor(damage*headShotMultiplier));
+                Destroy(gameObject);
                 Debug.Log("Headshot");
             }
             else if(head == false){
                 basicEnemy enemy = objectWeHit.gameObject.GetComponent<basicEnemy>();
                 enemy.takeDamage(damage);
+                Destroy(gameObject);
                 Debug.Log("body shot");
                 }
             player.addMoney(10);

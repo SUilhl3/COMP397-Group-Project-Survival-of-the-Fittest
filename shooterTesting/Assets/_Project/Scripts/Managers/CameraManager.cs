@@ -5,7 +5,7 @@ namespace Platformer397
 {
     public class CameraManager : MonoBehaviour
     {
-        // References to the cinemachineVirtualCamera
+        // References to the cinemachineVirtualCamera 
         [SerializeField] private Transform player;
 
         private void Awake()
