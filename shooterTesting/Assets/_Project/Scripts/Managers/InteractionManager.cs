@@ -21,6 +21,7 @@ public class InteractionManager : MonoBehaviour
     public speed speedCola = null;
     public quickRevive quick = null;
     public deadshot dShot = null;
+    public MysteryBox box = null;
     //barrier init for disabling the outline
     public buyBarriers barrier;
 
@@ -63,7 +64,7 @@ public class InteractionManager : MonoBehaviour
                 int weaponPrice = hoveredWeapon.getCost();
                 // Debug.Log(weaponPrice);
 
-                if(Input.GetKeyDown(KeyCode.F)){
+                if(Input.GetKeyDown(KeyCode.F) && hoveredWeapon.mysteryWeapon == false){
                     if (weaponPrice < player.getMoney()) //if you have enough money to buy the gun
                         {
                             //makes a copy of the gun selected and adds said copy to the player instead of the buy
@@ -94,11 +95,19 @@ public class InteractionManager : MonoBehaviour
                                     dShot.requestWeapons();
                                     dShot.increaseHSM();
                                 }
+                               
                             }
                             else{Debug.Log("You already have this gun! Couldn't purchase"); Destroy(copyOfGun);}
                         }
-                    else{Debug.Log("Not enough money");}
+                        else{Debug.Log("Not enough money");}
                     }
+                    else if(Input.GetKeyDown(KeyCode.F) && hoveredWeapon.mysteryWeapon)
+                    {
+                        //dont want to dupe it and dont need to check if dupe since the mystery box rerolls dupes automatically
+                        WeaponManager.Instance.AddWeaponIntoActiveSlot(objectHitByRaycast.gameObject);
+                        box.inUse = false;
+                    }
+
             }
 
             else if(objectHitByRaycast.GetComponent<buyBarriers>())
@@ -208,17 +217,27 @@ public class InteractionManager : MonoBehaviour
                     }
                     break;
 
-                // case "MysteryBox":
-                //     if(Input.GetKeyDown(KeyCode.F))
-                //     {
-                //         if(player.getMoney() >= objectHitByRaycast.GetComponent<MysteryBox>().getCost())
-                //         {
-                //             player.decreaseMoney(objectHitByRaycast.GetComponent<MysteryBox>().getCost());
-                //             objectHitByRaycast.GetComponent<MysteryBox>().randomWeapon();
-                //         }
-                //         else{Debug.Log("Not enough money");}
-                //     }
-                //     break;
+                case "MysteryBox":
+                    box = objectHitByRaycast.gameObject.GetComponent<MysteryBox>();
+                    box.GetComponent<Outline>().enabled = true;
+                    int mysteryPrice = box.getCost();
+                    if(Input.GetKeyDown(KeyCode.F) && box.inUse == false)
+                    {
+                        if(player.getMoney() >= mysteryPrice)
+                        {
+                            box.inUse = true;
+                            player.decreaseMoney(mysteryPrice);
+                            GameObject mysteryWeapon = Instantiate(box.getRandomWeapon(), box.transform.position + new Vector3(0, 2, 0), Quaternion.identity);
+                            mysteryWeapon.GetComponent<Collider>().enabled = true;
+                            mysteryWeapon.transform.localScale *= 2f;
+                            Weapon tempWeapon = mysteryWeapon.GetComponent<Weapon>();
+                            tempWeapon.mysteryWeapon = true;
+                            tempWeapon.mysteryBoxWeapon();
+                            StartCoroutine(DestroyMysteryWeapon(mysteryWeapon, 5f));
+                        }
+                        else{Debug.Log("Not enough money");}
+                    }
+                    break;
             }
 
             
@@ -305,6 +324,11 @@ public class InteractionManager : MonoBehaviour
                     if (barrier == null) {throw new System.NullReferenceException("Barrier is null");}
                     else if (barrier.GetComponent<Outline>().enabled == true) {barrier.GetComponent<Outline>().enabled = false;}
                 }catch (System.NullReferenceException ex) {/*Debug.LogError(ex.Message);*/}
+                try
+                {
+                    if (box == null) {throw new System.NullReferenceException("Box is null");}
+                    else if (box.GetComponent<Outline>().enabled == true) {box.GetComponent<Outline>().enabled = false;}
+                }catch (System.NullReferenceException ex) {/*Debug.LogError(ex.Message);*/}
         
             }catch (System.Exception ex) {/*Debug.LogError("An unexpected error occurred: " + ex.Message);*/}
         }
@@ -313,4 +337,14 @@ public class InteractionManager : MonoBehaviour
     } //end of update 
     // christ that's a long update
 
+    private IEnumerator DestroyMysteryWeapon(GameObject weapon, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if(weapon != null && weapon.GetComponent<Collider>().enabled == true)
+        {
+            Destroy(weapon);
+            box.inUse = false;
+            // Debug.Log("Mystery weapon destroyed");
+        }
+    }
 }

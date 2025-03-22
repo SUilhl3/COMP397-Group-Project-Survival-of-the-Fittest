@@ -8,6 +8,7 @@ public class Weapon : MonoBehaviour
 {
     public bool isActiveWeapon;
     [SerializeField] private int weaponCost;
+    public bool mysteryWeapon = false;
 
     //Shooting
     public bool isShooting, readyToShoot;
@@ -142,6 +143,8 @@ public class Weapon : MonoBehaviour
 
     }
 
+    public void mysteryBoxWeapon(){if(mysteryWeapon){weaponCost = 0;}}
+
     public bool bigDamage(double chance)
     {
         if(random.NextDouble() < chance) {return true;}
@@ -257,8 +260,9 @@ public class Weapon : MonoBehaviour
         float x = UnityEngine.Random.Range(-spreadIntensity, spreadIntensity);
         float y = UnityEngine.Random.Range(-spreadIntensity, spreadIntensity);
 
+        Vector3 spread = (Camera.main.transform.right*x) + (Camera.main.transform.up*y);
         // Returning the shooting direction and spread
-        return direction + new Vector3(x, y, 0);
+        return (direction + spread).normalized;
     }
 
     private IEnumerator DestroyBulletAfterTime(GameObject bullet, float delay)

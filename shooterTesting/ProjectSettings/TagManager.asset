@@ -13,6 +13,7 @@ TagManager:
   - perk_machine
   - FxTemporaire
   - WeaponManager
+  - box
   layers:
   - Default
   - TransparentFX

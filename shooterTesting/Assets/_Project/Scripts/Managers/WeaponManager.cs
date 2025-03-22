@@ -147,9 +147,50 @@ public class WeaponManager : MonoBehaviour
     }
     return isDuplicate;
 }
+    public bool boxCheck(GameObject objectToCheck)
+    {
+        bool isDuplicate = false; 
+        //hardcoded, idc it works for now. instanceId doesnt work since its not a clone and the dupe is based off of cloning but this is just taking the gun from box, not cloning first
+        string objectName = objectToCheck.name + "(Clone)";
+
+    try
+    {
+        if (objectName == weaponSlot1.transform.GetChild(0).name)
+        {
+            Debug.Log("Duplicate weapon, cannot buy");
+            isDuplicate = true; // Mark as duplicate
+        }
+        else if(objectName == weaponSlot2.transform.GetChild(0).name)
+        {
+            Debug.Log("Duplicate weapon, cannot buy");
+            isDuplicate = true; 
+        }
+    }
+    catch (IndexOutOfRangeException e)
+    {
+        Debug.LogError("Error: Out of bounds object - " + e.Message);
+    }
+    catch (NullReferenceException e)
+    {
+        Debug.LogError("Error: Null reference - " + e.Message);
+    }
+    catch (Exception e) // Catch any other unexpected errors
+    {
+        // Debug.LogError("An unexpected error occurred: " + e.Message);
+    }
+    finally
+    {
+        // If it's NOT a duplicate, add the weapon
+        if (!isDuplicate)
+        {
+            // Debug.Log("Not a duplicate");
+        }
+    }
+    return isDuplicate;
+    }
 
 
-    private void AddWeaponIntoActiveSlot(GameObject pickedUpWeapon)
+    public void AddWeaponIntoActiveSlot(GameObject pickedUpWeapon)
     {
         // Debug.Log("Add weapon");
         pickedUpWeapon.GetComponent<Collider>().enabled = false;
