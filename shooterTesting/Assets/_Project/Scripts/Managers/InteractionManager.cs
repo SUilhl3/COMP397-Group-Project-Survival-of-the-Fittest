@@ -59,54 +59,82 @@ public class InteractionManager : MonoBehaviour
             if (objectHitByRaycast.GetComponent<Weapon>() && objectHitByRaycast.GetComponent<Weapon>().isActiveWeapon == false) 
             {
                 //highlight weapon if raycast is on collider
+                GameObject obj = objectHitByRaycast.gameObject;
                 hoveredWeapon = objectHitByRaycast.gameObject.GetComponent<Weapon>();
                 hoveredWeapon.GetComponent<Outline>().enabled = true;
                 int weaponPrice = hoveredWeapon.getCost();
-                // Debug.Log(weaponPrice);
 
-                if(Input.GetKeyDown(KeyCode.F) && hoveredWeapon.mysteryWeapon == false){
-                    if (weaponPrice < player.getMoney()) //if you have enough money to buy the gun
-                        {
-                            //makes a copy of the gun selected and adds said copy to the player instead of the buy
-                        
-                            GameObject copyOfGun = Instantiate(objectHitByRaycast.gameObject);
-                            
-                            // copyOfGun.transform.SetParent(WeaponManager.Instance.weaponSlot1.transform);
-                            bool duplicate = WeaponManager.Instance.PickUpWeapon(copyOfGun);
-                            // Debug.Log(duplicate);
-                            if(duplicate == false)
-                            {
-                                player.decreaseMoney(weaponPrice);
-                                // Debug.Log("Purchased " + hoveredWeapon.name);    
-                                if(player.checkPerk("double-tap"))
-                                {
-                                    dbTap.requestWeapons();
-                                    dbTap.increaseDamage();
-                                    dbTap.increaseFireRate();
-                                }   
-                                if(player.checkPerk("speed"))
-                                {
-                                    speedCola.requestWeapons();
-                                    speedCola.increaseMoveSpeed();
-                                    speedCola.increaseReloadSpeed();
-                                }
-                                if(player.checkPerk("deadshot"))
-                                {
-                                    dShot.requestWeapons();
-                                    dShot.increaseHSM();
-                                }
-                               
-                            }
-                            else{Debug.Log("You already have this gun! Couldn't purchase"); Destroy(copyOfGun);}
-                        }
-                        else{Debug.Log("Not enough money");}
-                    }
-                    else if(Input.GetKeyDown(KeyCode.F) && hoveredWeapon.mysteryWeapon)
+                if(Input.GetKeyDown(KeyCode.F) && hoveredWeapon.mysteryWeapon == false)
+                {
+                    //if you don't have the gun already, check if you can afford the gun
+                    if (weaponPrice < player.getMoney() && WeaponManager.Instance.boxCheck(obj) == false)
                     {
-                        //dont want to dupe it and dont need to check if dupe since the mystery box rerolls dupes automatically
-                        WeaponManager.Instance.AddWeaponIntoActiveSlot(objectHitByRaycast.gameObject);
-                        box.inUse = false;
+                        //makes a copy of the gun selected and adds said copy to the player instead of the buy
+                        
+                        GameObject copyOfGun = Instantiate(obj);
+                            
+                        // copyOfGun.transform.SetParent(WeaponManager.Instance.weaponSlot1.transform);
+
+                        //will add gun to slot if its not a dupe
+                        bool duplicate = WeaponManager.Instance.PickUpWeapon(copyOfGun);
+                        // Debug.Log(duplicate);
+
+                        //if you could buy the gun, then take money from player
+                        if(duplicate == false)
+                        {
+                            player.decreaseMoney(weaponPrice);
+                            // Debug.Log("Purchased " + hoveredWeapon.name);    
+                            if(player.checkPerk("double-tap"))
+                            {
+                                dbTap.requestWeapons();
+                                dbTap.increaseDamage();
+                                dbTap.increaseFireRate();
+                            }   
+                            if(player.checkPerk("speed"))
+                            {
+                                speedCola.requestWeapons();
+                                speedCola.increaseMoveSpeed();
+                                speedCola.increaseReloadSpeed();
+                            }
+                            if(player.checkPerk("deadshot"))
+                            {
+                                dShot.requestWeapons();
+                                dShot.increaseHSM();
+                            }       
+                        }
+                        //if you had the gun already, dont take money from the player and destroy the remaining copy of the gun you hovered
+                        else{Debug.Log("You already have this gun! Couldn't purchase"); Destroy(copyOfGun);}
                     }
+
+                    //else if you have the gun you are hovering, and you have enough to purchase ammo...
+                    else if(weaponPrice / 2 < player.getMoney() && WeaponManager.Instance.boxCheck(obj))
+                    {
+                        Weapon weapon1 = WeaponManager.Instance.weaponSlot1.transform.GetChild(0).GetComponent<Weapon>(); 
+                        Weapon weapon2 = WeaponManager.Instance.weaponSlot2.transform.GetChild(0).GetComponent<Weapon>();
+                        //if it is the same gun as your weapon slot 1 or 2, max their ammo respectively if they are not completely full on ammo
+                        if(obj.name + "(Clone)" == weapon1.name && !weapon1.fullAmmo()) 
+                        {
+                            weapon1.maxAmmo();
+                            Debug.Log("Bought ammo");
+                            player.decreaseMoney(weaponPrice / 2); 
+                        }
+                        else if(obj.name + "(Clone)" == weapon2.name && !weapon2.fullAmmo()) 
+                        {
+                            weapon2.maxAmmo();
+                            Debug.Log("Bought ammo");
+                            player.decreaseMoney(weaponPrice / 2); 
+                        }
+                        else{Debug.Log("Full ammo already");} //if they are completely full on ammo, don't take their money
+                    }
+                    else{Debug.Log("Not enough money");} //if you don't have enough money for the thing you were going to buy
+                }
+                //if you are looking at a mystery box weapon
+                else if(Input.GetKeyDown(KeyCode.F) && hoveredWeapon.mysteryWeapon)
+                {
+                    //dont want to dupe it and dont need to check if dupe since the mystery box rerolls dupes automatically
+                    WeaponManager.Instance.AddWeaponIntoActiveSlot(objectHitByRaycast.gameObject);
+                    box.inUse = false;
+                }
 
             }
 

@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Collections.Generic;
+using System;
 using Platformer397;
 
 public class basicEnemy : MonoBehaviour
@@ -10,6 +12,7 @@ public class basicEnemy : MonoBehaviour
     public float timeInside = 0f; //time inside trigger
     public float requiredTimeInside = 0.5f; //how many seconds before player gets slapped
     public bool playerInside = false;
+    static System.Random random = new System.Random();
 
     void Awake()
     {
@@ -17,7 +20,18 @@ public class basicEnemy : MonoBehaviour
         // enemyManager = GameObject.FindWithTag("enemyManager").GetComponent<EnemyManager>();
     }
 
-    void Update(){if(hp <= 0){player.addMoney(70);EnemyManager.Instance.EnemyDied(gameObject);Destroy(gameObject);}}
+    void Update()
+    {
+        if(hp <= 0)
+        {
+            player.addMoney(70);
+            if(random.NextDouble() < .05)
+            {
+                Debug.Log("Spawn power up");
+                PowerUpManager.Instance.spawnPowerup(gameObject.transform.position);
+            }
+            EnemyManager.Instance.EnemyDied(gameObject);
+            Destroy(gameObject);}}
 
     //deal with enemy taking damage
     public void takeDamage(int amount)

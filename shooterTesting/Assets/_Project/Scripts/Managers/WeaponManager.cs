@@ -121,7 +121,7 @@ public class WeaponManager : MonoBehaviour
         if (pickedUpWeapon.GetInstanceID() == weaponSlot1.transform.GetChild(0).GetInstanceID() ||
          pickedUpWeapon.GetInstanceID() == weaponSlot2.transform.GetChild(0).GetInstanceID())
         {
-            Debug.Log("Duplicate weapon, cannot buy");
+            // Debug.Log("Duplicate weapon, cannot buy");
             isDuplicate = true; // Mark as duplicate
         }
     }
@@ -162,7 +162,7 @@ public class WeaponManager : MonoBehaviour
         }
         else if(objectName == weaponSlot2.transform.GetChild(0).name)
         {
-            Debug.Log("Duplicate weapon, cannot buy");
+            // Debug.Log("Duplicate weapon, cannot buy");
             isDuplicate = true; 
         }
     }

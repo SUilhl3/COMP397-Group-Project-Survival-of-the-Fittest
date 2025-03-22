@@ -40,7 +40,7 @@ public class Weapon : MonoBehaviour
 
     // Loading
     public float reloadTime, originalReloadTime;
-    public int magazineSize, bulletsLeft, bulletReserve;
+    public int magazineSize, bulletsLeft, bulletReserve, originalBulletReserve;
     public bool isReloading;
 
     public Vector3 spawnPosition;
@@ -97,6 +97,7 @@ public class Weapon : MonoBehaviour
         originalReloadTime = reloadTime;
         originalShootingDelay = shootingDelay;  
         originalSpread = spreadIntensity;
+        originalBulletReserve = bulletReserve; 
     }
 
     // Update is called once per frame
@@ -149,6 +150,18 @@ public class Weapon : MonoBehaviour
     {
         if(random.NextDouble() < chance) {return true;}
         return false;
+    }
+
+    public bool fullAmmo()
+    {
+        if(bulletReserve < originalBulletReserve || 
+        bulletReserve == originalBulletReserve && bulletsLeft < magazineSize) {return false;}
+        return true;
+    }
+    public void maxAmmo()
+    {
+        bulletsLeft = magazineSize;
+        bulletReserve = originalBulletReserve;
     }
 
     private void FireWeapon()

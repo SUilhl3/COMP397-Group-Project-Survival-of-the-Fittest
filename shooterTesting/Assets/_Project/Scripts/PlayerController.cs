@@ -299,6 +299,5 @@ namespace Platformer397
                     break;
             }
         }
-
     }
 }
