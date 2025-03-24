@@ -152,6 +152,8 @@ MonoBehaviour:
   timeInside: 0
   requiredTimeInside: 1
   playerInside: 0
+  dropRate: 0.05
+  nuked: 0
 --- !u!114 &5177388859215771526
 MonoBehaviour:
   m_ObjectHideFlags: 0

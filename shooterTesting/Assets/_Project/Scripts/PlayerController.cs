@@ -1,5 +1,6 @@
 using UnityEngine;
 using Unity.Cinemachine;
+using System.Collections;
 
 namespace Platformer397
 {
@@ -31,6 +32,10 @@ namespace Platformer397
 
         public Weapon hoveredWeapon = null;
         public AmmoBox hoveredAmmoBox = null;
+        public bool doublePoints = false;
+        public static int doubleCounter = 0;
+        public bool instakill = false;
+        public static int instakillCounter = 0;
 
         [Header("Player Health")]
         public float playerHealth = 100f;
@@ -144,7 +149,7 @@ namespace Platformer397
         }
 
         public int getMoney(){return money;}
-        public void addMoney(int amount){money += amount;}
+        public void addMoney(int amount){if(doublePoints){money += amount*2;} else{money += amount;}}
 
         public void decreaseMoney(int amount)
         {
@@ -297,6 +302,38 @@ namespace Platformer397
                     hasDeadshot = true;
                     dShot = InteractionManager.Instance.dShot;
                     break;
+            }
+        }
+
+        public IEnumerator doublePointsTimer(float time)
+        {
+            doubleCounter ++;
+            yield return new WaitForSeconds(time);
+            if(doublePoints == true && doubleCounter == 1)
+            {
+                doublePoints = false;
+                doubleCounter = 0;
+                Debug.Log("Double Points Over");
+            }
+            else if(doublePoints == true && doubleCounter > 1)
+            {
+                doubleCounter --;
+            }
+        }
+
+        public IEnumerator instakillTimer(float time)
+        {
+            instakillCounter ++;
+            yield return new WaitForSeconds(time);
+            if(instakill == true && instakillCounter == 1)
+            {
+                instakill = false;
+                instakillCounter = 0;
+                Debug.Log("InstaKill Over");
+            }
+            else if(instakill == true && instakillCounter > 1)
+            {
+                instakillCounter --;
             }
         }
     }

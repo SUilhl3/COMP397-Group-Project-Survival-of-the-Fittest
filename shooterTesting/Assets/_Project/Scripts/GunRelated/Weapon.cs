@@ -9,6 +9,8 @@ public class Weapon : MonoBehaviour
     public bool isActiveWeapon;
     [SerializeField] private int weaponCost;
     public bool mysteryWeapon = false;
+    public bool instaKill = false;
+    public static int counter = 0;
 
     //Shooting
     public bool isShooting, readyToShoot;
@@ -187,7 +189,13 @@ public class Weapon : MonoBehaviour
 
         //Instantiate the bullet
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.identity);
-        bullet.GetComponent<Bullet>().damage = gunDamage;
+        if(instaKill)
+        {
+            bullet.GetComponent<Bullet>().damage = 999999999;
+        }
+        else{
+            bullet.GetComponent<Bullet>().damage = gunDamage;
+        }
         if(bigDamage(bigDamageChance)){bullet.GetComponent<Bullet>().headShotMultiplier = headShotMultiplier*50;Debug.Log("BIG DAMAGE");}
         else{bullet.GetComponent<Bullet>().headShotMultiplier = headShotMultiplier;}
 
@@ -284,6 +292,21 @@ public class Weapon : MonoBehaviour
         Destroy(bullet);
     }
 
+    public IEnumerator instaKillTimer(float delay)
+    {
+        counter++;
+        yield return new WaitForSeconds(delay);
+        if(instaKill == true && counter == 1)
+        {
+            instaKill = false;
+            counter = 0;
+            Debug.Log("InstaKill Over");
+        }
+        else if(instaKill == true && counter > 1)
+        {
+            counter--;
+        }
+    }
 
 
 }

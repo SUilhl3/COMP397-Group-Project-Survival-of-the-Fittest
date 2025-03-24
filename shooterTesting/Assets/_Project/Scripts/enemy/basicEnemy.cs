@@ -12,6 +12,8 @@ public class basicEnemy : MonoBehaviour
     public float timeInside = 0f; //time inside trigger
     public float requiredTimeInside = 0.5f; //how many seconds before player gets slapped
     public bool playerInside = false;
+    [SerializeField] double dropRate = .05;
+    public bool nuked = false;
     static System.Random random = new System.Random();
 
     void Awake()
@@ -22,21 +24,33 @@ public class basicEnemy : MonoBehaviour
 
     void Update()
     {
-        if(hp <= 0)
+        if(nuked == true)
         {
-            player.addMoney(70);
-            if(random.NextDouble() < .05)
+            if(random.NextDouble() < dropRate)
             {
                 Debug.Log("Spawn power up");
                 PowerUpManager.Instance.spawnPowerup(gameObject.transform.position);
             }
             EnemyManager.Instance.EnemyDied(gameObject);
-            Destroy(gameObject);}}
+            Destroy(gameObject);
+        }
+        if(hp <= 0)
+        {
+            player.addMoney(70);
+            if(random.NextDouble() < dropRate)
+            {
+                Debug.Log("Spawn power up");
+                PowerUpManager.Instance.spawnPowerup(gameObject.transform.position);
+            }
+            EnemyManager.Instance.EnemyDied(gameObject);
+            Destroy(gameObject);}
+    }
 
     //deal with enemy taking damage
     public void takeDamage(int amount)
     {
-        hp-=amount;
+        if(player.instakill == true) {hp = 0;}
+        else {hp-=amount;}
     }
 
     //deal damage function

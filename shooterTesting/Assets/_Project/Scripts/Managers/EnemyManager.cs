@@ -146,4 +146,16 @@ public class EnemyManager : MonoBehaviour
             }
         }
     }
+
+    public void killAllEnemies()
+    {
+        foreach(GameObject enemy in allEnemies)
+        {
+            if(enemy != null) //in case list is empty due to dying to not an enemy when there are no enemies
+            {
+                basicEnemy enem = enemy.GetComponent<basicEnemy>();
+                if(enem != null){enem.nuked = true;} 
+            }
+        }
+    }
 }

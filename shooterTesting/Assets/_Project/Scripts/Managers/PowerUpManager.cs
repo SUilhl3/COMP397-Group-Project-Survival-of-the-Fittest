@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 using Platformer397;
 public class PowerUpManager : MonoBehaviour
 {
@@ -31,7 +32,14 @@ public class PowerUpManager : MonoBehaviour
     public void spawnPowerup(Vector3 spawnPosition)
     {
         GameObject powerupToSpawn = choosePowerup();
-        Instantiate(powerupToSpawn, spawnPosition, Quaternion.identity);
+        GameObject powerup = Instantiate(powerupToSpawn, spawnPosition, Quaternion.identity);
+        StartCoroutine(powerupTimer(powerup, 15f));
+    }
+
+    private IEnumerator powerupTimer(GameObject powerUp, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Destroy(powerUp);
     }
 
 
