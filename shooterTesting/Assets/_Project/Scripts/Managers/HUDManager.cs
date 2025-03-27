@@ -86,7 +86,6 @@ public class HUDManager : MonoBehaviour
         {
             tacticalUI.sprite = greySlot;
         }
-
     }
 
     //have to edit this eventually to include more models

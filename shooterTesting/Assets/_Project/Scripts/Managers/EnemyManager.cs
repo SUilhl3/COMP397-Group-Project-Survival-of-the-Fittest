@@ -4,7 +4,7 @@ using System.Linq;
 using Platformer397;
 using System.Collections.Generic;
 
-public class EnemyManager : MonoBehaviour
+public class EnemyManager : MonoBehaviour, IDataPersistence
 {
     public static EnemyManager Instance {get;private set;}
     [SerializeField] private GameObject enemyPrefab;
@@ -157,5 +157,15 @@ public class EnemyManager : MonoBehaviour
                 if(enem != null){enem.nuked = true;} 
             }
         }
+    }
+
+    public void LoadData(GameData data)
+    {
+        this.round = data.roundNumber;
+    }
+
+    public void SaveData(GameData data)
+    {
+        data.roundNumber = this.round;
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using static UnityEditor.FilePathAttribute;
 
 public class DataPersistenceManager : MonoBehaviour
 {
@@ -63,11 +64,22 @@ public class DataPersistenceManager : MonoBehaviour
             this.gameData = new GameData();
         }
         else{
-            this.gameData.playerDamage = 1;
-            this.gameData.playerSpeed = 10f;
-            this.gameData.amountOfJumps = 1;
-            this.gameData.numberOfCoins = 0;
-            this.gameData.potions = 0;
+            this.gameData.location = Vector3.zero;
+            this.gameData.roundNumber = 1;
+            this.gameData.money = 0;
+            this.gameData.ammo = 7;
+            this.gameData.ammoMax = 35;
+            this.gameData.ammoTwo = 0;
+            this.gameData.ammoMaxTwo = 0;
+            this.gameData.hasJug = false;
+            this.gameData.hasSpeedCola = false;
+            this.gameData.hasDoubleTap = false;
+            this.gameData.hasQuickRevive = false;
+            this.gameData.hasDeadshot = false;
+            this.gameData.firstGun = null;
+            this.gameData.secondGun = null;
+            this.gameData.lethalCount = 0;
+            this.gameData.tacticalCount = 0;
         }
         dataHandler.Save(gameData);
     }
@@ -111,7 +123,7 @@ public class DataPersistenceManager : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        //SaveGame();
+        SaveGame();
     }
 
     private List<IDataPersistence> FindAllDataPersistenceObjects()

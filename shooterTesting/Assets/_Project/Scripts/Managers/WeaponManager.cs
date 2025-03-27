@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using static Weapon;
 
-public class WeaponManager : MonoBehaviour
+public class WeaponManager : MonoBehaviour, IDataPersistence
 {
     [SerializeField] private InputReader input;
 
@@ -448,6 +448,42 @@ public class WeaponManager : MonoBehaviour
                 return smokeGrenadePrefab;
         }
         return new();
+    }
+
+    public void LoadData(GameData data)
+    {
+        AddWeaponIntoActiveSlot(data.firstGun);
+        this.weaponSlot1.transform.GetChild(0).gameObject.GetComponent<Weapon>().bulletsLeft = data.ammo;
+        this.weaponSlot1.transform.GetChild(0).gameObject.GetComponent<Weapon>().bulletReserve = data.ammoMax;
+        if (data.secondGun != null)
+        {
+            AddWeaponIntoActiveSlot(data.secondGun);
+            this.weaponSlot2.transform.GetChild(0).gameObject.GetComponent<Weapon>().bulletsLeft = data.ammoTwo;
+            this.weaponSlot2.transform.GetChild(0).gameObject.GetComponent<Weapon>().bulletReserve = data.ammoMaxTwo;
+        }
+        else return;
+        this.lethalsCount = data.lethalCount;
+        this.tacticalsCount = data.tacticalCount;
+    }
+
+    public void SaveData(GameData data)
+    {
+        data.firstGun = this.weaponSlot1.transform.GetChild(0).gameObject;
+        data.ammo = this.weaponSlot1.transform.GetChild(0).gameObject.GetComponent<Weapon>().bulletsLeft;
+        data.ammoMax = this.weaponSlot1.transform.GetChild(0).gameObject.GetComponent<Weapon>().bulletReserve;
+
+        if (this.weaponSlot2.transform.childCount > 0)
+        {
+            data.secondGun = this.weaponSlot2.transform.GetChild(0).gameObject;
+            data.ammoTwo = this.weaponSlot2.transform.GetChild(0).gameObject.GetComponent<Weapon>().bulletsLeft;
+            data.ammoMaxTwo = this.weaponSlot2.transform.GetChild(0).gameObject.GetComponent<Weapon>().bulletReserve;
+        }
+        else
+        {
+            data.secondGun = null;
+        }
+        data.lethalCount = this.lethalsCount;
+        data.tacticalCount = this.tacticalsCount;
     }
     #endregion
 

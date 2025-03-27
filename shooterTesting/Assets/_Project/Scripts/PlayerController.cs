@@ -6,7 +6,7 @@ namespace Platformer397
 {
 
     [RequireComponent(typeof(Rigidbody))]
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : MonoBehaviour, IDataPersistence
     {
 
         [Header("Player Movement")]
@@ -80,7 +80,7 @@ namespace Platformer397
                 playerHealth = Mathf.Min(playerHealth, playerMaxHealth);
             }
             else{regenTimer = 0f;}
-            // HUDManager.Instance.HealthShower(playerHealth, playerMaxHealth);
+            HUDManager.Instance.HealthShower(playerHealth, playerMaxHealth);
         }
 
         private void OnEnable()
@@ -292,6 +292,28 @@ namespace Platformer397
             {
                 instakillCounter --;
             }
+        }
+
+        public void LoadData(GameData data)
+        {
+            gameObject.transform.position = data.location;
+            this.money = data.money;
+            this.hasJug = data.hasJug;
+            this.hasDeadshot = data.hasDeadshot;
+            this.hasDoubleTap = data.hasDoubleTap;
+            this.hasSpeedCola = data.hasSpeedCola;
+            this.hasQuickRevive = data.hasQuickRevive;
+        }
+
+        public void SaveData(GameData data)
+        {
+            data.location = gameObject.transform.position;
+            data.money = this.money;
+            data.hasJug = this.hasJug;
+            data.hasSpeedCola = this.hasSpeedCola;
+            data.hasDoubleTap = this.hasDoubleTap;
+            data.hasQuickRevive = this.hasQuickRevive;
+            data.hasDeadshot = this.hasDeadshot;
         }
     }
 
