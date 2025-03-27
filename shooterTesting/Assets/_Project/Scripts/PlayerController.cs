@@ -115,7 +115,7 @@ namespace Platformer397
             else
             {
                 //not change, but need to apply rigidbody y movement for gravity
-                rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
+                rb.linearVelocity = new Vector3(0f, rb.linearVelocity.y, 0f);
             }
         }
 
@@ -159,51 +159,8 @@ namespace Platformer397
         //I dont think this does anything
         private void HandleInteraction(bool interact)
         {
-            Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit))
-            {
-                GameObject objectHitByRaycast = hit.transform.gameObject;
-
-                if (objectHitByRaycast.GetComponent<Weapon>() && objectHitByRaycast.GetComponent<Weapon>().isActiveWeapon == false)
-                {
-                    hoveredWeapon = objectHitByRaycast.gameObject.GetComponent<Weapon>();
-                    hoveredWeapon.GetComponent<Outline>().enabled = true;
-
-                    if (interact)
-                    {
-                        WeaponManager.Instance.PickUpWeapon(objectHitByRaycast.gameObject);
-                    }
-                }
-                else
-                {
-                    if (hoveredWeapon)
-                    {
-                        hoveredWeapon.GetComponent<Outline>().enabled = false;
-                    }
-                }
-
-                // //Ammo Box
-                // if (objectHitByRaycast.GetComponent<AmmoBox>())
-                // {
-                //     hoveredAmmoBox = objectHitByRaycast.gameObject.GetComponent<AmmoBox>();
-                //     hoveredAmmoBox.GetComponent<Outline>().enabled = true;
-
-                //     if (interact)
-                //     {
-                //         WeaponManager.Instance.PickupAmmo(hoveredAmmoBox);
-                //         Destroy(objectHitByRaycast.gameObject);
-                //     }
-                // }
-                // else
-                // {
-                //     if (hoveredAmmoBox)
-                //     {
-                //         hoveredAmmoBox.GetComponent<Outline>().enabled = false;
-                //     }
-                // }
-            }
+            if (!interact) return;
+            Debug.Log("Interact");
         } //end of HandleInteraction
 
         public void takeDamage(int amount)
@@ -337,4 +294,53 @@ namespace Platformer397
             }
         }
     }
+
+    /*
+     *             Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                GameObject objectHitByRaycast = hit.transform.gameObject;
+
+                if (objectHitByRaycast.GetComponent<Weapon>() && objectHitByRaycast.GetComponent<Weapon>().isActiveWeapon == false)
+                {
+                    hoveredWeapon = objectHitByRaycast.gameObject.GetComponent<Weapon>();
+                    hoveredWeapon.GetComponent<Outline>().enabled = true;
+
+                    if (interact)
+                    {
+                        Debug.Log("Interact");
+                        WeaponManager.Instance.PickUpWeapon(objectHitByRaycast.gameObject);
+                    }
+                }
+                else
+                {
+                    if (hoveredWeapon)
+                    {
+                        hoveredWeapon.GetComponent<Outline>().enabled = false;
+                    }
+                }
+
+                // //Ammo Box
+                // if (objectHitByRaycast.GetComponent<AmmoBox>())
+                // {
+                //     hoveredAmmoBox = objectHitByRaycast.gameObject.GetComponent<AmmoBox>();
+                //     hoveredAmmoBox.GetComponent<Outline>().enabled = true;
+
+                //     if (interact)
+                //     {
+                //         WeaponManager.Instance.PickupAmmo(hoveredAmmoBox);
+                //         Destroy(objectHitByRaycast.gameObject);
+                //     }
+                // }
+                // else
+                // {
+                //     if (hoveredAmmoBox)
+                //     {
+                //         hoveredAmmoBox.GetComponent<Outline>().enabled = false;
+                //     }
+                // }
+            }
+    */
 }

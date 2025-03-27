@@ -169,25 +169,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isActiveWeapon: 0
   weaponCost: 0
+  mysteryWeapon: 0
+  instaKill: 0
   isShooting: 0
   readyToShoot: 0
   shootingDelay: 0.3
   bulletsPerBurst: 1
   burstBulletsLeft: 0
   spreadIntensity: 0.05
+  originalSpread: 0
   bulletPrefab: {fileID: 3421263116825398914, guid: 7313e887589952a45b4ca3292141bf77,
     type: 3}
   bulletSpawn: {fileID: 3773106561822543185}
   bulletVelocity: 500
   bulletPrefabLifeTime: 3
+  gunDamage: 0
+  headShotMultiplier: 0
+  originalHSM: 0
+  originalGunDamage: 0
+  originalShootingDelay: 0
   muzzleEffect: {fileID: 6651228732695150740}
   reloadTime: 1.5
+  originalReloadTime: 0
   magazineSize: 7
   bulletsLeft: 7
   bulletReserve: 35
+  originalBulletReserve: 0
   isReloading: 0
   spawnPosition: {x: 0.1, y: 1.15, z: 0.6}
   spawnRotation: {x: 0, y: 176.574, z: 0}
+  bigDamageChance: 0
+  input: {fileID: 11400000, guid: 7c9877c872d3d1c48886dc5b9e1d1087, type: 2}
   thisWeaponModel: 0
   currentShootingMode: 0
 --- !u!65 &2304675554052652250

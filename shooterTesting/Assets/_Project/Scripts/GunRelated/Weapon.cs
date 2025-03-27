@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Platformer397;
 
 public class Weapon : MonoBehaviour
 {
@@ -55,6 +56,13 @@ public class Weapon : MonoBehaviour
     static System.Random random = new System.Random();
     public double bigDamageChance = 0.0;
 
+
+    //Interaction
+    [SerializeField] private InputReader input;
+
+    private bool attackPress = false;
+    private bool reloadPress = false;
+
     //I think these will be based off the guns we have 
     public enum WeaponModel
     {
@@ -102,6 +110,33 @@ public class Weapon : MonoBehaviour
         originalBulletReserve = bulletReserve; 
     }
 
+    private void Start()
+    {
+        input.EnablePlayerActions();
+    }
+    private void OnEnable()
+    {
+        input.Attack += HandleAttack;
+        input.Reload += HandleReload;
+    }
+
+    private void HandleReload(bool reload)
+    {
+        reloadPress = reload;
+        Debug.Log("Pressed Reload");
+    }
+
+    private void HandleAttack(bool attack)
+    {
+        attackPress = attack;
+    }
+
+    private void OnDisable()
+    {
+        input.Attack -= HandleAttack;
+        input.Reload -= HandleReload;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -120,15 +155,15 @@ public class Weapon : MonoBehaviour
             if (currentShootingMode == ShootingMode.Auto)
             {
                 // Holding down left mouse button
-                isShooting = Input.GetKey(KeyCode.Mouse0);
+                isShooting = attackPress;
             }
             else if (currentShootingMode == ShootingMode.Single || currentShootingMode == ShootingMode.Burst)
             {
                 // Clicking left mouse button once
-                isShooting = Input.GetKeyDown(KeyCode.Mouse0);
+                isShooting = attackPress;
             }
 
-            if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && isReloading == false && bulletReserve > 0)
+            if (reloadPress && bulletsLeft < magazineSize && isReloading == false && bulletReserve > 0)
             {
                 Reload();
             }

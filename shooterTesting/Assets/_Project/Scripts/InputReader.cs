@@ -11,6 +11,14 @@ namespace Platformer397
 
         public event UnityAction<Vector2> Move = delegate { };
         public event UnityAction<bool> Interact = delegate { };
+        public event UnityAction<bool> Attack = delegate { };
+        public event UnityAction<bool> Reload = delegate { };
+        public event UnityAction<bool> WeaponOne = delegate { };
+        public event UnityAction<bool> WeaponTwo = delegate { };
+        public event UnityAction<bool> Grenade = delegate { };
+        public event UnityAction<bool> GrenadeRelease = delegate { };
+        public event UnityAction<bool> Tactical = delegate { };
+        public event UnityAction<bool> TacticalRelease = delegate { };
 
         InputSystem_Actions input;
         private void OnEnable()
@@ -48,14 +56,88 @@ namespace Platformer397
 
         }
         public void OnAttack(InputAction.CallbackContext context)
-        {   
+        {
+            if (context.performed)
+            {
+                Attack?.Invoke(true);
+            }
+            else if (context.canceled)
+            {
+                Attack?.Invoke(false);
+            }
+        }
 
+        public void OnReload(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+            {
+                Reload?.Invoke(true);
+            }
+            else if (context.canceled)
+            {
+                Reload?.Invoke(false);
+            }
         }
         public void OnInteract(InputAction.CallbackContext context)
         {
-            if(context.phase == InputActionPhase.Performed)
+            if (context.performed)
             {
-                Interact?.Invoke(context.ReadValue<bool>());
+                Interact?.Invoke(true);
+            }
+            else if (context.canceled)
+            {
+                Interact?.Invoke(false);
+            }
+        }
+        public void OnWeaponSlot1(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+            {
+                WeaponOne?.Invoke(true);
+            }
+            else if (context.canceled)
+            {
+                WeaponOne?.Invoke(false);
+            }
+        }
+
+        public void OnWeaponSlot2(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+            {
+                WeaponTwo?.Invoke(true);
+            }
+            else if (context.canceled)
+            {
+                WeaponTwo?.Invoke(false);
+            }
+        }
+
+        public void OnGrenade(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+            {
+                Grenade?.Invoke(true);
+                GrenadeRelease?.Invoke(false);
+            }
+            else if (context.canceled)
+            {
+                Grenade?.Invoke(false);
+                GrenadeRelease?.Invoke(true);
+            }
+        }
+
+        public void OnTactical(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+            {
+                Tactical?.Invoke(true);
+                TacticalRelease?.Invoke(false);
+            }
+            else if (context.canceled)
+            {
+                Tactical?.Invoke(false);
+                TacticalRelease?.Invoke(true);
             }
         }
         public void OnCrouch(InputAction.CallbackContext context)

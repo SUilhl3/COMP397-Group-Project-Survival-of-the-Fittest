@@ -5337,6 +5337,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isActiveWeapon: 1
   weaponCost: 0
+  mysteryWeapon: 0
+  instaKill: 0
   isShooting: 0
   readyToShoot: 0
   shootingDelay: 0.3
@@ -5360,10 +5362,12 @@ MonoBehaviour:
   magazineSize: 7
   bulletsLeft: 7
   bulletReserve: 35
+  originalBulletReserve: 0
   isReloading: 0
   spawnPosition: {x: 0.1, y: 1.15, z: 0.6}
   spawnRotation: {x: 0, y: 176.574, z: 0}
   bigDamageChance: 0
+  input: {fileID: 11400000, guid: 7c9877c872d3d1c48886dc5b9e1d1087, type: 2}
   thisWeaponModel: 0
   currentShootingMode: 0
 --- !u!65 &4454580505049091211

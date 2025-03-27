@@ -1,12 +1,21 @@
+using Platformer397;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using static Weapon;
 
 public class WeaponManager : MonoBehaviour
 {
+    [SerializeField] private InputReader input;
 
+    private bool weaponSlotOne = false;
+    private bool weaponSlotTwo = false;
+    private bool grenadePress = false;
+    private bool grenadeRelease = false;
+    private bool tacticalPress = false;
+    private bool tacticalRelease = false;
     public static WeaponManager Instance { get; private set; }
     public GameObject weaponSlot1;
     public GameObject weaponSlot2;
@@ -54,6 +63,55 @@ public class WeaponManager : MonoBehaviour
         equippedTacticalType = Throwable.ThrowableType.None;
         activeWeaponSlot = weaponSlot1;
         PickUpWeapon(startingGun);
+        input.EnablePlayerActions();
+    }
+
+    private void OnEnable()
+    {
+        input.WeaponOne += WeaponSlotOne;
+        input.WeaponTwo += WeaponSlotTwo;
+        input.Grenade += OnGrenadePress;
+        input.Tactical += OnTacticalPress;
+        input.GrenadeRelease += OnGrenadeRelease;
+        input.TacticalRelease += OnTacticalRelease;
+    }
+    
+    private void OnGrenadePress(bool grenade)
+    {
+        grenadePress = grenade;
+    }
+    private void OnGrenadeRelease(bool release)
+    {
+        grenadeRelease = release;
+    }
+
+    private void OnTacticalPress(bool tactical)
+    {
+        tacticalPress = tactical;
+    }
+    private void OnTacticalRelease(bool release)
+    {
+        tacticalRelease = release;
+    }
+
+    private void WeaponSlotOne(bool slotOne)
+    {
+        weaponSlotOne = slotOne;
+    }
+
+    private void WeaponSlotTwo(bool slotTwo)
+    {
+        weaponSlotTwo = slotTwo;
+    }
+
+    private void OnDisable()
+    {
+        input.WeaponOne -= WeaponSlotOne;
+        input.WeaponTwo -= WeaponSlotTwo;
+        input.Grenade -= OnGrenadePress;
+        input.Tactical -= OnTacticalPress;
+        input.GrenadeRelease -= OnGrenadeRelease;
+        input.TacticalRelease -= OnTacticalRelease;
     }
 
     private void Update()
@@ -69,16 +127,16 @@ public class WeaponManager : MonoBehaviour
             weaponSlot2.SetActive(true);
         }
         
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (weaponSlotOne)
         {
             SwitchActiveSlot(0);
         }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        if (weaponSlotTwo)
         {
             SwitchActiveSlot(1);
         }
 
-        if (Input.GetKey(KeyCode.G) || Input.GetKey(KeyCode.T))
+        if (grenadePress || tacticalPress)
         {
             forceMultiplier += Time.deltaTime;
             if(forceMultiplier > forceMultiplierLimit)
@@ -87,9 +145,8 @@ public class WeaponManager : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyUp(KeyCode.G))
+        if (grenadeRelease)
         {
-
             if(lethalsCount > 0)
             {
                 ThrowLethal();
@@ -97,7 +154,7 @@ public class WeaponManager : MonoBehaviour
             forceMultiplier = 0;
         }
 
-        if (Input.GetKeyUp(KeyCode.T))
+        if (tacticalRelease)
         {
 
             if (tacticalsCount > 0)

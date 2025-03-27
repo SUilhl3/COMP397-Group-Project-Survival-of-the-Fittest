@@ -111,6 +111,7 @@ MonoBehaviour:
   isActiveWeapon: 0
   weaponCost: 1400
   mysteryWeapon: 0
+  instaKill: 0
   isShooting: 0
   readyToShoot: 0
   shootingDelay: 0.1
@@ -134,10 +135,12 @@ MonoBehaviour:
   magazineSize: 30
   bulletsLeft: 30
   bulletReserve: 120
+  originalBulletReserve: 0
   isReloading: 0
   spawnPosition: {x: 0, y: 0, z: 0.487}
   spawnRotation: {x: 0, y: 180, z: -5.707}
   bigDamageChance: 0
+  input: {fileID: 11400000, guid: 7c9877c872d3d1c48886dc5b9e1d1087, type: 2}
   thisWeaponModel: 1
   currentShootingMode: 2
 --- !u!95 &3436354366113255205
