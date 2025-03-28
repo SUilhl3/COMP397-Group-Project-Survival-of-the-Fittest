@@ -8687,6 +8687,7 @@ GameObject:
   - component: {fileID: 274703635}
   - component: {fileID: 274703634}
   - component: {fileID: 274703633}
+  - component: {fileID: 274703639}
   m_Layer: 0
   m_Name: Perks
   m_TagString: Untagged
@@ -8794,6 +8795,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &274703639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274703632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d161437ca9201684ebe754b456721cd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  j: {fileID: 274703635}
+  s: {fileID: 274703633}
+  d: {fileID: 274703637}
+  dt: {fileID: 274703636}
+  q: {fileID: 274703634}
 --- !u!1001 &276333636
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9304,9 +9322,29 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1274370224112947965, guid: b42808e9684f8f44fa8a296d5a820ac5,
         type: 3}
+      propertyPath: dShot
+      value: 
+      objectReference: {fileID: 274703637}
+    - target: {fileID: 1274370224112947965, guid: b42808e9684f8f44fa8a296d5a820ac5,
+        type: 3}
+      propertyPath: dbTap
+      value: 
+      objectReference: {fileID: 274703636}
+    - target: {fileID: 1274370224112947965, guid: b42808e9684f8f44fa8a296d5a820ac5,
+        type: 3}
       propertyPath: money
       value: 50000
       objectReference: {fileID: 0}
+    - target: {fileID: 1274370224112947965, guid: b42808e9684f8f44fa8a296d5a820ac5,
+        type: 3}
+      propertyPath: quick
+      value: 
+      objectReference: {fileID: 274703634}
+    - target: {fileID: 1274370224112947965, guid: b42808e9684f8f44fa8a296d5a820ac5,
+        type: 3}
+      propertyPath: jugger
+      value: 
+      objectReference: {fileID: 274703635}
     - target: {fileID: 1274370224112947965, guid: b42808e9684f8f44fa8a296d5a820ac5,
         type: 3}
       propertyPath: mainCam
@@ -9322,6 +9360,11 @@ PrefabInstance:
       propertyPath: moveSpeed
       value: 150
       objectReference: {fileID: 0}
+    - target: {fileID: 1274370224112947965, guid: b42808e9684f8f44fa8a296d5a820ac5,
+        type: 3}
+      propertyPath: speedCola
+      value: 
+      objectReference: {fileID: 274703633}
     - target: {fileID: 1274370224112947965, guid: b42808e9684f8f44fa8a296d5a820ac5,
         type: 3}
       propertyPath: cineCamera
@@ -49676,6 +49719,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: downedUi
+      objectReference: {fileID: 0}
+    - target: {fileID: 3269194292584704321, guid: ec0e93d0def410b489f36f034d8e4f88,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9194315200273945655, guid: ec0e93d0def410b489f36f034d8e4f88,
         type: 3}
