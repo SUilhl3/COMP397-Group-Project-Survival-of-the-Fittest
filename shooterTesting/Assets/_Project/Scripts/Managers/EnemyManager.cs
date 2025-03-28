@@ -161,7 +161,8 @@ public class EnemyManager : MonoBehaviour, IDataPersistence
 
     public void LoadData(GameData data)
     {
-        this.round = data.roundNumber;
+        Debug.Log("Loading round");
+        this.round = data.roundNumber - 1;
     }
 
     public void SaveData(GameData data)

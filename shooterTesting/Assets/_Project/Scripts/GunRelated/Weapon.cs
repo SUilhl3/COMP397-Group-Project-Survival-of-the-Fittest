@@ -43,7 +43,7 @@ public class Weapon : MonoBehaviour
 
     // Loading
     public float reloadTime, originalReloadTime;
-    public int magazineSize, bulletsLeft, bulletReserve, originalBulletReserve;
+    public int magazineSize = 0, bulletsLeft = 0, bulletReserve = 0, originalBulletReserve = 0;
     public bool isReloading;
 
     public Vector3 spawnPosition;

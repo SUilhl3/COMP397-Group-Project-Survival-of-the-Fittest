@@ -1,6 +1,7 @@
 using UnityEngine;
 using Unity.Cinemachine;
 using System.Collections;
+using NUnit.Framework;
 
 namespace Platformer397
 {
@@ -56,6 +57,7 @@ namespace Platformer397
         public speed speedCola = null;
         public quickRevive quick = null;
         public deadshot dShot = null;
+        public ArrayList perkNames = new ArrayList();
 
         private void Awake()
         {
@@ -68,6 +70,30 @@ namespace Platformer397
         {
             input.EnablePlayerActions();
             previousYRotation = panTilt.PanAxis.Value;
+            if (hasJug)
+            {
+                perkNames.Add("jug");
+            }
+            if (hasSpeedCola)
+            {
+                perkNames.Add("speed");
+            }
+            if (hasDoubleTap)
+            {
+                perkNames.Add("double-tap");
+            }
+            if (hasQuickRevive)
+            {
+                perkNames.Add("quick-revive");
+            }
+            if (hasDeadshot)
+            {
+                perkNames.Add("deadshot");
+            }
+            foreach(string name in perkNames)
+            {
+                //addPerkLoad(name);
+            }
         }
 
         void Update()
@@ -81,6 +107,7 @@ namespace Platformer397
             }
             else{regenTimer = 0f;}
             HUDManager.Instance.HealthShower(playerHealth, playerMaxHealth);
+
         }
 
         private void OnEnable()
@@ -262,6 +289,38 @@ namespace Platformer397
             }
         }
 
+        public void addPerkLoad(string perk)
+        {
+            switch (perk)
+            {
+                case "jug":
+                    hasJug = true;
+                    jugger.increaseHealth();
+                    break;
+                case "speed":
+                    hasSpeedCola = true;
+                    speedCola.requestWeapons();
+                    speedCola.increaseMoveSpeed();
+                    speedCola.increaseReloadSpeed();
+                    break;
+                case "double-tap":
+                    hasDoubleTap = true;
+                    dbTap.requestWeapons();
+                    dbTap.increaseDamage();
+                    dbTap.increaseFireRate();
+                    break;
+                case "quick-revive":
+                    hasQuickRevive = true;
+                    break;
+                case "deadshot":
+                    hasDeadshot = true;
+                    dShot.requestWeapons();
+                    dShot.increaseHSM();
+                    dShot.reduceSpread();
+                    break;
+            }
+        }
+
         public IEnumerator doublePointsTimer(float time)
         {
             doubleCounter ++;
@@ -296,13 +355,14 @@ namespace Platformer397
 
         public void LoadData(GameData data)
         {
-            gameObject.transform.position = data.location;
+            Debug.Log("Loading player data");
+            gameObject.transform.position.Set(data.location.x, data.location.y, data.location.z);
             this.money = data.money;
-            this.hasJug = data.hasJug;
-            this.hasDeadshot = data.hasDeadshot;
-            this.hasDoubleTap = data.hasDoubleTap;
-            this.hasSpeedCola = data.hasSpeedCola;
-            this.hasQuickRevive = data.hasQuickRevive;
+            //this.hasJug = data.hasJug;
+            //this.hasDeadshot = data.hasDeadshot;
+            //this.hasDoubleTap = data.hasDoubleTap;
+            //this.hasSpeedCola = data.hasSpeedCola;
+            //this.hasQuickRevive = data.hasQuickRevive;
         }
 
         public void SaveData(GameData data)

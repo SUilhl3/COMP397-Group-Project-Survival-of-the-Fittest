@@ -62,7 +62,11 @@ public class WeaponManager : MonoBehaviour, IDataPersistence
         equippedLethalType = Throwable.ThrowableType.None;
         equippedTacticalType = Throwable.ThrowableType.None;
         activeWeaponSlot = weaponSlot1;
-        PickUpWeapon(startingGun);
+        if(startingGun != null)
+        {
+            PickUpWeapon(startingGun);
+        }
+
         input.EnablePlayerActions();
     }
 
@@ -452,16 +456,17 @@ public class WeaponManager : MonoBehaviour, IDataPersistence
 
     public void LoadData(GameData data)
     {
-        AddWeaponIntoActiveSlot(data.firstGun);
-        this.weaponSlot1.transform.GetChild(0).gameObject.GetComponent<Weapon>().bulletsLeft = data.ammo;
-        this.weaponSlot1.transform.GetChild(0).gameObject.GetComponent<Weapon>().bulletReserve = data.ammoMax;
-        if (data.secondGun != null)
-        {
-            AddWeaponIntoActiveSlot(data.secondGun);
-            this.weaponSlot2.transform.GetChild(0).gameObject.GetComponent<Weapon>().bulletsLeft = data.ammoTwo;
-            this.weaponSlot2.transform.GetChild(0).gameObject.GetComponent<Weapon>().bulletReserve = data.ammoMaxTwo;
-        }
-        else return;
+        //PickUpWeapon(data.firstGun);
+        //Debug.Log("Loading gun");
+        //this.weaponSlot1.transform.GetChild(0).gameObject.GetComponent<Weapon>().bulletsLeft = data.ammo;
+        //this.weaponSlot1.transform.GetChild(0).gameObject.GetComponent<Weapon>().bulletReserve = data.ammoMax;
+        //if (data.secondGun != null)
+        //{
+        //    PickUpWeapon(data.secondGun);
+        //    this.weaponSlot2.transform.GetChild(0).gameObject.GetComponent<Weapon>().bulletsLeft = data.ammoTwo;
+        //    this.weaponSlot2.transform.GetChild(0).gameObject.GetComponent<Weapon>().bulletReserve = data.ammoMaxTwo;
+        //}
+        //else return;
         this.lethalsCount = data.lethalCount;
         this.tacticalsCount = data.tacticalCount;
     }
