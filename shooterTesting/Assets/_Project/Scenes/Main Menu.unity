@@ -1616,7 +1616,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 877ffee81e85c7c48a5b3f7038be65c5, type: 3}
   m_Resource: {fileID: 8300000, guid: 877ffee81e85c7c48a5b3f7038be65c5, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.615
+  m_Volume: 0.284
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -3049,6 +3049,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bgmMixer: {fileID: 24100000, guid: 45a2aab020f228e4e812e8da4332b41f, type: 2}
+  newGameButton: {fileID: 490966109}
+  continueGameButton: {fileID: 704642826}
 --- !u!1 &1444943234
 GameObject:
   m_ObjectHideFlags: 0
@@ -3510,6 +3512,74 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1637667624}
   m_CullTransparentMesh: 1
+--- !u!1001 &1817874446
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3142247603747856459, guid: bb02f2541ffaac34f8a152f7c2591472,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3142247603747856459, guid: bb02f2541ffaac34f8a152f7c2591472,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3142247603747856459, guid: bb02f2541ffaac34f8a152f7c2591472,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3142247603747856459, guid: bb02f2541ffaac34f8a152f7c2591472,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3142247603747856459, guid: bb02f2541ffaac34f8a152f7c2591472,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3142247603747856459, guid: bb02f2541ffaac34f8a152f7c2591472,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3142247603747856459, guid: bb02f2541ffaac34f8a152f7c2591472,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3142247603747856459, guid: bb02f2541ffaac34f8a152f7c2591472,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3142247603747856459, guid: bb02f2541ffaac34f8a152f7c2591472,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3142247603747856459, guid: bb02f2541ffaac34f8a152f7c2591472,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6722876445453915573, guid: bb02f2541ffaac34f8a152f7c2591472,
+        type: 3}
+      propertyPath: m_Name
+      value: DataPersistenceManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bb02f2541ffaac34f8a152f7c2591472, type: 3}
 --- !u!1 &1867820578
 GameObject:
   m_ObjectHideFlags: 0
@@ -4386,6 +4456,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bgmMixer: {fileID: 24100000, guid: 45a2aab020f228e4e812e8da4332b41f, type: 2}
+  newGameButton: {fileID: 0}
+  continueGameButton: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -4396,3 +4468,4 @@ SceneRoots:
   - {fileID: 593118201}
   - {fileID: 718577697}
   - {fileID: 2138858428}
+  - {fileID: 1817874446}

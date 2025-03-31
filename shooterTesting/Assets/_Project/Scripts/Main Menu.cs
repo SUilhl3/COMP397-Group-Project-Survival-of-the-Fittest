@@ -4,23 +4,26 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 public class MainMenu : MonoBehaviour
 {
     public AudioMixer bgmMixer;
+    public Button newGameButton;
+    public Button continueGameButton;
 
-    //private void Start()
-    //{
-    //    if (!DataPersistenceManager.Instance.HasGameData())
-    //    {
-    //        continueGameButton.interactable = false;
-    //    }
-    //}
+    private void Start()
+    {
+        if (!DataPersistenceManager.Instance.HasGameData())
+        {
+            continueGameButton.interactable = false;
+        }
+    }
 
     public void OnNewGameClicked()
     {
-        //DataPersistenceManager.Instance.NewGame();
-        //SceneManager.LoadSceneAsync("Main game");
-        //DisableMenuButtons();
+        DataPersistenceManager.Instance.NewGame();
+        SceneManager.LoadSceneAsync("map");
+        DisableMenuButtons();
         Debug.Log("Game has started...");
     }
     public void OnContinueGameClicked()
@@ -39,9 +42,9 @@ public class MainMenu : MonoBehaviour
     {
         bgmMixer.SetFloat("volume", volume);
     }
-    //private void DisableMenuButtons()
-    //{
-    //    newGameButton.interactable = false;
-    //    continueGameButton.interactable = false;
-    //}
+    private void DisableMenuButtons()
+    {
+        newGameButton.interactable = false;
+        continueGameButton.interactable = false;
+    }
 }

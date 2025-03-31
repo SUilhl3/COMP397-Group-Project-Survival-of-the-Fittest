@@ -5,22 +5,42 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Audio;
+using Platformer397;
 
 public class PauseMenu : MonoBehaviour
 {
+
     [Header("Pause Menu Buttons")]
     [SerializeField] private GameObject firstSelected;
 
+    [SerializeField] private InputReader input;
+
     [SerializeField] private GameObject hideUI;
+    public bool pauseGame = false;
     public static bool GameIsPause = false;
     public GameObject pauseMenuUI;
     public AudioMixer bgmMixer;
 
 
+    public void Start()
+    {
+        input.EnablePlayerActions();
+    }
+
+    private void OnEnable()
+    {
+        input.PauseGame += OnGamePause;
+    }
+
+    private void OnDisable()
+    {
+        input.PauseGame -= OnGamePause;
+    }
+
     // Update is called once per frame
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !GameIsPause)
+        if (pauseGame && !GameIsPause)
         {
             if (GameIsPause)
             {
@@ -34,12 +54,18 @@ public class PauseMenu : MonoBehaviour
 
     }
 
+    private void OnGamePause(bool gamePaused)
+    {
+        pauseGame = gamePaused;
+    }
+
     public void Resume()
     {
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         GameIsPause = false;
         hideUI.SetActive(false);
+        pauseGame = false;
     }
 
     public void Pause()

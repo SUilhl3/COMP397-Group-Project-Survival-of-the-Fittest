@@ -2,6 +2,7 @@ using UnityEngine;
 using Unity.Cinemachine;
 using System.Collections;
 using NUnit.Framework;
+using UnityEngine.SceneManagement;
 
 namespace Platformer397
 {
@@ -206,6 +207,7 @@ namespace Platformer397
                 if(checkPerk("quick-revive")){quick.downed();}
                 else{playerHealth = 0;} //reset health for now so we can test things but later we need to change scenes or have something happen to end game
                 loseAllPerks();
+                SceneManager.LoadScene("Game Over");
             }
         }
 

@@ -19,6 +19,7 @@ namespace Platformer397
         public event UnityAction<bool> GrenadeRelease = delegate { };
         public event UnityAction<bool> Tactical = delegate { };
         public event UnityAction<bool> TacticalRelease = delegate { };
+        public event UnityAction<bool> PauseGame = delegate { };
 
         InputSystem_Actions input;
         private void OnEnable()
@@ -160,6 +161,13 @@ namespace Platformer397
         {
 
         }
-        
+
+        public void OnPause(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+            {
+                PauseGame?.Invoke(true);
+            }
+        }
     }
 }
