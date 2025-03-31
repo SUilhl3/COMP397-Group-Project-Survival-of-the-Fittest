@@ -4,7 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
 using static Weapon;
 
 public class WeaponManager : MonoBehaviour, IDataPersistence
@@ -42,14 +41,6 @@ public class WeaponManager : MonoBehaviour, IDataPersistence
     public Throwable.ThrowableType equippedTacticalType;
     public GameObject smokeGrenadePrefab;
 
-    [Header("Weapon Management")]
-    [SerializeField] private Button attackButton;  // Button for attacking
-    [SerializeField] private Button reloadButton;  // Button for reloading
-    [SerializeField] private Button weapon1Button; // Button for switching to weapon 1
-    [SerializeField] private Button weapon2Button; // Button for switching to weapon 2
-    [SerializeField] private Button grenadeButton; // Button for grenade action
-    [SerializeField] private Button tacticalButton;
-
     // [Header("Ammo")]
     // public int totalRifleAmmo = 0;
     // public int totalPistolAmmo = 0;
@@ -77,26 +68,16 @@ public class WeaponManager : MonoBehaviour, IDataPersistence
         }
 
         input.EnablePlayerActions();
-
-
     }
 
     private void OnEnable()
     {
-        //weapon1Button.onClick.AddListener(() => WeaponSlotOne(true));
-        //weapon2Button.onClick.AddListener(() => WeaponSlotTwo(true));
-        //grenadeButton.onClick.AddListener(() => OnGrenadePress(true));
-        //grenadeButton.onClick.AddListener(() => OnGrenadeRelease(true));
-        //tacticalButton.onClick.AddListener(() => OnGrenadePress(true));
-        //tacticalButton.onClick.AddListener(() => OnGrenadeRelease(true));
-
         input.WeaponOne += WeaponSlotOne;
         input.WeaponTwo += WeaponSlotTwo;
         input.Grenade += OnGrenadePress;
         input.Tactical += OnTacticalPress;
         input.GrenadeRelease += OnGrenadeRelease;
         input.TacticalRelease += OnTacticalRelease;
-
     }
     
     private void OnGrenadePress(bool grenade)
@@ -126,9 +107,6 @@ public class WeaponManager : MonoBehaviour, IDataPersistence
     {
         weaponSlotTwo = slotTwo;
     }
-
-
-
 
     private void OnDisable()
     {

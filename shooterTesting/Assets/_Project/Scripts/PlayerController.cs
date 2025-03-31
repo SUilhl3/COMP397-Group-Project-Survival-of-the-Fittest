@@ -15,22 +15,16 @@ namespace Platformer397
         [SerializeField] private Rigidbody rb;
         [SerializeField] private Vector3 movement;
 
-        [Header("Touch Movement")]
-        [SerializeField] private FixedJoystick moveJoystick;
-        [SerializeField] private FixedJoystick lookJoystick;
-
         public float moveSpeed = 200f;
         public float originalSpeed;
         [Header("Camera")]
         [SerializeField] private Transform mainCam;
-        [SerializeField] private Transform playerBody;
         private float previousYRotation;
         private float rotationSpeed;
         [SerializeField] private float rotationAmount = 100f;
         [SerializeField] private CinemachinePanTilt panTilt;
         private float panAxisValue;
         private float camSpeed;
-        private float cameraPitch = 0f;
 
         [Header("Misc")]
         public string currentRoom = "Room1";
@@ -114,20 +108,6 @@ namespace Platformer397
             else{regenTimer = 0f;}
             HUDManager.Instance.HealthShower(playerHealth, playerMaxHealth);
 
-            if(moveJoystick != null)
-            {
-                if(Mathf.Abs(moveJoystick.Horizontal) > 0.1f || Mathf.Abs(moveJoystick.Vertical) > 0.1f)
-                {
-                    movement.x = moveJoystick.Horizontal;
-                    movement.y = moveJoystick.Vertical;
-                }
-            }
-
-            if(lookJoystick != null)
-            {
-                HandleLookWithJoystick();
-            }
-
         }
 
         private void OnEnable()
@@ -164,19 +144,6 @@ namespace Platformer397
                 //not change, but need to apply rigidbody y movement for gravity
                 rb.linearVelocity = new Vector3(0f, rb.linearVelocity.y, 0f);
             }
-        }
-
-        private void HandleLookWithJoystick()
-        {
-            float lookX = lookJoystick.Horizontal * rotationAmount * Time.deltaTime;
-            float lookY = lookJoystick.Vertical * rotationAmount * Time.deltaTime;
-
-            playerBody.Rotate(Vector3.up * lookX);
-
-            cameraPitch -= lookY;
-            cameraPitch = Mathf.Clamp(cameraPitch, -45f, 45f);
-            mainCam.localRotation = Quaternion.Euler(cameraPitch, 0, 0);
-
         }
 
         private void UpdateRotation(float speed)
