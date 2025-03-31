@@ -12894,13 +12894,8 @@ Transform:
   m_PrefabInstance: {fileID: 360375392}
   m_PrefabAsset: {fileID: 0}
 <<<<<<< Updated upstream
-<<<<<<< Updated upstream
 --- !u!64 &362450803
 MeshCollider:
-=======
---- !u!1 &361782912
-GameObject:
->>>>>>> Stashed changes
 =======
 --- !u!1 &361782912
 GameObject:
@@ -12909,7 +12904,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< Updated upstream
 <<<<<<< Updated upstream
   m_GameObject: {fileID: 1162444177}
   m_Material: {fileID: 0}
@@ -12928,8 +12922,6 @@ GameObject:
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300014, guid: 7a14b3060165a0646b620baf99a76c04, type: 3}
 =======
-=======
->>>>>>> Stashed changes
   serializedVersion: 6
   m_Component:
   - component: {fileID: 361782915}
@@ -13014,9 +13006,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
 >>>>>>> Stashed changes
 --- !u!1001 &364303485
 PrefabInstance:
@@ -20470,7 +20459,6 @@ Transform:
   m_PrefabInstance: {fileID: 587448057}
   m_PrefabAsset: {fileID: 0}
 <<<<<<< Updated upstream
-<<<<<<< Updated upstream
 --- !u!1 &587448059 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1448292466349434, guid: 8f978c5848e19084c9fbc6df0138d2b4,
@@ -20483,15 +20471,10 @@ MeshCollider:
 --- !u!1 &596309078
 GameObject:
 >>>>>>> Stashed changes
-=======
---- !u!1 &596309078
-GameObject:
->>>>>>> Stashed changes
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< Updated upstream
 <<<<<<< Updated upstream
   m_GameObject: {fileID: 587448059}
   m_Material: {fileID: 0}
@@ -20512,8 +20495,6 @@ GameObject:
 --- !u!64 &588687352
 MeshCollider:
 =======
-=======
->>>>>>> Stashed changes
   serializedVersion: 6
   m_Component:
   - component: {fileID: 596309079}
@@ -20528,15 +20509,11 @@ MeshCollider:
   m_IsActive: 1
 --- !u!224 &596309079
 RectTransform:
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
 >>>>>>> Stashed changes
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< Updated upstream
 <<<<<<< Updated upstream
   m_GameObject: {fileID: 447594955}
   m_Material: {fileID: 0}
@@ -20557,8 +20534,6 @@ RectTransform:
 --- !u!64 &597446623
 MeshCollider:
 =======
-=======
->>>>>>> Stashed changes
   m_GameObject: {fileID: 596309078}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -20574,15 +20549,11 @@ MeshCollider:
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &596309080
 MonoBehaviour:
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
 >>>>>>> Stashed changes
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< Updated upstream
 <<<<<<< Updated upstream
   m_GameObject: {fileID: 1831888876}
   m_Material: {fileID: 0}
@@ -20601,8 +20572,6 @@ MonoBehaviour:
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 7a14b3060165a0646b620baf99a76c04, type: 3}
 =======
-=======
->>>>>>> Stashed changes
   m_GameObject: {fileID: 596309078}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -20635,9 +20604,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 596309078}
   m_CullTransparentMesh: 1
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
 >>>>>>> Stashed changes
 --- !u!1001 &599381858
 PrefabInstance:
@@ -64454,12 +64420,7 @@ SceneRoots:
   - {fileID: 780960635}
   - {fileID: 274703638}
 <<<<<<< Updated upstream
-<<<<<<< Updated upstream
   - {fileID: 2143586111}
-=======
-  - {fileID: 815713703}
-  - {fileID: 361782915}
->>>>>>> Stashed changes
 =======
   - {fileID: 815713703}
   - {fileID: 361782915}
