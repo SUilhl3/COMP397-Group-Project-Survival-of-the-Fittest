@@ -28,6 +28,9 @@ public class HUDManager : MonoBehaviour
     [SerializeField]
     private List<GameObject> damage = new List<GameObject>();
 
+    [SerializeField]
+    private List<GameObject> perks = new List<GameObject>();
+
     public Image tacticalUI;
     public TextMeshProUGUI tacticalAmountUI;
 
@@ -148,6 +151,34 @@ public class HUDManager : MonoBehaviour
         {
             case Throwable.ThrowableType.Smoke_Grenade:
                 tacticalUI.sprite = Resources.Load<GameObject>("Smoke_Grenade").GetComponent<SpriteRenderer>().sprite;
+                break;
+        }
+    }
+
+    public void PerkShower(string perkName)
+    {
+        switch (perkName)
+        {
+            case "jug":
+                perks[0].SetActive(true);
+                break;
+            case "speed":
+                perks[2].SetActive(true);
+                break;
+            case "double-tap":
+                perks[4].SetActive(true);
+                break;
+            case "quick-revive":
+                perks[3].SetActive(true);
+                break;
+            case "deadshot":
+                perks[1].SetActive(true);
+                break;
+            default:
+                foreach(GameObject p in perks)
+                {
+                    p.SetActive(false);
+                }
                 break;
         }
     }

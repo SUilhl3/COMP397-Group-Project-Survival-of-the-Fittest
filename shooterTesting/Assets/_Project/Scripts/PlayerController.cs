@@ -58,7 +58,8 @@ namespace Platformer397
         public speed speedCola = null;
         public quickRevive quick = null;
         public deadshot dShot = null;
-        public ArrayList perkNames = new ArrayList();
+        [SerializeField]
+        public ArrayList perkNames;
 
         private void Awake()
         {
@@ -69,32 +70,33 @@ namespace Platformer397
         }
         void Start()
         {
+            perkNames = new ArrayList();
             input.EnablePlayerActions();
             previousYRotation = panTilt.PanAxis.Value;
-            if (hasJug)
-            {
-                perkNames.Add("jug");
-            }
-            if (hasSpeedCola)
-            {
-                perkNames.Add("speed");
-            }
-            if (hasDoubleTap)
-            {
-                perkNames.Add("double-tap");
-            }
-            if (hasQuickRevive)
-            {
-                perkNames.Add("quick-revive");
-            }
-            if (hasDeadshot)
-            {
-                perkNames.Add("deadshot");
-            }
-            foreach(string name in perkNames)
-            {
-                //addPerkLoad(name);
-            }
+            //if (hasJug)
+            //{
+            //    perkNames.Add("jug");
+            //}
+            //if (hasSpeedCola)
+            //{
+            //    perkNames.Add("speed");
+            //}
+            //if (hasDoubleTap)
+            //{
+            //    perkNames.Add("double-tap");
+            //}
+            //if (hasQuickRevive)
+            //{
+            //    perkNames.Add("quick-revive");
+            //}
+            //if (hasDeadshot)
+            //{
+            //    perkNames.Add("deadshot");
+            //}
+            //foreach(string name in perkNames)
+            //{
+            //    //addPerkLoad(name);
+            //}
         }
 
         void Update()
@@ -108,7 +110,10 @@ namespace Platformer397
             }
             else{regenTimer = 0f;}
             HUDManager.Instance.HealthShower(playerHealth, playerMaxHealth);
-
+            foreach(string name in perkNames)
+            {
+                HUDManager.Instance.PerkShower(name);
+            }
         }
 
         private void OnEnable()
@@ -271,22 +276,27 @@ namespace Platformer397
                 case "jug":
                     hasJug = true;
                     jugger = InteractionManager.Instance.jugger;
+                    perkNames.Add(perk);
                     break;
                 case "speed":
                     hasSpeedCola = true;
                     speedCola = InteractionManager.Instance.speedCola;
+                    perkNames.Add(perk);
                     break;
                 case "double-tap":
                     hasDoubleTap = true;
                     dbTap = InteractionManager.Instance.dbTap;
+                    perkNames.Add(perk);
                     break;
                 case "quick-revive":
                     hasQuickRevive = true;
                     quick = InteractionManager.Instance.quick;
+                    perkNames.Add(perk);
                     break;
                 case "deadshot":
                     hasDeadshot = true;
                     dShot = InteractionManager.Instance.dShot;
+                    perkNames.Add(perk);
                     break;
             }
         }
@@ -357,9 +367,9 @@ namespace Platformer397
 
         public void LoadData(GameData data)
         {
-            Debug.Log("Loading player data");
-            gameObject.transform.position.Set(data.location.x, data.location.y, data.location.z);
-            this.money = data.money;
+            //Debug.Log("Loading player data");
+            //gameObject.transform.position.Set(data.location.x, data.location.y, data.location.z);
+            //this.money = data.money;
             //this.hasJug = data.hasJug;
             //this.hasDeadshot = data.hasDeadshot;
             //this.hasDoubleTap = data.hasDoubleTap;
