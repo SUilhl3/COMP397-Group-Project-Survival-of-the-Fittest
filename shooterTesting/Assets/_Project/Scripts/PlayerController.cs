@@ -110,6 +110,10 @@ namespace Platformer397
             }
             else{regenTimer = 0f;}
             HUDManager.Instance.HealthShower(playerHealth, playerMaxHealth);
+            if(perkNames.Count == 0)
+            {
+                HUDManager.Instance.PerkShower("");
+            }
             foreach(string name in perkNames)
             {
                 HUDManager.Instance.PerkShower(name);
@@ -209,10 +213,12 @@ namespace Platformer397
                 // Debug.Log("Game Over");
 
                 //should add all the perks to game manager so we can reference the game manager instance rather than having multiple game objects on the things that need them
-                if(checkPerk("quick-revive")){quick.downed();}
-                else{playerHealth = 0;} //reset health for now so we can test things but later we need to change scenes or have something happen to end game
+                if(checkPerk("quick-revive")){quick.downed(); playerHealth += 50; }
+                else if(!checkPerk("quick-revive")) { playerHealth = 0;
+                    SceneManager.LoadSceneAsync("Game Over");
+                } //reset health for now so we can test things but later we need to change scenes or have something happen to end game
                 loseAllPerks();
-                SceneManager.LoadScene("Game Over");
+
             }
         }
 
@@ -267,6 +273,11 @@ namespace Platformer397
             if(hasDoubleTap){losePerk("double-tap");}
             if(hasQuickRevive){losePerk("quick-revive");}
             if(hasDeadshot){losePerk("deadshot");}
+            perkNames.Remove("jug");
+            perkNames.Remove("speed");
+            perkNames.Remove("double-tap");
+            perkNames.Remove("quick-revive");
+            perkNames.Remove("deadshot");
         }
 
         public void addPerk(string perk)

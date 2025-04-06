@@ -174,6 +174,12 @@ public class HUDManager : MonoBehaviour
             case "deadshot":
                 perks[1].SetActive(true);
                 break;
+            case "":
+                foreach (GameObject p in perks)
+                {
+                    p.SetActive(false);
+                }
+                break;
             default:
                 foreach(GameObject p in perks)
                 {
