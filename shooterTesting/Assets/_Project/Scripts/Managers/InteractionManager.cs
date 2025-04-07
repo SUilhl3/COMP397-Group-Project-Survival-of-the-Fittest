@@ -16,6 +16,7 @@ public class InteractionManager : MonoBehaviour
     public Weapon hoveredWeapon = null;
     public AmmoBox hoveredAmmoBox = null;
     public Throwable hoveredThrowable = null;
+    public Collectible collected = null;
     [SerializeField] private float rayCastLength = 3.5f;
     [SerializeField] private PlayerController player;
 
@@ -69,7 +70,7 @@ public class InteractionManager : MonoBehaviour
 
         RaycastHit hit;
         Debug.DrawRay(ray.origin, ray.direction, Color.red);
-        if (Physics.Raycast(ray, out hit, 3f)) //checks if raycast hit is a weapon
+        if (Physics.Raycast(ray, out hit, 4f)) //checks if raycast hit is a weapon
         {
             GameObject objectHitByRaycast = hit.transform.gameObject;
 
@@ -326,6 +327,13 @@ public class InteractionManager : MonoBehaviour
                 {
                     hoveredThrowable.GetComponent<Outline>().enabled = false;
                 }
+            }
+
+            if (objectHitByRaycast.GetComponent<Collectible>())
+            {
+                collected = objectHitByRaycast.gameObject.GetComponent<Collectible>();
+                collected.OnCollect();
+                Destroy(collected);
             }
         }
 
