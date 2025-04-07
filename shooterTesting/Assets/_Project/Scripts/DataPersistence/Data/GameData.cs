@@ -23,6 +23,8 @@ public class GameData
     public int lethalCount;
     public int tacticalCount;
 
+    public bool achievementOne;
+    public bool achievementTwo;
 
     public GameData()
     {
@@ -42,5 +44,7 @@ public class GameData
         secondGun = null;
         lethalCount = 0;
         tacticalCount = 0;
+        achievementOne = false;
+        achievementTwo = false;
     }
 }

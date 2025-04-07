@@ -1,16 +1,16 @@
 using UnityEngine;
 
-public class AchievementManager : MonoBehaviour
+public class AchievementManager : MonoBehaviour, IDataPersistence
 {
 
-    private bool hasCollectibleOne = false;
-    private bool hasCollectibleTwo = false;
-    private bool hasCollectibleThree = false;
-    private bool hasCollectibleFour = false;
-    private bool hasCollectibleFive = false;
+    public  bool hasCollectibleOne = false;
+    public  bool hasCollectibleTwo = false;
+    public  bool hasCollectibleThree = false;
+    public  bool hasCollectibleFour = false;
+    public  bool hasCollectibleFive = false;
 
-    private bool firstCollectible = false;
-    private bool everyCollectible = false;
+    public  bool firstCollectible = false;
+    public  bool everyCollectible = false;
 
     public static AchievementManager Instance { get; private set; }
     private void Awake()
@@ -70,5 +70,17 @@ public class AchievementManager : MonoBehaviour
                 hasCollectibleFive =false;
                 break;
         }
+    }
+
+    public void LoadData(GameData data)
+    {
+        this.firstCollectible = data.achievementOne;
+        this.everyCollectible = data.achievementTwo;
+    }
+
+    public void SaveData(GameData data)
+    {
+        data.achievementOne = this.firstCollectible;
+        data.achievementTwo = this.everyCollectible;
     }
 }

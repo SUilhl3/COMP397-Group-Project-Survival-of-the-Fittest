@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Platformer397;
+using UnityEditor.Experimental.GraphView;
 
 public class InteractionManager : MonoBehaviour
 {
@@ -329,12 +330,58 @@ public class InteractionManager : MonoBehaviour
                 }
             }
 
-            if (objectHitByRaycast.GetComponent<Collectible>())
-            {
-                collected = objectHitByRaycast.gameObject.GetComponent<Collectible>();
-                collected.OnCollect();
-                Destroy(collected);
-            }
+
+                switch (objectHitByRaycast.gameObject.name) //checks if raycast hit is a jug, speedcola, doubletap, quickrevive, or mysterybox
+                {
+                    case "CollectibleOne":
+                    objectHitByRaycast.gameObject.GetComponent<Outline>().enabled = true;
+                        if (buttonPress)
+                        {
+                            AchievementManager.Instance.hasCollectibleOne = true;
+                            Destroy(objectHitByRaycast.gameObject);
+                        }
+
+                        break;
+                    case "CollectibleTwo":
+                    objectHitByRaycast.gameObject.GetComponent<Outline>().enabled = true;
+                    if (buttonPress)
+                    {
+                        AchievementManager.Instance.hasCollectibleTwo = true;
+                        Destroy(objectHitByRaycast.gameObject);
+                    }
+
+                    break;
+                    case "CollectibleThree":
+                    objectHitByRaycast.gameObject.GetComponent<Outline>().enabled = true;
+                    if (buttonPress)
+                    {
+                        AchievementManager.Instance.hasCollectibleThree = true;
+                        Destroy(objectHitByRaycast.gameObject);
+                    }
+
+                    break;
+                    case "CollectibleFour":
+                    objectHitByRaycast.gameObject.GetComponent<Outline>().enabled = true;
+                    if (buttonPress)
+                    {
+                        AchievementManager.Instance.hasCollectibleFour = true;
+                        Destroy(objectHitByRaycast.gameObject);
+                    }
+
+                    break;
+                    case "CollectibleFive":
+                    objectHitByRaycast.gameObject.GetComponent<Outline>().enabled = true;
+                    if (buttonPress)
+                    {
+                        AchievementManager.Instance.hasCollectibleFive = true;
+                        Destroy(objectHitByRaycast.gameObject);
+                    }
+
+                    break;
+                        
+
+                }
+                
         }
 
         else

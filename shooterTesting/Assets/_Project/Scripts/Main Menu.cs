@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.EventSystems;
@@ -11,12 +12,16 @@ public class MainMenu : MonoBehaviour
     public Button newGameButton;
     public Button continueGameButton;
 
+    [SerializeField]
+    private List<GameObject> achievements = new List<GameObject>();
+
     private void Start()
     {
         if (!DataPersistenceManager.Instance.HasGameData())
         {
             continueGameButton.interactable = false;
         }
+        AchievementsAppear();
     }
 
     public void OnNewGameClicked()
@@ -46,5 +51,19 @@ public class MainMenu : MonoBehaviour
     {
         newGameButton.interactable = false;
         continueGameButton.interactable = false;
+    }
+
+    public void AchievementsAppear()
+    {
+        if (AchievementManager.Instance.firstCollectible)
+        {
+            achievements[0].gameObject.SetActive(true);
+        }
+        else { achievements[0].SetActive(false); }
+        if (AchievementManager.Instance.everyCollectible)
+        {
+            achievements[1].SetActive(true);
+        }
+        else { achievements[1].SetActive(false); }
     }
 }
