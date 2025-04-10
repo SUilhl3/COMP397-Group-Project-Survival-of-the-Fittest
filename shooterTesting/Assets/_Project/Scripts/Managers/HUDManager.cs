@@ -91,7 +91,11 @@ public class HUDManager : MonoBehaviour
             tacticalUI.sprite = greySlot;
         }
 
-        tutorial.text = QuestManager.Instance.Tutorial();
+        if (QuestManager.Instance != null)
+        {
+            tutorial.text = QuestManager.Instance.Tutorial();
+        }
+
     }
 
     //have to edit this eventually to include more models
