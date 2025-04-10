@@ -242,6 +242,10 @@ public class InteractionManager : MonoBehaviour
                         {
                             player.decreaseMoney(quickPrice);
                             player.addPerk("quick-revive");
+                            if (QuestManager.Instance != null && !QuestManager.Instance.thirdStep)
+                            {
+                                QuestManager.Instance.thirdStep = true;
+                            }
                         }
                         else { Debug.Log("Not enough money"); }
                     }

@@ -129,6 +129,10 @@ public class Weapon : MonoBehaviour
     private void HandleAttack(bool attack)
     {
         attackPress = attack;
+        if (QuestManager.Instance != null && !QuestManager.Instance.secondStep)
+        {
+            QuestManager.Instance.secondStep = true;
+        }
     }
 
     private void OnDisable()

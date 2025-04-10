@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -37,7 +38,7 @@ public class HUDManager : MonoBehaviour
     public Sprite emptySlot;
     public Sprite greySlot;
 
-
+    public TextMeshProUGUI tutorial;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -89,6 +90,8 @@ public class HUDManager : MonoBehaviour
         {
             tacticalUI.sprite = greySlot;
         }
+
+        tutorial.text = QuestManager.Instance.Tutorial();
     }
 
     //have to edit this eventually to include more models
@@ -286,4 +289,5 @@ public class HUDManager : MonoBehaviour
             }
         }
     }
+
 }

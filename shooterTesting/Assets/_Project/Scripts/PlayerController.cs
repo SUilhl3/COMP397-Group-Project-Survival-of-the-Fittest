@@ -154,6 +154,7 @@ namespace Platformer397
                 //not change, but need to apply rigidbody y movement for gravity
                 rb.linearVelocity = new Vector3(0f, rb.linearVelocity.y, 0f);
             }
+
         }
 
         private void UpdateRotation(float speed)
@@ -183,6 +184,10 @@ namespace Platformer397
         {
             movement.x = move.x;
             movement.z = move.y;
+            if (QuestManager.Instance != null && !QuestManager.Instance.firstStep)
+            {
+                QuestManager.Instance.firstStep = true;
+            }
         }
 
         public int getMoney(){return money;}
