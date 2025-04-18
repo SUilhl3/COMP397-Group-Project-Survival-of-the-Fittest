@@ -19,7 +19,7 @@ public class PauseMenu : MonoBehaviour
     public bool pauseGame = false;
     public static bool GameIsPause = false;
     public GameObject pauseMenuUI;
-    public AudioMixer bgmMixer;
+    public AudioMixer soundMixer;
 
 
     public void Start()
@@ -76,9 +76,23 @@ public class PauseMenu : MonoBehaviour
         hideUI.SetActive(true);
         pauseMenuUI.SetActive(true);
     }
-    public void SetVolume(float volume)
+
+    public void SetMasterVolume(float level)
     {
-        bgmMixer.SetFloat("volume", volume);
+        //soundMixer.SetFloat("MasterVol", masterVol);
+        soundMixer.SetFloat("MasterVol", Mathf.Log10(level) * 20f);
+    }
+
+    public void SetVolume(float level)
+    {
+        //soundMixer.SetFloat("BGMVol", volume);
+        soundMixer.SetFloat("BGMVol", Mathf.Log10(level) * 20f);
+    }
+
+    public void SetSFXVol(float level)
+    {
+        //soundMixer.SetFloat("SFXVol", sFXVol);
+        soundMixer.SetFloat("SFXVol", Mathf.Log10(level) * 20f);
     }
 
     public void LoadMenu()

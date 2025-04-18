@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class MainMenu : MonoBehaviour
 {
-    public AudioMixer bgmMixer;
+    public AudioMixer soundMixer;
     public Button newGameButton;
     public Button continueGameButton;
 
@@ -24,12 +24,16 @@ public class MainMenu : MonoBehaviour
         AchievementsAppear();
     }
 
+    public void ToTutorial()
+    {
+        SceneManager.LoadSceneAsync("Map 1");
+        DisableMenuButtons();
+    }
     public void OnNewGameClicked()
     {
         DataPersistenceManager.Instance.NewGame();
-        SceneManager.LoadSceneAsync("map");
+        SceneManager.LoadSceneAsync("Map");
         DisableMenuButtons();
-        Debug.Log("Game has started...");
     }
     public void OnContinueGameClicked()
     {
@@ -43,10 +47,25 @@ public class MainMenu : MonoBehaviour
         Debug.Log("Quitting Game...");
         Application.Quit();
     }
-    public void SetVolume(float volume)
+
+    public void SetMasterVolume(float level)
     {
-        bgmMixer.SetFloat("volume", volume);
+        //soundMixer.SetFloat("MasterVol", masterVol);
+        soundMixer.SetFloat("MasterVol", Mathf.Log10(level) * 20f);
     }
+
+    public void SetVolume(float level)
+    {
+        //soundMixer.SetFloat("BGMVol", volume);
+        soundMixer.SetFloat("BGMVol", Mathf.Log10(level) * 20f);
+    }
+
+    public void SetSFXVol(float level)
+    {
+        //soundMixer.SetFloat("SFXVol", sFXVol);
+        soundMixer.SetFloat("SFXVol", Mathf.Log10(level) * 20f);
+    }
+
     private void DisableMenuButtons()
     {
         newGameButton.interactable = false;

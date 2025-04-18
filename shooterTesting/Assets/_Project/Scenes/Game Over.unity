@@ -328,13 +328,25 @@ MonoBehaviour:
   m_FillRect: {fileID: 1479962233}
   m_HandleRect: {fileID: 1348186875}
   m_Direction: 0
-  m_MinValue: -80
-  m_MaxValue: 20
+  m_MinValue: 0.0001
+  m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: -25.1
+  m_Value: 0.3
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 401185709}
+        m_TargetAssemblyTypeName: Endandovermenu, Assembly-CSharp
+        m_MethodName: SetMasterVolume
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &401185704
 GameObject:
   m_ObjectHideFlags: 0
@@ -450,7 +462,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d1be12e5ad4c2344b475fc51235b876, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bgmMixer: {fileID: 24100000, guid: 45a2aab020f228e4e812e8da4332b41f, type: 2}
+  soundMixer: {fileID: 0}
 --- !u!1 &439765995
 GameObject:
   m_ObjectHideFlags: 0
@@ -484,7 +496,7 @@ RectTransform:
   m_Father: {fileID: 123680407}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.549, y: 1}
+  m_AnchorMax: {x: 0.29993, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -953,10 +965,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 737745611}
   m_HandleRect: {fileID: 784505955}
   m_Direction: 0
-  m_MinValue: -80
-  m_MaxValue: 20
+  m_MinValue: 0.0001
+  m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: -25.1
+  m_Value: 0.3
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -1004,8 +1016,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1642820828}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.549, y: 0}
-  m_AnchorMax: {x: 0.549, y: 1}
+  m_AnchorMin: {x: 0.29993, y: 0}
+  m_AnchorMax: {x: 0.29993, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1080,7 +1092,7 @@ RectTransform:
   m_Father: {fileID: 1142569079}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.549, y: 1}
+  m_AnchorMax: {x: 0.29993, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1291,8 +1303,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1742203565}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.549, y: 0}
-  m_AnchorMax: {x: 0.549, y: 1}
+  m_AnchorMin: {x: 0.29993, y: 0}
+  m_AnchorMax: {x: 0.29993, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2131,8 +2143,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 583013552}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.549, y: 0}
-  m_AnchorMax: {x: 0.549, y: 1}
+  m_AnchorMin: {x: 0.29993, y: 0}
+  m_AnchorMax: {x: 0.29993, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2492,7 +2504,7 @@ RectTransform:
   m_Father: {fileID: 579236884}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.549, y: 1}
+  m_AnchorMax: {x: 0.29993, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3150,7 +3162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6, g: 0.53333336, b: 0.44313726, a: 1}
+  m_Color: {r: 0.7176471, g: 0.6392157, b: 0.53333336, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3431,7 +3443,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5019608, g: 0.4431373, b: 0.36862746, a: 1}
+  m_Color: {r: 0.7176471, g: 0.6392157, b: 0.53333336, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3947,10 +3959,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 439765996}
   m_HandleRect: {fileID: 665606895}
   m_Direction: 0
-  m_MinValue: -80
-  m_MaxValue: 20
+  m_MinValue: 0.0001
+  m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: -25.1
+  m_Value: 0.3
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
