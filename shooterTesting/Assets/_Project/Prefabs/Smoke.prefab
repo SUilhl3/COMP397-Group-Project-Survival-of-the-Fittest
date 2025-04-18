@@ -216,6 +216,7 @@ MonoBehaviour:
   damageRadius: 20
   explosionForce: 1200
   damage: 10
+  price: 700
   hasBeenThrown: 0
   throwableType: 2
 --- !u!54 &6247566579681058707

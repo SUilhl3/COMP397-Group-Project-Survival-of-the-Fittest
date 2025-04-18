@@ -28,6 +28,8 @@ public class WeaponManager : MonoBehaviour, IDataPersistence
     public GameObject throwableSpawn;
     public float forceMultiplier = 0f;
     public float forceMultiplierLimit = 2f;
+    public static int nadeCounter = 0;
+    public bool canThrow = true;
 
     [Header("Lethals")]
     public int maxLethals = 2;
@@ -62,6 +64,8 @@ public class WeaponManager : MonoBehaviour, IDataPersistence
         equippedLethalType = Throwable.ThrowableType.None;
         equippedTacticalType = Throwable.ThrowableType.None;
         activeWeaponSlot = weaponSlot1;
+        lethalsCount = 0;
+        tacticalsCount = 0;
         if(startingGun != null)
         {
             PickUpWeapon(startingGun);
@@ -120,6 +124,7 @@ public class WeaponManager : MonoBehaviour, IDataPersistence
 
     private void Update()
     {
+        ;
         if(activeWeaponSlot == weaponSlot1) 
         {
             weaponSlot1.SetActive(true);
@@ -151,21 +156,34 @@ public class WeaponManager : MonoBehaviour, IDataPersistence
 
         if (grenadeRelease)
         {
-            if(lethalsCount > 0)
+            // Debug.Log(grenadeRelease);
+            if(canThrow)
             {
-                ThrowLethal();
+                if(lethalsCount > 0)
+                {
+                    // Debug.Log("Throwing lethal");
+                    ThrowLethal();
+                    canThrow = false;
+                }
+                forceMultiplier = 0;
+                StartCoroutine(waitForNextThrow(1f));
             }
-            forceMultiplier = 0;
+            else{}
         }
 
         if (tacticalRelease)
         {
-
-            if (tacticalsCount > 0)
+            if(canThrow)
             {
-                ThrowTacticals();
+                if (tacticalsCount > 0)
+                {
+                    ThrowTacticals();
+                    canThrow = false;
+                }
+                forceMultiplier = 0;
+                StartCoroutine(waitForNextThrow(1f));
             }
-            forceMultiplier = 0;
+
         }
 
     }
@@ -365,8 +383,8 @@ public class WeaponManager : MonoBehaviour, IDataPersistence
             equippedTacticalType = tactical;
             if (tacticalsCount < maxTacticals)
             {
-                tacticalsCount += 1;
-                Destroy(InteractionManager.Instance.hoveredThrowable.gameObject);
+                tacticalsCount = maxTacticals;
+                // Destroy(InteractionManager.Instance.hoveredThrowable.gameObject);
                 HUDManager.Instance.UpdateThrowables();
             }
             else
@@ -388,8 +406,8 @@ public class WeaponManager : MonoBehaviour, IDataPersistence
             equippedLethalType = lethal;
             if(lethalsCount < maxLethals)
             {
-                lethalsCount += 1;
-                Destroy(InteractionManager.Instance.hoveredThrowable.gameObject);
+                lethalsCount = maxLethals;
+                // Destroy(InteractionManager.Instance.hoveredThrowable.gameObject);
                 HUDManager.Instance.UpdateThrowables();
             }
             else
@@ -489,6 +507,14 @@ public class WeaponManager : MonoBehaviour, IDataPersistence
         }
         data.lethalCount = this.lethalsCount;
         data.tacticalCount = this.tacticalsCount;
+    }
+
+    public IEnumerator waitForNextThrow(float waitTime)
+    {
+
+            yield return new WaitForSeconds(waitTime);
+            // Debug.Log("Waited for throw");
+            canThrow = true;
     }
     #endregion
 

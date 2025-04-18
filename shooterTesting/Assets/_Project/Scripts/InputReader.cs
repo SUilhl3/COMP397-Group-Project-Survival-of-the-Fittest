@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using static InputSystem_Actions;
+using System.Threading.Tasks;
+
 
 namespace Platformer397
 {
@@ -114,21 +116,26 @@ namespace Platformer397
             }
         }
 
-        public void OnGrenade(InputAction.CallbackContext context)
+        public async void OnGrenade(InputAction.CallbackContext context)
         {
             if (context.performed)
             {
+                // Debug.Log("Grenade charging...");
                 Grenade?.Invoke(true);
                 GrenadeRelease?.Invoke(false);
             }
             else if (context.canceled)
             {
+                // Debug.Log("Grenade thrown!");
                 Grenade?.Invoke(false);
                 GrenadeRelease?.Invoke(true);
+                await Task.Delay(1); // Wait for 1 second before allowing another grenade throw
+                GrenadeRelease?.Invoke(false); // Reset the grenade release state after the delay
+                // Debug.Log("Grenade ready to throw again!");
             }
         }
 
-        public void OnTactical(InputAction.CallbackContext context)
+        public async void OnTactical(InputAction.CallbackContext context)
         {
             if (context.performed)
             {
@@ -139,6 +146,8 @@ namespace Platformer397
             {
                 Tactical?.Invoke(false);
                 TacticalRelease?.Invoke(true);
+                await Task.Delay(1); // Wait for 1 second before allowing another tactical throw
+                TacticalRelease?.Invoke(false); // Reset the tactical release state after the delay
             }
         }
         public void OnCrouch(InputAction.CallbackContext context)

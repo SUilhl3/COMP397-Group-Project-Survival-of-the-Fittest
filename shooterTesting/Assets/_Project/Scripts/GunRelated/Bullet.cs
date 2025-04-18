@@ -54,7 +54,7 @@ public class Bullet : MonoBehaviour
                 Destroy(gameObject);
                 Debug.Log("body shot");
                 }
-            player.addMoney(10);
+            // player.addMoney(10);
         }
     }
 

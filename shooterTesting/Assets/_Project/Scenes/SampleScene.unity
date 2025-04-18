@@ -1997,6 +1997,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8145707974884060604, guid: 0949446977d063744af416832eb40947,
+        type: 3}
+      propertyPath: price
+      value: 500
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2173,6 +2178,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Smoke (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8246348763272922653, guid: bd1688594ab192641b3a6fdb9a9ddfc9,
+        type: 3}
+      propertyPath: price
+      value: 600
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4718,6 +4728,7 @@ MonoBehaviour:
   hoveredWeapon: {fileID: 0}
   hoveredAmmoBox: {fileID: 0}
   hoveredThrowable: {fileID: 0}
+  collected: {fileID: 0}
   rayCastLength: 5
   player: {fileID: 15111648}
   jugger: {fileID: 0}
@@ -5427,6 +5438,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Smoke (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8246348763272922653, guid: bd1688594ab192641b3a6fdb9a9ddfc9,
+        type: 3}
+      propertyPath: price
+      value: 600
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8282,6 +8298,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8145707974884060604, guid: 0949446977d063744af416832eb40947,
+        type: 3}
+      propertyPath: price
+      value: 500
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

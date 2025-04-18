@@ -49,6 +49,7 @@ public class basicEnemy : MonoBehaviour
     //deal with enemy taking damage
     public void takeDamage(int amount)
     {
+        player.addMoney(10);
         if(player.instakill == true) {hp = 0;}
         else {hp-=amount;}
     }

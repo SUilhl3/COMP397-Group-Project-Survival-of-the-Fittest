@@ -318,12 +318,36 @@ public class InteractionManager : MonoBehaviour
             // Throwable
             if (objectHitByRaycast.GetComponent<Throwable>())
             {
-                hoveredThrowable = objectHitByRaycast.gameObject.GetComponent<Throwable>();
+                GameObject obj = objectHitByRaycast.gameObject;
+                hoveredThrowable = obj.GetComponent<Throwable>();
                 hoveredThrowable.GetComponent<Outline>().enabled = true;
+                int price = hoveredThrowable.getPrice();
 
                 if (buttonPress)
                 {
-                    WeaponManager.Instance.PickupThrowable(hoveredThrowable);
+                    if(player.getMoney() >= price)
+                    {
+                        switch(hoveredThrowable.throwableType)
+                        {
+                            case Throwable.ThrowableType.Grenade:
+                                if(WeaponManager.Instance.lethalsCount < WeaponManager.Instance.maxLethals)
+                                { 
+                                    WeaponManager.Instance.PickupThrowable(hoveredThrowable);
+                                    player.decreaseMoney(price);
+                                }
+                                else{Debug.Log("Lethals full");}
+                                break;
+                            case Throwable.ThrowableType.Smoke_Grenade:
+                                if(WeaponManager.Instance.tacticalsCount < WeaponManager.Instance.maxTacticals) 
+                                { 
+                                    WeaponManager.Instance.PickupThrowable(hoveredThrowable);
+                                    player.decreaseMoney(price);
+                                }
+                                else{Debug.Log("Tacticals full");}
+                                break;
+                        }
+                    }
+                    else{Debug.Log("Not enough money");}
                 }
             }
             else

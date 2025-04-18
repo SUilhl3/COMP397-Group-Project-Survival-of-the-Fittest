@@ -10,6 +10,7 @@ public class Throwable : MonoBehaviour
     [SerializeField] float damageRadius = 20f;
     [SerializeField] float explosionForce = 1200f;
     [SerializeField] private int damage = 10;
+    [SerializeField] private int price;
 
     float countdown;
 
@@ -50,6 +51,11 @@ public class Throwable : MonoBehaviour
                 hasExploded = true;
             }
         }
+    }
+
+    public int getPrice()
+    {
+        return price;
     }
 
     private void Explode()
@@ -109,8 +115,9 @@ public class Throwable : MonoBehaviour
             basicEnemy be = objectInRange.GetComponent<basicEnemy>();
             if (be != null)
             {
+                //enemies give 20 money even though it should be 10 because the enemies have 2 colliders on them and this just scans for any colliders, including the trigger
                 be.takeDamage(damage);
-                player.addMoney(50);
+                // player.addMoney(10);
             }
 
 
