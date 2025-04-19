@@ -220,7 +220,7 @@ namespace Platformer397
                 // Debug.Log("Game Over");
 
                 //should add all the perks to game manager so we can reference the game manager instance rather than having multiple game objects on the things that need them
-                if(checkPerk("quick-revive")){quick.downed(); playerHealth += 50; }
+                if(checkPerk("quick-revive")){quick.downed(); playerHealth += 5000; }
                 else if(!checkPerk("quick-revive")) { playerHealth = 0;
                     SceneManager.LoadSceneAsync("Game Over");
                 } //reset health for now so we can test things but later we need to change scenes or have something happen to end game
