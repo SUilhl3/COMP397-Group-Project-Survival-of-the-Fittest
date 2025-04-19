@@ -70,6 +70,7 @@ namespace Platformer397
         }
         void Start()
         {
+            Time.timeScale = 1f;
             perkNames = new ArrayList();
             input.EnablePlayerActions();
             previousYRotation = panTilt.PanAxis.Value;
@@ -101,6 +102,7 @@ namespace Platformer397
 
         void Update()
         {
+            HUDManager.Instance.UpdateMoney(money);
             lastTimeHit += Time.deltaTime;
             if(lastTimeHit >= timeToHeal && playerHealth < playerMaxHealth)
             {

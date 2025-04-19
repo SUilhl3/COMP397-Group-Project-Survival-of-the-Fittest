@@ -59,6 +59,10 @@ public class WeaponManager : MonoBehaviour, IDataPersistence
         }
     }
 
+    public int getAmmoReserve()
+    {
+        return activeWeaponSlot.transform.GetChild(0).GetComponent<Weapon>().bulletReserve;
+    }
     public void Start()
     {
         equippedLethalType = Throwable.ThrowableType.None;

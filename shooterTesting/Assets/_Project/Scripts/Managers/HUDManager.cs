@@ -11,6 +11,7 @@ public class HUDManager : MonoBehaviour
 
     //Stuff that is commented out is to be worked on later because it currently just clones sprites a bunch
     public static HUDManager Instance { get; private set; }
+    public TextMeshProUGUI moneyUI;
 
     [Header("Ammo")]
     public TextMeshProUGUI magazineAmmoUI;
@@ -63,8 +64,8 @@ public class HUDManager : MonoBehaviour
 
         if (activeWeapon)
         {
-            magazineAmmoUI.text = $"{activeWeapon.bulletsLeft / activeWeapon.bulletsPerBurst}";
-            // totalAmmoUI.text = $"{WeaponManager.Instance.CheckAmmoLeftFor(activeWeapon.thisWeaponModel)}";
+            magazineAmmoUI.text = $"{activeWeapon.bulletsLeft}";
+            totalAmmoUI.text = $"{WeaponManager.Instance.getAmmoReserve()}";
 
             Weapon.WeaponModel model = activeWeapon.thisWeaponModel;
             // ammoTypeUI.sprite = GetAmmoSprite(model);
@@ -174,6 +175,11 @@ public class HUDManager : MonoBehaviour
                 tacticalUI.sprite = Resources.Load<GameObject>("Smoke_Grenade").GetComponent<SpriteRenderer>().sprite;
                 break;
         }
+    }
+
+    public void UpdateMoney(int money)
+    {
+        moneyUI.text = $"{money}";
     }
 
     public void PerkShower(string perkName)
