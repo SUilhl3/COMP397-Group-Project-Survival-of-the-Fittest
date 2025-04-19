@@ -10791,7 +10791,7 @@ PrefabInstance:
     - target: {fileID: 1274370224112947965, guid: b42808e9684f8f44fa8a296d5a820ac5,
         type: 3}
       propertyPath: money
-      value: 500
+      value: 500000
       objectReference: {fileID: 0}
     - target: {fileID: 1274370224112947965, guid: b42808e9684f8f44fa8a296d5a820ac5,
         type: 3}
@@ -34563,6 +34563,7 @@ GameObject:
   m_Component:
   - component: {fileID: 734977886}
   - component: {fileID: 734977885}
+  - component: {fileID: 734977887}
   m_Layer: 0
   m_Name: Finshed Game Trigger
   m_TagString: Untagged
@@ -34606,6 +34607,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &734977887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 734977884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c57162fdd9fb2064c8d47dc7b061c68b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &735490143
 PrefabInstance:
   m_ObjectHideFlags: 0
