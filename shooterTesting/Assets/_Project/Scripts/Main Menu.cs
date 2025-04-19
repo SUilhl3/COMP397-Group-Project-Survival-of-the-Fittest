@@ -21,7 +21,12 @@ public class MainMenu : MonoBehaviour
         {
             continueGameButton.interactable = false;
         }
-        AchievementsAppear();
+        if(achievements.Count > 0)
+        {
+            AchievementsAppear();
+        }
+
+
     }
 
     public void ToTutorial()
