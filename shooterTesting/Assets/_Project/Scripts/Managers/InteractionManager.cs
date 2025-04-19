@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Platformer397;
-using UnityEditor.Experimental.GraphView;
+//using UnityEditor.Experimental.GraphView;
 
 public class InteractionManager : MonoBehaviour
 {
@@ -85,6 +85,33 @@ public class InteractionManager : MonoBehaviour
                 hoveredWeapon.GetComponent<Outline>().enabled = true;
                 int weaponPrice = hoveredWeapon.getCost();
 
+                //prompt
+                try
+                {
+                    //check if the character as bought a second weapon
+                    if (WeaponManager.Instance.weaponSlot2.transform.GetChild(0) != null)
+                    {
+                        Weapon weapon1 = WeaponManager.Instance.weaponSlot1.transform.GetChild(0).GetComponent<Weapon>();
+                        Weapon weapon2 = WeaponManager.Instance.weaponSlot2.transform.GetChild(0).GetComponent<Weapon>();
+                        //if the first weapon is the same as the raycasted weapon
+                        if (obj.name + "(Clone)" == weapon1.name) { HUDManager.Instance.ShowPrompt(weapon1.name, weapon1.getCost() / 2); }
+                        //if the second weapon is the same as the raycasted weapon
+                        else if (obj.name + "(Clone)" == weapon2.name) { HUDManager.Instance.ShowPrompt(weapon2.name, weapon2.getCost() / 2); }
+                        //if the player does not own the hovered weapon
+                        else
+                        {
+                            HUDManager.Instance.ShowPrompt(obj.name, weaponPrice); //show the prompt with the name of the weapon and the price
+                        }
+                    }
+                }
+                catch (System.Exception ex)
+                {
+                    //if the player has not bought a second weapon, show the price of the weapon hovered
+                    HUDManager.Instance.ShowPrompt(obj.name, weaponPrice); //show the prompt with the name of the weapon and the price
+                }
+                //end of prompt
+
+
                 if (buttonPress && hoveredWeapon.mysteryWeapon == false)
                 {
                     //if you don't have the gun already, check if you can afford the gun
@@ -164,6 +191,7 @@ public class InteractionManager : MonoBehaviour
                 barrier = objectHitByRaycast.GetComponent<buyBarriers>();
                 barrier.GetComponent<Outline>().enabled = true;
                 int barrierCost = barrier.getCost();
+                HUDManager.Instance.ShowPrompt("Barrier", barrierCost);
                 if (buttonPress)
                 {
                     if (player.getMoney() >= barrierCost) { barrier.purchased(); player.decreaseMoney(barrierCost); }
@@ -178,6 +206,7 @@ public class InteractionManager : MonoBehaviour
                     jugger = objectHitByRaycast.gameObject.GetComponent<jug>(); //assigning the components of the jug to perk
                     jugger.GetComponent<Outline>().enabled = true;
                     int jugPrice = jugger.getCost();
+                    HUDManager.Instance.ShowPrompt("Juggernog", jugPrice); //show the prompt with the name of the perk and the price
                     if (buttonPress) //if want to buy
                     {
                         if (player.getMoney() >= jugPrice) //check if player has enough money
@@ -196,6 +225,7 @@ public class InteractionManager : MonoBehaviour
                     speedCola = objectHitByRaycast.gameObject.GetComponent<speed>();
                     speedCola.GetComponent<Outline>().enabled = true;
                     int speedPrice = speedCola.getCost();
+                    HUDManager.Instance.ShowPrompt("Speed Cola", speedPrice); //show the prompt with the name of the perk and the price
                     if (buttonPress)
                     {
                         if (player.getMoney() >= speedPrice)
@@ -216,6 +246,7 @@ public class InteractionManager : MonoBehaviour
                     dbTap = objectHitByRaycast.gameObject.GetComponent<doubleTap>();
                     dbTap.GetComponent<Outline>().enabled = true;
                     int dbTapPrice = dbTap.getCost();
+                    HUDManager.Instance.ShowPrompt("Double Tap", dbTapPrice); //show the prompt with the name of the perk and the price
                     if (buttonPress)
                     {
                         if (player.getMoney() >= dbTapPrice)
@@ -236,6 +267,7 @@ public class InteractionManager : MonoBehaviour
                     quick = objectHitByRaycast.gameObject.GetComponent<quickRevive>();
                     quick.GetComponent<Outline>().enabled = true;
                     int quickPrice = quick.getCost();
+                    HUDManager.Instance.ShowPrompt("Quick Revive", quickPrice); //show the prompt with the name of the perk and the price
                     if (buttonPress)
                     {
                         if (player.getMoney() >= quickPrice)
@@ -256,6 +288,7 @@ public class InteractionManager : MonoBehaviour
                     dShot = objectHitByRaycast.gameObject.GetComponent<deadshot>();
                     dShot.GetComponent<Outline>().enabled = true;
                     int dShotPrice = dShot.getCost();
+                    HUDManager.Instance.ShowPrompt("Deadshot", dShotPrice); //show the prompt with the name of the perk and the price
                     if (buttonPress)
                     {
                         if (player.getMoney() >= dShotPrice)
@@ -274,6 +307,7 @@ public class InteractionManager : MonoBehaviour
                     box = objectHitByRaycast.gameObject.GetComponent<MysteryBox>();
                     box.GetComponent<Outline>().enabled = true;
                     int mysteryPrice = box.getCost();
+                    HUDManager.Instance.ShowPrompt("Mystery Box", mysteryPrice); //show the prompt with the name of the perk and the price
                     if (buttonPress && box.inUse == false)
                     {
                         if (player.getMoney() >= mysteryPrice)
@@ -293,28 +327,6 @@ public class InteractionManager : MonoBehaviour
                     break;
             }
 
-
-
-            //Ammo Box
-            // if (objectHitByRaycast.GetComponent<AmmoBox>())
-            // {
-            //     hoveredAmmoBox = objectHitByRaycast.gameObject.GetComponent<AmmoBox>();
-            //     hoveredAmmoBox.GetComponent<Outline>().enabled = true;
-
-            //     if (Input.GetKeyDown(KeyCode.F))
-            //     {
-            //         // WeaponManager.Instance.PickupAmmo(hoveredAmmoBox);
-            //         Destroy(objectHitByRaycast.gameObject);
-            //     }
-            // }
-            // else
-            // {
-            //     if (hoveredAmmoBox)
-            //     {
-            //         hoveredAmmoBox.GetComponent<Outline>().enabled = false;
-            //     }
-            // }
-
             // Throwable
             if (objectHitByRaycast.GetComponent<Throwable>())
             {
@@ -322,32 +334,32 @@ public class InteractionManager : MonoBehaviour
                 hoveredThrowable = obj.GetComponent<Throwable>();
                 hoveredThrowable.GetComponent<Outline>().enabled = true;
                 int price = hoveredThrowable.getPrice();
-
+                HUDManager.Instance.ShowPrompt(obj.name, price); //show the prompt with the name of the weapon and the price
                 if (buttonPress)
                 {
-                    if(player.getMoney() >= price)
+                    if (player.getMoney() >= price)
                     {
-                        switch(hoveredThrowable.throwableType)
+                        switch (hoveredThrowable.throwableType)
                         {
                             case Throwable.ThrowableType.Grenade:
-                                if(WeaponManager.Instance.lethalsCount < WeaponManager.Instance.maxLethals)
-                                { 
+                                if (WeaponManager.Instance.lethalsCount < WeaponManager.Instance.maxLethals)
+                                {
                                     WeaponManager.Instance.PickupThrowable(hoveredThrowable);
                                     player.decreaseMoney(price);
                                 }
-                                else{Debug.Log("Lethals full");}
+                                else { Debug.Log("Lethals full"); }
                                 break;
                             case Throwable.ThrowableType.Smoke_Grenade:
-                                if(WeaponManager.Instance.tacticalsCount < WeaponManager.Instance.maxTacticals) 
-                                { 
+                                if (WeaponManager.Instance.tacticalsCount < WeaponManager.Instance.maxTacticals)
+                                {
                                     WeaponManager.Instance.PickupThrowable(hoveredThrowable);
                                     player.decreaseMoney(price);
                                 }
-                                else{Debug.Log("Tacticals full");}
+                                else { Debug.Log("Tacticals full"); }
                                 break;
                         }
                     }
-                    else{Debug.Log("Not enough money");}
+                    else { Debug.Log("Not enough money"); }
                 }
             }
             else
@@ -359,18 +371,18 @@ public class InteractionManager : MonoBehaviour
             }
 
 
-                switch (objectHitByRaycast.gameObject.name) //checks if raycast hit is a jug, speedcola, doubletap, quickrevive, or mysterybox
-                {
-                    case "CollectibleOne":
+            switch (objectHitByRaycast.gameObject.name) //checks if raycast hit is a jug, speedcola, doubletap, quickrevive, or mysterybox
+            {
+                case "CollectibleOne":
                     objectHitByRaycast.gameObject.GetComponent<Outline>().enabled = true;
-                        if (buttonPress)
-                        {
-                            AchievementManager.Instance.hasCollectibleOne = true;
-                            Destroy(objectHitByRaycast.gameObject);
-                        }
+                    if (buttonPress)
+                    {
+                        AchievementManager.Instance.hasCollectibleOne = true;
+                        Destroy(objectHitByRaycast.gameObject);
+                    }
 
-                        break;
-                    case "CollectibleTwo":
+                    break;
+                case "CollectibleTwo":
                     objectHitByRaycast.gameObject.GetComponent<Outline>().enabled = true;
                     if (buttonPress)
                     {
@@ -379,7 +391,7 @@ public class InteractionManager : MonoBehaviour
                     }
 
                     break;
-                    case "CollectibleThree":
+                case "CollectibleThree":
                     objectHitByRaycast.gameObject.GetComponent<Outline>().enabled = true;
                     if (buttonPress)
                     {
@@ -388,7 +400,7 @@ public class InteractionManager : MonoBehaviour
                     }
 
                     break;
-                    case "CollectibleFour":
+                case "CollectibleFour":
                     objectHitByRaycast.gameObject.GetComponent<Outline>().enabled = true;
                     if (buttonPress)
                     {
@@ -397,7 +409,7 @@ public class InteractionManager : MonoBehaviour
                     }
 
                     break;
-                    case "CollectibleFive":
+                case "CollectibleFive":
                     objectHitByRaycast.gameObject.GetComponent<Outline>().enabled = true;
                     if (buttonPress)
                     {
@@ -406,16 +418,14 @@ public class InteractionManager : MonoBehaviour
                     }
 
                     break;
-                        
-
-                }
-                
-        }
+            }
+        } //end of if raycast hit something
 
         else
         {
             try
             {
+                HUDManager.Instance.HidePrompt(); //hide the prompt if not hovering over a weapon
                 try //disable the outline of the weapon when not hovering over it
                 {
                     if (hoveredWeapon == null) { throw new System.NullReferenceException("Hovered weapon is null"); }
@@ -484,7 +494,7 @@ public class InteractionManager : MonoBehaviour
     private IEnumerator DestroyMysteryWeapon(GameObject weapon, float delay)
     {
         yield return new WaitForSeconds(delay);
-        if(weapon != null && weapon.GetComponent<Collider>().enabled == true)
+        if (weapon != null && weapon.GetComponent<Collider>().enabled == true)
         {
             Destroy(weapon);
             box.inUse = false;

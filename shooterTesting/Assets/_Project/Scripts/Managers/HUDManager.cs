@@ -25,6 +25,10 @@ public class HUDManager : MonoBehaviour
     public Image lethalUI;
     public TextMeshProUGUI lethalAmountUI;
 
+    [Header("prompt")]
+    public TextMeshProUGUI promptText;
+
+
     [Header("Health")]
     [SerializeField]
     private List<GameObject> damage = new List<GameObject>();
@@ -138,8 +142,18 @@ public class HUDManager : MonoBehaviour
         //         return weaponSlot;
         //     }
         // }
-        if(WeaponManager.Instance.activeWeaponSlot == WeaponManager.Instance.weaponSlot1){return WeaponManager.Instance.weaponSlot1;}
-        else{return WeaponManager.Instance.weaponSlot2;}
+        if (WeaponManager.Instance.activeWeaponSlot == WeaponManager.Instance.weaponSlot1) { return WeaponManager.Instance.weaponSlot1; }
+        else { return WeaponManager.Instance.weaponSlot2; }
+    }
+
+    public void ShowPrompt(string name, int price)
+    {
+        promptText.text = "Press E to buy " + name + " [ " + price + " ]";
+        promptText.gameObject.SetActive(true);
+    }
+    public void HidePrompt()
+    {
+        promptText.gameObject.SetActive(false);
     }
 
     internal void UpdateThrowables()
@@ -188,7 +202,7 @@ public class HUDManager : MonoBehaviour
                 }
                 break;
             default:
-                foreach(GameObject p in perks)
+                foreach (GameObject p in perks)
                 {
                     p.SetActive(false);
                 }
@@ -198,91 +212,91 @@ public class HUDManager : MonoBehaviour
 
     public void HealthShower(float health, int maxHealth)
     {
-        if(maxHealth == 100)
+        if (maxHealth == 100)
         {
             switch (health)
             {
                 case var expression when health < 100 && health > 75:
-                        damage[0].SetActive(true);
+                    damage[0].SetActive(true);
                     break;
                 case var expression when health < 75 && health > 50:
-                        damage[0].SetActive(true);
-                        damage[1].SetActive(true);
+                    damage[0].SetActive(true);
+                    damage[1].SetActive(true);
                     break;
                 case var expression when health < 50 && health > 25:
-                        damage[0].SetActive(true);
-                        damage[1].SetActive(true);
-                        damage[2].SetActive(true);
+                    damage[0].SetActive(true);
+                    damage[1].SetActive(true);
+                    damage[2].SetActive(true);
                     break;
                 case var expression when health < 25 && health > 0:
-                        damage[0].SetActive(true);
-                        damage[1].SetActive(true);
-                        damage[2].SetActive(true);
-                        damage[3].SetActive(true);
+                    damage[0].SetActive(true);
+                    damage[1].SetActive(true);
+                    damage[2].SetActive(true);
+                    damage[3].SetActive(true);
                     break;
                 default:
-                    foreach(GameObject obj in damage)
+                    foreach (GameObject obj in damage)
                     {
                         obj.SetActive(false);
                     }
                     break;
             }
         }
-        else if(maxHealth > 100)
+        else if (maxHealth > 100)
         {
             switch (health)
             {
                 case var expression when health < 200 && health > 175:
-                        damage[0].SetActive(true);
+                    damage[0].SetActive(true);
                     break;
                 case var expression when health < 175 && health > 150:
-                        damage[0].SetActive(true);
-                        damage[1].SetActive(true);
+                    damage[0].SetActive(true);
+                    damage[1].SetActive(true);
                     break;
                 case var expression when health < 150 && health > 125:
-                        damage[0].SetActive(true);
-                        damage[1].SetActive(true);
-                        damage[2].SetActive(true);
+                    damage[0].SetActive(true);
+                    damage[1].SetActive(true);
+                    damage[2].SetActive(true);
                     break;
                 case var expression when health < 125 && health > 100:
-                        damage[0].SetActive(true);
-                        damage[1].SetActive(true);
-                        damage[2].SetActive(true);
-                        damage[3].SetActive(true);
+                    damage[0].SetActive(true);
+                    damage[1].SetActive(true);
+                    damage[2].SetActive(true);
+                    damage[3].SetActive(true);
                     break;
                 case var expression when health < 100 && health > 75:
-                        damage[0].SetActive(true);
-                        damage[1].SetActive(true);
-                        damage[2].SetActive(true);
-                        damage[3].SetActive(true);
-                        damage[4].SetActive(true);
+                    damage[0].SetActive(true);
+                    damage[1].SetActive(true);
+                    damage[2].SetActive(true);
+                    damage[3].SetActive(true);
+                    damage[4].SetActive(true);
                     break;
                 case var expression when health < 75 && health > 50:
-                        damage[0].SetActive(true);
-                        damage[1].SetActive(true);
-                        damage[2].SetActive(true);
-                        damage[3].SetActive(true);
-                        damage[4].SetActive(true);
-                        damage[5].SetActive(true);
+                    damage[0].SetActive(true);
+                    damage[1].SetActive(true);
+                    damage[2].SetActive(true);
+                    damage[3].SetActive(true);
+                    damage[4].SetActive(true);
+                    damage[5].SetActive(true);
                     break;
                 case var expression when health < 50 && health > 25:
-                        damage[0].SetActive(true);
-                        damage[1].SetActive(true);
-                        damage[2].SetActive(true);
-                        damage[3].SetActive(true);
-                        damage[4].SetActive(true);
-                        damage[5].SetActive(true);
-                        damage[6].SetActive(true);
+                    damage[0].SetActive(true);
+                    damage[1].SetActive(true);
+                    damage[2].SetActive(true);
+                    damage[3].SetActive(true);
+                    damage[4].SetActive(true);
+                    damage[5].SetActive(true);
+                    damage[6].SetActive(true);
                     break;
                 case var expression when health < 25 && health > 0:
-                        damage[0].SetActive(true);
-                        damage[1].SetActive(true);
-                        damage[2].SetActive(true);
-                        damage[3].SetActive(true);
-                        damage[4].SetActive(true);
-                        damage[5].SetActive(true);
-                        damage[6].SetActive(true);
-                        damage[7].SetActive(true);
+                    damage[0].SetActive(true);
+                    damage[1].SetActive(true);
+                    damage[2].SetActive(true);
+                    damage[3].SetActive(true);
+                    damage[4].SetActive(true);
+                    damage[5].SetActive(true);
+                    damage[6].SetActive(true);
+                    damage[7].SetActive(true);
                     break;
                 default:
                     foreach (GameObject obj in damage)

@@ -62,6 +62,8 @@ public class PauseMenu : MonoBehaviour
     public void Resume()
     {
         pauseMenuUI.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         Time.timeScale = 1f;
         GameIsPause = false;
         hideUI.SetActive(false);
@@ -71,6 +73,8 @@ public class PauseMenu : MonoBehaviour
     public void Pause()
     {
         StartCoroutine(SelectFirstChoice());
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         Time.timeScale = 0f;
         GameIsPause = true;
         hideUI.SetActive(true);
@@ -97,7 +101,7 @@ public class PauseMenu : MonoBehaviour
 
     public void LoadMenu()
     {
-        //SceneManager.LoadScene("Main Menu");
+        SceneManager.LoadScene("Main Menu");
         //Time.timeScale = 1f;
         Debug.Log("Going to main menu...");
     }
